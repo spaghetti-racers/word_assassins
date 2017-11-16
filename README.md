@@ -9,7 +9,7 @@ and some examples of how to put them together.
 
 If you don't have it, I'll complain and tell you how to install it.
 
-## 1. Make me into something!
+## 1. Make me into something!!
 
 We recommend that you **clone**, not fork, this repo – unless your intention is
 to develop Firebones proper instead of using Firebones as the starting point for your
