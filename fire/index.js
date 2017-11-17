@@ -2,12 +2,12 @@ const firebase = require('firebase')
 
 // -- // -- // -- // Firebase Config // -- // -- // -- //
 const config = {
-  apiKey: 'AIzaSyBzz-Wq2dzMgM7E8cdSYnYoX5fbVUT-XQo',
-  authDomain: 'firebones-6bc2a.firebaseapp.com',
-  databaseURL: 'https://firebones-6bc2a.firebaseio.com',
-  projectId: 'firebones-6bc2a',
-  storageBucket: 'firebones-6bc2a.appspot.com',
-  messagingSenderId: '1030378391678'
+  apiKey: 'AIzaSyB-pbTEKEHqTPXYHtn5lgPa_AZXwP2Qkfs',
+  authDomain: 'word-assassins-98861.firebaseapp.com',
+  databaseURL: 'https://word-assassins-98861.firebaseio.com',
+  projectId: 'word-assassins-98861',
+  storageBucket: 'word-assassins-98861.appspot.com',
+  messagingSenderId: '865993567603'
 }
 // -- // -- // -- // -- // -- // -- // -- // -- // -- //
 
