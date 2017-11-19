@@ -6,6 +6,8 @@ import {render} from 'react-dom'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 
+import RoundsWon from './components/RoundsWon'
+
 import firebase from 'APP/fire'
 
 import Demos from 'APP/demos'
@@ -46,6 +48,7 @@ const App = ({children}) =>
           greeting and a logout button, or sign in buttons, depending
           on if anyone's logged in */}
       <WhoAmI auth={auth}/>
+      <RoundsWon />
     </nav>
     {/* Render our children (whatever the router gives us) */}
     {children}
@@ -56,6 +59,9 @@ render(
     <Route path="/" component={App}>
       <IndexRedirect to="demos"/>
       {Demos /* Put all the demos and a description page at /demos */}
+    </Route>
+    <Route path="/RoundsWon" component={RoundsWon}>
+
     </Route>
     <Route path='*' component={NotFound}/>
   </Router>,
