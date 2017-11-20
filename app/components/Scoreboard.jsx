@@ -5,24 +5,37 @@ export default class Scoreboard extends Component {
   constructor() {
     super()
     this.state = {
-      redTeam: 0,
-      blueTeam: 0,
-      redTeamNumCards: 0,
-      blueTeamNumCards: 0
+      // redTeam: 0,
+      // blueTeam: 0,
+      redTeamNumCards: 8,
+      blueTeamNumCards: 9
     }
+    this.setNumCards = this.setNumCards.bind(this)
   }
 
   componentDidMount() {
+    // const dataRef = firebase.database().ref()
+    // const teams = dataRef.child('teams')
+    // const numCardsLeft = dataRef.child('numCardsLeft')
+    // teams.set({
+    //   redTeam: 5,
+    //   blueTeam: 3
+    // })
+    // numCardsLeft.set({
+    //   redTeamNumCardsLeft: 6,
+    //   blueTeamNumCardsLeft: 5
+    // })
+    const numCardsRemainingFake = {red: 40, blue: 10}
+    this.setNumCards(numCardsRemainingFake)
+  }
+
+  setNumCards(cardsObject) {
+    // this.setState({ redTeamNumCards: cardsObject.red, blueTeamNumCards: cardsObject.blue })
     const dataRef = firebase.database().ref()
-    const teams = dataRef.child('teams')
     const numCardsLeft = dataRef.child('numCardsLeft')
-    teams.set({
-      redTeam: 5,
-      blueTeam: 3
-    })
     numCardsLeft.set({
-      redTeamNumCardsLeft: 6,
-      blueTeamNumCardsLeft: 5
+      redTeamNumCardsLeft: cardsObject.red,
+      blueTeamNumCardsLeft: cardsObject.blue
     })
   }
 
