@@ -2,6 +2,7 @@
 import React from 'react'
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
+import Scoreboard from './components/Scoreboard'
 
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
@@ -49,6 +50,7 @@ const App = ({children}) =>
     </nav>
     {/* Render our children (whatever the router gives us) */}
     {children}
+    <Scoreboard />
   </div>
 
 render(
