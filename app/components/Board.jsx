@@ -6,10 +6,34 @@ export default class Board extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      // cards: [ {card0: {word: 'big'}}, {card1: {word: 'forest'}}, {card2: {word: 'ogre'}}, {card3: {word: 'stomach'}}, {card4: {word: 'tokyo'}}, {card5: {word: 'antler'}} ]
       cards: [],
-      words: []
+      allWords: [],
+      selectedWords: []
     }
+    this.generateSelectedWords = this.generateSelectedWords.bind(this)
+  }
+
+
+  componentDidMount() {
+    const allWords = firebase.database().ref('words/')
+    allWords.on('value', snapshot => {
+      const wordArray = snapshot.val()
+      this.setState({allWords: wordArray})
+      this.setState({selectedWords: this.generateSelectedWords(this.state.allWords)})
+      console.log('WOORDDSS: ', this.state.selectedWords)
+    })
+  }
+
+  generateSelectedWords(allWords) {
+    const selectedWords = []
+    while (selectedWords.length < 25) {
+      const randomIndex = Math.floor(Math.random() * (allWords.length))
+      console.log(randomIndex)
+      if (!selectedWords.includes(allWords[randomIndex])) {
+        selectedWords.push(allWords[randomIndex])
+      }
+    }
+    return selectedWords
   }
 
   // componentDidMount() {
@@ -27,24 +51,6 @@ export default class Board extends Component {
   //     this.setState({cards: cardArray})
   //   })
   // }
-
-  componentDidMount() {
-    const words = firebase.database().ref('words/')
-    words.on('value', snapshot => {
-      //const wordsFromDB = snapshot.val()
-      const wordArray = snapshot.val()
-      console.log('!!!!!!!!!!!!! Is this an array?', wordArray)
-      //const cardKeys = Object.keys(snapshot.val())
-      // for (let i=0; i < cardKeys.length; i++) {
-      //   cardArray.push(cardsFromDB[cardKeys[i]])
-      // }
-      // console.log('!!!!!!!!!!!!!! The pushed to final array', cardArray)
-      // console.log('~~~~~~~~~~~~ The keys from the snapshot', cardKeys)
-      // console.log('============ The snapshot from the firebase DB', snapshot.val())
-      this.setState({words: wordArray})
-      console.log('~~~~~~~~~ Whats in state?', this.state.words)
-    })
-  }
 
   render() {
     return (
