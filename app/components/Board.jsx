@@ -13,7 +13,7 @@ export default class Board extends Component {
 
   componentDidMount() {
     const allCards = firebase.database().ref('gameCards/')
-    allCards.once('value', snapshot => {
+    allCards.on('value', snapshot => {
       const cardArray = snapshot.val()
       this.setState({cards: cardArray})
       console.log('CARD ARRAY!!!', cardArray)
