@@ -1,37 +1,33 @@
 import React, {Component} from 'react'
 import firebase from 'APP/fire'
 import CardsRemaining from './CardsRemaining'
+import RoundsWon from './RoundsWon'
 export default class Scoreboard extends Component {
   constructor() {
     super()
     this.state = {
-      // redTeam: 0,
-      // blueTeam: 0,
+      redTeamRoundsWon: 1,
+      blueTeamRoundsWon: 1,
+
       redTeamNumCards: 8,
       blueTeamNumCards: 9
     }
     this.setNumCards = this.setNumCards.bind(this)
+    this.setRoundsWon = this.setRoundsWon.bind(this)
   }
 
   componentDidMount() {
-    // const dataRef = firebase.database().ref()
-    // const teams = dataRef.child('teams')
-    // const numCardsLeft = dataRef.child('numCardsLeft')
-    // teams.set({
-    //   redTeam: 5,
-    //   blueTeam: 3
-    // })
-    // numCardsLeft.set({
-    //   redTeamNumCardsLeft: 6,
-    //   blueTeamNumCardsLeft: 5
-    // })
+
+    const FakeRoundsWonByTeams = {red: 30, blue: 20}
+    this.setRoundsWon(FakeRoundsWonByTeams)
+    this.setState({redTeamRoundsWon: FakeRoundsWonByTeams.red, blueTeamRoundsWon: FakeRoundsWonByTeams.blue})
+
     const numCardsRemainingFake = {red: 40, blue: 10}
     this.setNumCards(numCardsRemainingFake)
     this.setState({redTeamNumCards: numCardsRemainingFake.red, blueTeamNumCards: numCardsRemainingFake.blue})
   }
 
   setNumCards(cardsObject) {
-    // this.setState({ redTeamNumCards: cardsObject.red, blueTeamNumCards: cardsObject.blue })
     const dataRef = firebase.database().ref()
     const numCardsLeft = dataRef.child('numCardsLeft')
     numCardsLeft.set({
@@ -40,12 +36,22 @@ export default class Scoreboard extends Component {
     })
   }
 
+  setRoundsWon(roundsWonObject) {
+    console.log("!!!!!!!!!!mi gente")
+    // this.setState({ redTeamNumCards: cardsObject.red, blueTeamNumCards: cardsObject.blue })
+    const dataRef = firebase.database().ref()
+    const roundsWon = dataRef.child('RoundsWonByTeams')
+    roundsWon.set({
+      redTeamNumRoundsWon: roundsWonObject.red,
+      blueTeamNumRoundsWon: roundsWonObject.blue
+    })
+  }
+
   render() {
     return (
       <div>
-        <h2>Rounds Won</h2>
-        <h6>Blue team: </h6>
-        <h6>Red team: </h6>
+        <RoundsWon roundsWonByTeams = {{red: this.state.redTeamRoundsWon, blue: this.state.blueTeamRoundsWon}} />
+
         <CardsRemaining numCardsLeft={{red: this.state.redTeamNumCards, blue: this.state.blueTeamNumCards}}/>
       </div>
     )
