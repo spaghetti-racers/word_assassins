@@ -16,7 +16,7 @@ export default class CardsRemaining extends Component {
     const numCardsLeft = dataRef.child('numCardsLeft')
     numCardsLeft.on('value', (snap) => {
       const arrayOfTeamNames = Object.keys(snap.val())
-      for (let i = 0; i <arrayOfTeamNames.length; i++) {
+      for (let i = 0; i < arrayOfTeamNames.length; i++) {
         numCardsLeft.child(arrayOfTeamNames[i]).on('value', (snap) => {
           this.setState({
             [arrayOfTeamNames[i]]: snap.val()

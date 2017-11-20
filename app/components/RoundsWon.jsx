@@ -26,15 +26,6 @@ export default class RoundsWon extends Component {
     })
   }
 
-  // setNumCards(cardsObject) {
-  //   const dataRef = firebase.database().ref()
-  //   const numCardsLeft = dataRef.child('numCardsLeft')
-  //   numCardsLeft.set({
-  //     redTeamNumCardsLeft: cardsObject.red,
-  //     blueTeamNumCardsLeft: cardsObject.blue
-  //   })
-  // }
-
   render() {
     console.log('our props ', this.props.numCardsLeft)
     return (
