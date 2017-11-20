@@ -27,6 +27,7 @@ export default class Scoreboard extends Component {
     // })
     const numCardsRemainingFake = {red: 40, blue: 10}
     this.setNumCards(numCardsRemainingFake)
+    this.setState({redTeamNumCards: numCardsRemainingFake.red, blueTeamNumCards: numCardsRemainingFake.blue})
   }
 
   setNumCards(cardsObject) {

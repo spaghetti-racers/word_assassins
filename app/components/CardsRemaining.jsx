@@ -40,11 +40,9 @@ export default class CardsRemaining extends Component {
     return (
       <div>
         <h2>Cards Remaining</h2>
+        <h6>Red Team: {this.props.numCardsLeft.red}</h6>
+        <h6>Blue Team: {this.props.numCardsLeft.blue}</h6>
 
-
-        <h6>Blue team: {this.state.blueTeamNumCards}</h6>
-
-        <h6>Red team: {this.state.redTeamNumCards}</h6>
       </div>
     )
   }
