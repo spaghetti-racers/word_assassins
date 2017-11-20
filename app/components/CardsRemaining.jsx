@@ -6,7 +6,7 @@ export default class CardsRemaining extends Component {
     super(props)
     this.state = {
       redTeamNumCards: 0,
-      blueTeamNumCards: 0,
+      blueTeamNumCards: 0
     }
     this.setNumCards = this.setNumCards.bind(this)
   }

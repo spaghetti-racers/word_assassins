@@ -59,6 +59,7 @@ render(
       <IndexRedirect to="demos"/>
       {Demos /* Put all the demos and a description page at /demos */}
     </Route>
+    <Route path="/scoreboard" component={Scoreboard} />
     <Route path='*' component={NotFound}/>
   </Router>,
   document.getElementById('main')
