@@ -20,20 +20,8 @@ export default class Board extends Component {
     })
   }
 
-  // componentDidMount() {
-  //   const cards = firebase.database().ref('cards/')
-  //   cards.on('value', snapshot => {
-  //     const cardsFromDB = snapshot.val()
-  //     const cardArray = []
-  //     const cardKeys = Object.keys(snapshot.val())
-  //     for (let i=0; i < cardKeys.length; i++) {
-  //       cardArray.push(cardsFromDB[cardKeys[i]])
-  //     }
-  //     console.log('!!!!!!!!!!!!!! The pushed to final array', cardArray)
-  //     console.log('~~~~~~~~~~~~ The keys from the snapshot', cardKeys)
-  //     console.log('============ The snapshot from the firebase DB', snapshot.val())
-  //     this.setState({cards: cardArray})
-  //   })
+  // pickCard() {
+    
   // }
 
   render() {
@@ -47,9 +35,9 @@ export default class Board extends Component {
                   <Card.Header>
                     {card.word}
                   </Card.Header>
-                  {/* <Card.Description>
+                  <Card.Description>
                     {card.color}
-                  </Card.Description> */}
+                  </Card.Description>
                 </Card.Content>
               </Card>)
             )
