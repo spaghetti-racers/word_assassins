@@ -6,34 +6,18 @@ export default class Board extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      cards: [],
-      allWords: [],
-      selectedWords: []
+      cards: []
     }
-    this.generateSelectedWords = this.generateSelectedWords.bind(this)
   }
 
 
   componentDidMount() {
-    const allWords = firebase.database().ref('words/')
-    allWords.on('value', snapshot => {
-      const wordArray = snapshot.val()
-      this.setState({allWords: wordArray})
-      this.setState({selectedWords: this.generateSelectedWords(this.state.allWords)})
-      console.log('WOORDDSS: ', this.state.selectedWords)
+    const allCards = firebase.database().ref('gameCards/')
+    allCards.once('value', snapshot => {
+      const cardArray = snapshot.val()
+      this.setState({cards: cardArray})
+      console.log('CARD ARRAY!!!', cardArray)
     })
-  }
-
-  generateSelectedWords(allWords) {
-    const selectedWords = []
-    while (selectedWords.length < 25) {
-      const randomIndex = Math.floor(Math.random() * (allWords.length))
-      console.log(randomIndex)
-      if (!selectedWords.includes(allWords[randomIndex])) {
-        selectedWords.push(allWords[randomIndex])
-      }
-    }
-    return selectedWords
   }
 
   // componentDidMount() {
@@ -63,9 +47,9 @@ export default class Board extends Component {
                   <Card.Header>
                     {card.word}
                   </Card.Header>
-                  <Card.Description>
+                  {/* <Card.Description>
                     {card.color}
-                  </Card.Description>
+                  </Card.Description> */}
                 </Card.Content>
               </Card>)
             )

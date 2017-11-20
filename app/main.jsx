@@ -8,6 +8,7 @@ import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import Board from './components/Board'
 import Test from './components/Test'
+import GameCreator from './components/GameCreator'
 
 import firebase from 'APP/fire'
 
@@ -60,7 +61,7 @@ render(
       <IndexRedirect to="demos"/>
       {Demos /* Put all the demos and a description page at /demos */}
     </Route>
-    <Route path="/board" component={Board} />
+    <Route path="/game-creator" component={GameCreator} />
     <Route path='*' component={NotFound}/>
   </Router>,
   document.getElementById('main')
