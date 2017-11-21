@@ -4,6 +4,7 @@ import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
 
 import Scoreboard from './components/Scoreboard'
+import SpymasterHint from './components/SpymasterHint'
 import 'semantic-ui-css/semantic.min.css'
 
 import WhoAmI from './components/WhoAmI'
@@ -56,6 +57,7 @@ const App = ({children}) =>
     {/* Render our children (whatever the router gives us) */}
     {children}
     <Scoreboard />
+    <SpymasterHint />
   </div>
 
 render(
