@@ -2,11 +2,18 @@
 import React from 'react'
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
+<<<<<<< HEAD
+// import 'semantic-ui-css/semantic.min.css'
+=======
 import Scoreboard from './components/Scoreboard'
 import 'semantic-ui-css/semantic.min.css'
+>>>>>>> 88c360ae78abaa41eb7ca4e4cca5a33fe0df844b
 
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
+import Board from './components/Board'
+import Test from './components/Test'
+import GameCreator from './components/GameCreator'
 
 import firebase from 'APP/fire'
 
@@ -60,6 +67,7 @@ render(
       <IndexRedirect to="demos"/>
       {Demos /* Put all the demos and a description page at /demos */}
     </Route>
+    <Route path="/game-creator" component={GameCreator} />
     <Route path="/scoreboard" component={Scoreboard} />
     <Route path='*' component={NotFound}/>
   </Router>,
