@@ -36,14 +36,16 @@ export default class Board extends Component {
         <Card.Group itemsPerRow={5}>
           {
             this.state.cards && this.state.cards.map((card, idx) =>
-             (<Card onClick={this.pickCard} key={card.word}>
+             (
+               <Card onClick={this.pickCard} key={card.word}>
                 <Card.Content value={idx}>
-                  <Card.Header value={idx}>
-                    {card.word}
-                  </Card.Header>
-                  <Card.Description value={idx}>
-                    {card.color}
-                  </Card.Description>
+                  {
+                    card.clicked ? ' ' : <Card.Header value={idx}> {card.word} </Card.Header>
+                  }
+                  {
+                    card.clicked ? <Card.Description value={idx}> {card.color} </Card.Description> : ' '
+                  }
+
                 </Card.Content>
               </Card>)
             )
