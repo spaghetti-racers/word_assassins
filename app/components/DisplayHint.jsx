@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import firebase from 'APP/fire'
+import { Grid } from 'semantic-ui-react'
 
 export default class DisplayHint extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export default class DisplayHint extends Component {
     console.log('our props ', this.props.numCardsLeft)
     return (
       <div>
-        <h2>display hint</h2>
+        <h4>display hint</h4>
         <h6>Word: {this.props.hint.word}</h6>
         <h6>Number of Guesses Allowed: {this.props.hint.numGuessesAllowed}</h6>
       </div>

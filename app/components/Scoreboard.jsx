@@ -3,6 +3,7 @@ import firebase from 'APP/fire'
 import CardsRemaining from './CardsRemaining'
 import RoundsWon from './RoundsWon'
 import DisplayHint from './DisplayHint'
+import  { Grid } from 'semantic-ui-react'
 export default class Scoreboard extends Component {
   constructor() {
     super()
@@ -34,7 +35,6 @@ export default class Scoreboard extends Component {
     const numCardsRemainingFake = {red: 40, blue: 10}
     this.setNumCards(numCardsRemainingFake)
     this.setState({redTeamNumCards: numCardsRemainingFake.red, blueTeamNumCards: numCardsRemainingFake.blue})
-
 
   }
   displayHint(hint) {
@@ -68,13 +68,32 @@ export default class Scoreboard extends Component {
 
   render() {
     return (
-      <div>
-        <RoundsWon roundsWonByTeams = {{red: this.state.redTeamRoundsWon, blue: this.state.blueTeamRoundsWon}} />
 
-        <DisplayHint hint = {{word: this.state.word, numGuessesAllowed: this.state.numGuessesAllowed}}/>
+      <Grid>
 
-        <CardsRemaining numCardsLeft={{red: this.state.redTeamNumCards, blue: this.state.blueTeamNumCards}}/>
-      </div>
+        <Grid.Row>
+          <Grid.Column>
+            <h3>Scoreboard</h3>
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row>
+          <Grid.Column width={4}>
+            <RoundsWon roundsWonByTeams = {{red: this.state.redTeamRoundsWon, blue: this.state.blueTeamRoundsWon}} />
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <CardsRemaining numCardsLeft={{red: this.state.redTeamNumCards, blue: this.state.blueTeamNumCards}}/>
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row>
+          <Grid.Column>
+            <DisplayHint hint = {{word: this.state.word, numGuessesAllowed: this.state.numGuessesAllowed}}/>
+          </Grid.Column>
+        </Grid.Row>
+
+      </Grid>
+
     )
   }
 }
