@@ -2,6 +2,8 @@
 import React from 'react'
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
+import Scoreboard from './components/Scoreboard'
+import 'semantic-ui-css/semantic.min.css'
 
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
@@ -49,6 +51,7 @@ const App = ({children}) =>
     </nav>
     {/* Render our children (whatever the router gives us) */}
     {children}
+    <Scoreboard />
   </div>
 
 render(
@@ -57,6 +60,7 @@ render(
       <IndexRedirect to="demos"/>
       {Demos /* Put all the demos and a description page at /demos */}
     </Route>
+    <Route path="/scoreboard" component={Scoreboard} />
     <Route path='*' component={NotFound}/>
   </Router>,
   document.getElementById('main')
