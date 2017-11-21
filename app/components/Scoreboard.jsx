@@ -11,7 +11,9 @@ export default class Scoreboard extends Component {
       blueTeamRoundsWon: 1,
 
       redTeamNumCards: 8,
-      blueTeamNumCards: 9
+      blueTeamNumCards: 9,
+      word: 'blank',
+      numGuessesAllowed: 2
 
     }
     this.setNumCards = this.setNumCards.bind(this)
@@ -23,6 +25,7 @@ export default class Scoreboard extends Component {
 
     const hintFake = {word: 'cat', numGuessesAllowed: 5}
     this.displayHint(hintFake)
+    this.setState({word: 'Carmen', numGuessesAllowed: 17})
 
     const FakeRoundsWonByTeams = {red: 30, blue: 20}
     this.setRoundsWon(FakeRoundsWonByTeams)
@@ -32,9 +35,10 @@ export default class Scoreboard extends Component {
     this.setNumCards(numCardsRemainingFake)
     this.setState({redTeamNumCards: numCardsRemainingFake.red, blueTeamNumCards: numCardsRemainingFake.blue})
 
-    this.displayHint(this.state.hint)
+
   }
   displayHint(hint) {
+    console.log("HINTT", hint)
     const dataRef = firebase.database().ref()
     const hintToDisplay = dataRef.child('displayHint')
     hintToDisplay.set({
@@ -67,7 +71,7 @@ export default class Scoreboard extends Component {
       <div>
         <RoundsWon roundsWonByTeams = {{red: this.state.redTeamRoundsWon, blue: this.state.blueTeamRoundsWon}} />
 
-        <DisplayHint />
+        <DisplayHint hint = {{word: this.state.word, numGuessesAllowed: this.state.numGuessesAllowed}}/>
 
         <CardsRemaining numCardsLeft={{red: this.state.redTeamNumCards, blue: this.state.blueTeamNumCards}}/>
       </div>
