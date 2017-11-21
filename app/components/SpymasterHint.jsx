@@ -27,10 +27,11 @@ export default class SpymasterHint extends Component {
     })
   }
   submitPotentialHint() {
+    let numOfguesses = this.state.numberOfWordsToGuess + 1
     const dataRef = firebase.database().ref()
     dataRef.child('potentialHintandNumOfWords').set({
-      numberOfWordsToGuess: this.state.numberOfWordsToGuess,
-      possibleHint: this.state.possibleHint,
+      numberOfWordsToGuess: numOfguesses,
+      possibleHint: this.state.possibleHint
     })
     this.setState({
       numberOfWordsToGuess: '',
@@ -45,7 +46,7 @@ export default class SpymasterHint extends Component {
           <input value={this.state.numberOfWordsToGuess} onChange={this.handleNumberChange} type="number" placeholder="enter a number" required/>
           <input value={this.state.possibleHint} onChange={this.handlePossibleHint} type="text" placeholder="enter a hint"/>
           <button
-            disabled={this.state.possibleHint.length<=2 ||this.state.numberOfWordsToGuess<1}
+            disabled={this.state.possibleHint.length<=2 || this.state.numberOfWordsToGuess<1}
             onClick = {this.submitPotentialHint}
             className="ui button"
           >
