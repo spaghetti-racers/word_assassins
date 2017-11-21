@@ -37,7 +37,7 @@ export default class GameCreator extends Component {
     }
     return selectedWords
   }
-
+  // HELPER FUNCTION TO SHUFFLE AN ARRAY, USED FOR SHUFFLING THE COLORS
   shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -45,7 +45,7 @@ export default class GameCreator extends Component {
     }
     return array
   }
-  
+  // THIS FUNCTION TAKES IN THE TEAM THAT GOES FIRST AND CREATES SHUFFLES ARRAY WITH THE RIGHT AMOUNT OF COLORS.
   generateColors(whoGoesFirst) {
     let colors = []
     if (whoGoesFirst === 'redTeam') {
