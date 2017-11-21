@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import firebase from 'APP/fire'
 
-export default class SpymasterHint extends Component {
+export default class ActiveSpymasterHint extends Component {
   constructor() {
     super()
     this.state = {
