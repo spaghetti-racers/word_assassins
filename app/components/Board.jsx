@@ -16,18 +16,19 @@ export default class Board extends Component {
     const allCards = firebase.database().ref('gameCards/')
     allCards.on('value', snapshot => {
       const cardArray = snapshot.val()
-      this.setState({cards: cardArray})
+      this.setState({ cards: cardArray })
       console.log('CARD ARRAY!!!', cardArray)
     })
   }
 
+  // ONCLICK LISTENER TO UPDATE THE STATUS OF A CARD IN THE DB WHEN CLICKED
   pickCard(event, data) {
     console.log('DATAAAAA', data.children.props.value)
     event.preventDefault()
     // need to figure out what event.target.value gives us
     const clickedCardIndex = data.children.props.value
     const clickedCard = firebase.database().ref(`gameCards/${clickedCardIndex}`)
-    clickedCard.update({clicked: true})
+    clickedCard.update({ clicked: true })
   }
 
   render() {
@@ -36,16 +37,15 @@ export default class Board extends Component {
         <Card.Group itemsPerRow={5}>
           {
             this.state.cards && this.state.cards.map((card, idx) =>
-             (<Card onClick={this.pickCard} key={card.word}>
-                <Card.Content value={idx}>
-                  <Card.Header value={idx}>
-                    {card.word}
-                  </Card.Header>
-                  <Card.Description value={idx}>
-                    {card.color}
-                  </Card.Description>
-                </Card.Content>
-              </Card>)
+              (
+                // LOGIC TO CHANGE COLOR AND WORD VIEW OF THE CARD UPON CLICK BASED ON COLOR/CLICKED ATTRIBUTES IN DB
+                <Card onClick={this.pickCard} style={{backgroundColor: card.clicked ? card.color : 'white'}} key={card.word}>
+                  <Card.Content value={idx}>
+                    {
+                      card.clicked ? ' ' : <Card.Header value={idx}> {card.word} </Card.Header>
+                    }
+                  </Card.Content>
+                </Card>)
             )
           }
         </Card.Group>
