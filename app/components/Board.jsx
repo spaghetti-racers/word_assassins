@@ -11,7 +11,6 @@ export default class Board extends Component {
     this.pickCard = this.pickCard.bind(this)
   }
 
-
   componentDidMount() {
     const allCards = firebase.database().ref('gameCards/')
     allCards.on('value', snapshot => {
