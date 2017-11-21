@@ -13,7 +13,6 @@ export default class Scoreboard extends Component {
       redTeamNumCards: 8,
       blueTeamNumCards: 9
 
-
     }
     this.setNumCards = this.setNumCards.bind(this)
     this.setRoundsWon = this.setRoundsWon.bind(this)
@@ -21,6 +20,9 @@ export default class Scoreboard extends Component {
   }
 
   componentDidMount() {
+
+    const hintFake = {word: 'cat', numGuessesAllowed: 5}
+    this.displayHint(hintFake)
 
     const FakeRoundsWonByTeams = {red: 30, blue: 20}
     this.setRoundsWon(FakeRoundsWonByTeams)
@@ -36,7 +38,8 @@ export default class Scoreboard extends Component {
     const dataRef = firebase.database().ref()
     const hintToDisplay = dataRef.child('displayHint')
     hintToDisplay.set({
-      hint: "this hint is a test"
+      word: hint.word,
+      numTurns: hint.numGuessesAllowed
     })
   }
   setNumCards(cardsObject) {
