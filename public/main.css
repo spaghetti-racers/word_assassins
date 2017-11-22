@@ -1,0 +1,41 @@
+.scoreboardComponent {
+  margin-left: 1cm
+}
+
+.displayHint {
+  text-align: center;
+  /* vertical-align: center;
+  justify-content: center; */
+}
+
+.topRowScoreBoard {
+  text-align: center
+}
+
+.ui.grid > .row {
+  text-align: center;
+  align-items: center;
+}
+
+.overallGrid {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.roundsWonAlign {
+  align-items: center;
+  justify-content: center;
+  vertical-align: center;
+  text-align: center;
+}
+
+.cardsLeftAlign {
+  align-items: center;
+}
+
+div.row {
+    align-items: center;
+  justify-content: center;
+  vertical-align: center;
+  text-align: center;
+}
