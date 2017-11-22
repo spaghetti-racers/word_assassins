@@ -4,11 +4,13 @@ import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
 
 import Scoreboard from './components/Scoreboard'
+import ActiveSpymasterHint from './components/ActiveSpymasterHint'
 import 'semantic-ui-css/semantic.min.css'
 
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import GameCreator from './components/GameCreator'
+import DisabledSpymasterHint from './components/DisabledSpymasterHint'
 import Lobby from './components/Lobby'
 
 import firebase from 'APP/fire'
@@ -55,6 +57,7 @@ const App = ({children}) =>
     {/* Render our children (whatever the router gives us) */}
     {children}
     <Scoreboard />
+    <ActiveSpymasterHint />
   </div>
 
 render(
@@ -66,6 +69,7 @@ render(
     <Route path="/lobby" component={Lobby} />
     <Route path="/game-creator" component={GameCreator} />
     <Route path="/scoreboard" component={Scoreboard} />
+    <Route path="/disabledSpymasterHint" component={DisabledSpymasterHint} />
     <Route path='*' component={NotFound}/>
   </Router>,
   document.getElementById('main')
