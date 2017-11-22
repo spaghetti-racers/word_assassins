@@ -39,7 +39,7 @@ export default class Scoreboard extends Component {
 
   }
   displayHint(hint) {
-    console.log("HINTT", hint)
+
     const dataRef = firebase.database().ref()
     const hintToDisplay = dataRef.child('displayHint')
     hintToDisplay.set({
