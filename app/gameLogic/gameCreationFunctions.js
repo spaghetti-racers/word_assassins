@@ -33,7 +33,7 @@ export function generateColorsGC(whoGoesFirst, shuffleArrayFunc) {
 }
 
 // THIS FUNCTION MAKES 25 CARDS USING OUR RANDOM WORDS AND RANDOM COLORS, AND ADDS THEM TO THE DB
-export function generateCardsGC(selectedWords, shuffledColorArray, whoGoesFirst) {
+export function generateCardsGC(selectedWords, shuffledColorArray, whoGoesFirst, gameId) {
   const gameCardObject = selectedWords.reduce((accum, word, index) => {
     accum[index] = {
       word: word,
@@ -42,5 +42,5 @@ export function generateCardsGC(selectedWords, shuffledColorArray, whoGoesFirst)
     }
     return accum
   }, {})
-  firebase.database().ref('/gameCards').update(gameCardObject)
+  firebase.database().ref(`/gameInstances/${gameId}/gameCards`).update(gameCardObject)
 }

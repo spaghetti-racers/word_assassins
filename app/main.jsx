@@ -12,6 +12,7 @@ import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import GameCreator from './components/GameCreator'
 import Lobby from './components/Lobby'
+import GameView from './components/GameView'
 
 import firebase from 'APP/fire'
 
@@ -67,6 +68,7 @@ render(
       {Demos /* Put all the demos and a description page at /demos */}
     </Route>
     <Route path="/lobby" component={Lobby} />
+    <Route path="/game-view/:gameId/wordassassins" component={GameView} />
     <Route path="/game-creator" component={GameCreator} />
     <Route path="/scoreboard" component={Scoreboard} />
     <Route path="/InactiveSpymasterHinter" component={InactiveSpymasterHinter} />

@@ -4,30 +4,16 @@ import Board from './Board'
 import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC } from '../gameLogic'
 
 export default class GameCreator extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      whoGoesFirst: 'blueTeam',
-      allWords: [],
-      selectedWords: []
-    }
-  }
-
   componentDidMount() {
-    const allWords = firebase.database().ref('words/')
-    allWords.on('value', snapshot => {
-      const wordArray = snapshot.val()
-      this.setState({allWords: wordArray})
-      this.setState({selectedWords: generateSelectedWordsGC(this.state.allWords)})
-      const shuffledColorArray = generateColorsGC(this.state.whoGoesFirst, shuffleArrayGC)
-      generateCardsGC(this.state.selectedWords, shuffledColorArray, this.state.whoGoesFirst)
-    })
+    const selectedWords = generateSelectedWordsGC(this.props.allWords)
+    const shuffledColorArray = generateColorsGC(this.props.whoGoesFirst, shuffleArrayGC)
+    generateCardsGC(selectedWords, shuffledColorArray, this.props.whoGoesFirst, this.props.gameId)
   }
 
   render() {
     return (
       <div>
-       <Board />
+       <Board gameId={this.props.gameId} />
       </div>
     )
   }
