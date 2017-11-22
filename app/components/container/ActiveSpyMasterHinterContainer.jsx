@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import ActiveSpymasterHinter from '../presentational/ActiveSpymasterHinter.jsx'
 
@@ -19,7 +19,7 @@ export default class ActiveSpymasterHinterContainer extends Component {
     const dataRef = firebase.database().ref()
     const hintApproval = dataRef.child('potentialHintandNumOfWords').child('hintApproval')
     hintApproval.on('value', snap => {
-      this.setState({hintApproval: snap.val()})
+      this.setState({ hintApproval: snap.val() })
     })
   }
 
@@ -35,6 +35,7 @@ export default class ActiveSpymasterHinterContainer extends Component {
   }
   submitPotentialHint() {
     const numOfguesses = this.state.numberOfWordsToGuess + 1
+    const prevState = this.state
     const dataRef = firebase.database().ref()
     dataRef.child('potentialHintandNumOfWords').set({
       numberOfWordsToGuess: numOfguesses,
@@ -43,27 +44,30 @@ export default class ActiveSpymasterHinterContainer extends Component {
     })
     this.setState({
       numberOfWordsToGuess: '',
-      possibleHint: ''
+      possibleHint: '',
+      prevState: prevState
     })
   }
 
   resetHintGenerator() {
     const dataRef = firebase.database().ref()
-    const hintGen = dataRef.child('potentialHintandNumOfWords').update({hintApproval: null, numberOfWordsToGuess: null, possibleHint: null})
+    const hintGen = dataRef.child('potentialHintandNumOfWords').update({ hintApproval: null, numberOfWordsToGuess: null, possibleHint: null })
+    const displayHint = dataRef.child('displayHint').set({ numTurns: this.state.prevState.numberOfWordsToGuess, word: this.state.prevState.possibleHint })
+
   }
 
   render() {
     return (
       <ActiveSpymasterHinter
-      numberOfWordsToGuess={this.state.numberOfWordsToGuess}
-      handleNumberChange={this.handleNumberChange}
-      possibleHint={this.state.possibleHint}
-      hintApproval={this.state.hintApproval}
-      submitPotentialHint={this.submitPotentialHint}
-      resetHintGenerator={this.resetHintGenerator}
-      handlePossibleHint={this.handlePossibleHint}
+        numberOfWordsToGuess={this.state.numberOfWordsToGuess}
+        handleNumberChange={this.handleNumberChange}
+        possibleHint={this.state.possibleHint}
+        hintApproval={this.state.hintApproval}
+        submitPotentialHint={this.submitPotentialHint}
+        resetHintGenerator={this.resetHintGenerator}
+        handlePossibleHint={this.handlePossibleHint}
 
-       />
+      />
     )
   }
 }
