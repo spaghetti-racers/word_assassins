@@ -9,10 +9,9 @@ import 'semantic-ui-css/semantic.min.css'
 
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
-import Board from './components/Board'
-import Test from './components/Test'
 import GameCreator from './components/GameCreator'
 import DisabledSpymasterHint from './components/DisabledSpymasterHint'
+import Lobby from './components/Lobby'
 
 import firebase from 'APP/fire'
 
@@ -67,6 +66,7 @@ render(
       <IndexRedirect to="demos"/>
       {Demos /* Put all the demos and a description page at /demos */}
     </Route>
+    <Route path="/lobby" component={Lobby} />
     <Route path="/game-creator" component={GameCreator} />
     <Route path="/scoreboard" component={Scoreboard} />
     <Route path="/disabledSpymasterHint" component={DisabledSpymasterHint} />
