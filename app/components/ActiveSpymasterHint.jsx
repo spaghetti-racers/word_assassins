@@ -12,6 +12,7 @@ export default class ActiveSpymasterHint extends Component {
     this.handlePossibleHint = this.handlePossibleHint.bind(this)
     this.handleNumberChange = this.handleNumberChange.bind(this)
     this.submitPotentialHint = this.submitPotentialHint.bind(this)
+    this.resetHintGenerator = this.resetHintGenerator.bind(this)
   }
   componentDidMount() {
     const dataRef = firebase.database().ref()
@@ -45,6 +46,12 @@ export default class ActiveSpymasterHint extends Component {
       possibleHint: ''
     })
   }
+
+  resetHintGenerator() {
+    const dataRef = firebase.database().ref()
+    const hintGen = dataRef.child('potentialHintandNumOfWords').update({hintApproval: null, numberOfWordsToGuess: null, possibleHint: null})
+  }
+
   render() {
     if (this.state.hintApproval === false) console.log(' read hint approval')
     return (
@@ -60,7 +67,7 @@ export default class ActiveSpymasterHint extends Component {
           >
           Confirm hint
           </button>
-          <button disabled={!this.state.hintApproval? 'disabled' : null}>Submit Hint</button>
+          <button onClick = {this.resetHintGenerator} disabled={!this.state.hintApproval? 'disabled' : null}>Submit Hint</button>
         </div>
       </div>
     )
