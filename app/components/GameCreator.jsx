@@ -4,13 +4,6 @@ import Board from './Board'
 import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC } from '../gameLogic'
 
 export default class GameCreator extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      selectedWords: []
-    }
-  }
-
   componentDidMount() {
     const selectedWords = generateSelectedWordsGC(this.props.allWords)
     const shuffledColorArray = generateColorsGC(this.props.whoGoesFirst, shuffleArrayGC)
