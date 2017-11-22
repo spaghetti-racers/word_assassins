@@ -5,12 +5,12 @@ import {render} from 'react-dom'
 
 import Scoreboard from './components/container/ScoreboardContainer'
 import ActiveSpymasterHint from './components/container/ActiveSpymasterHintContainer'
+import InactiveSpymasterHinter from './components/container/InactiveSpymasterHinterContainer'
 import 'semantic-ui-css/semantic.min.css'
 
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import GameCreator from './components/GameCreator'
-import DisabledSpymasterHint from './components/DisabledSpymasterHint'
 import Lobby from './components/Lobby'
 
 import firebase from 'APP/fire'
@@ -69,7 +69,7 @@ render(
     <Route path="/lobby" component={Lobby} />
     <Route path="/game-creator" component={GameCreator} />
     <Route path="/scoreboard" component={Scoreboard} />
-    <Route path="/disabledSpymasterHint" component={DisabledSpymasterHint} />
+    <Route path="/InactiveSpymasterHinter" component={InactiveSpymasterHinter} />
     <Route path='*' component={NotFound}/>
   </Router>,
   document.getElementById('main')
