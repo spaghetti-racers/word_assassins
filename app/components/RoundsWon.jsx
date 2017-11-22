@@ -29,22 +29,28 @@ export default class RoundsWon extends Component {
   render() {
     console.log('our props ', this.props.numCardsLeft)
     return (
-      <Grid>
-        <Grid.Row>
-          <Grid.Column>
-            <h4>Rounds Won</h4>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={4}>
-            <h6>Red Team: {this.props.roundsWonByTeams.red}</h6>
-          </Grid.Column>
-          <Grid.Column width={4}>
-            <h6>Blue Team: {this.props.roundsWonByTeams.blue}</h6>
-          </Grid.Column>
-        </Grid.Row>
-
-      </Grid>
+      <div>
+        <h4>Rounds Won</h4>
+        <h6>Red Team: {this.props.roundsWonByTeams.red}</h6>
+        <h6>Blue Team: {this.props.roundsWonByTeams.blue}</h6>
+      </div>
     )
   }
 }
+
+      // <Grid>
+      //   <Grid.Row>
+      //     <Grid.Column>
+      //       <h4>Rounds Won</h4>
+      //     </Grid.Column>
+      //   </Grid.Row>
+      //   <Grid.Row>
+      //     <Grid.Column width={4}>
+      //       <h6>Red Team: {this.props.roundsWonByTeams.red}</h6>
+      //     </Grid.Column>
+      //     <Grid.Column width={4}>
+      //       <h6>Blue Team: {this.props.roundsWonByTeams.blue}</h6>
+      //     </Grid.Column>
+      //   </Grid.Row>
+
+      // </Grid>
