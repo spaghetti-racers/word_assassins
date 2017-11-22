@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import firebase from 'APP/fire'
-import { Grid } from 'semantic-ui-react'
-export default class RoundsWon extends Component {
+import RoundsWon from '../presentational/RoundsWon.jsx'
+
+export default class RoundsWonContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -27,30 +28,8 @@ export default class RoundsWon extends Component {
   }
 
   render() {
-    console.log('our props ', this.props.numCardsLeft)
     return (
-      <div>
-        <h4>Rounds Won</h4>
-        <h6>Red Team: {this.props.roundsWonByTeams.red}</h6>
-        <h6>Blue Team: {this.props.roundsWonByTeams.blue}</h6>
-      </div>
+      <RoundsWon roundsWonByTeamsRed = {this.state.redTeamRoundsWon} roundsWonByTeamsBlue = {this.state.blueTeamRoundsWon}/>
     )
   }
 }
-
-      // <Grid>
-      //   <Grid.Row>
-      //     <Grid.Column>
-      //       <h4>Rounds Won</h4>
-      //     </Grid.Column>
-      //   </Grid.Row>
-      //   <Grid.Row>
-      //     <Grid.Column width={4}>
-      //       <h6>Red Team: {this.props.roundsWonByTeams.red}</h6>
-      //     </Grid.Column>
-      //     <Grid.Column width={4}>
-      //       <h6>Blue Team: {this.props.roundsWonByTeams.blue}</h6>
-      //     </Grid.Column>
-      //   </Grid.Row>
-
-      // </Grid>

@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import firebase from 'APP/fire'
-import { Grid } from 'semantic-ui-react'
+import DisplayHint from '../presentational/DisplayHint.jsx'
 
-export default class DisplayHint extends Component {
+export default class DisplayHintContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -17,7 +17,7 @@ export default class DisplayHint extends Component {
     const hint = dataRef.child('displayHint')
     hint.on('value', (snap) => {
       const arrayHint = Object.keys(snap.val())
-      for(let i = 0; i < arrayHint.length; i++ ) {
+      for (let i = 0; i < arrayHint.length; i++ ) {
         hint.child(arrayHint[i]).on('value', (snap) => {
           this.setState({
             [arrayHint[i]]: snap.val()
@@ -30,11 +30,7 @@ export default class DisplayHint extends Component {
   render() {
     console.log('our props ', this.props.numCardsLeft)
     return (
-      <div>
-        <h4>Hint</h4>
-        <h6>Word: {this.props.hint.word}</h6>
-        <h6>Number of Guesses Allowed: {this.props.hint.numGuessesAllowed}</h6>
-      </div>
+      <DisplayHint hintWord={this.state.word} hintNumGuessesAllowed={this.state.numGuessesAllowed}/>
     )
   }
 }
