@@ -20,7 +20,6 @@ export default class ActiveSpymasterHinterContainer extends Component {
     const hintApproval = dataRef.child('potentialHintandNumOfWords').child('hintApproval')
     hintApproval.on('value', snap => {
       this.setState({hintApproval: snap.val()})
-      console.log('This is the value of snap ', snap.val())
     })
   }
 
