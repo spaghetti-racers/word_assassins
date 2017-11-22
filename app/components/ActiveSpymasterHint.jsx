@@ -14,7 +14,6 @@ export default class ActiveSpymasterHint extends Component {
     this.submitPotentialHint = this.submitPotentialHint.bind(this)
   }
   componentDidMount() {
-    // console.log(' component did mount')
     const dataRef = firebase.database().ref()
     const hintApproval = dataRef.child('potentialHintandNumOfWords').child('hintApproval')
     hintApproval.on('value', snap => {
@@ -48,13 +47,12 @@ export default class ActiveSpymasterHint extends Component {
   }
   render() {
     if (this.state.hintApproval === false) console.log(' read hint approval')
-    //console.log('this is the state ', this.state)
     return (
       <div>
         <h1>Display Spymaster hint </h1>
       <div className="ui input">
-          <input value={this.state.numberOfWordsToGuess} onChange={this.handleNumberChange} type="number" placeholder="enter a number" required/>
-          <input value={this.state.possibleHint} onChange={this.handlePossibleHint} type="text" placeholder="enter a hint"/>
+          <input value={this.state.numberOfWordsToGuess} onChange={this.handleNumberChange} type="number" placeholder="enter a number" required disabled={this.state.hintApproval? 'disabled': null}/>
+          <input value={this.state.possibleHint} onChange={this.handlePossibleHint} type="text" placeholder="enter a hint" disabled={this.state.hintApproval? 'disabled': null} />
           <button
             disabled={this.state.possibleHint.length<=2 || this.state.numberOfWordsToGuess<1}
             onClick = {this.submitPotentialHint}
@@ -62,6 +60,7 @@ export default class ActiveSpymasterHint extends Component {
           >
           Confirm hint
           </button>
+          <button disabled={!this.state.hintApproval? 'disabled' : null}>Submit Hint</button>
         </div>
       </div>
     )
