@@ -8,8 +8,6 @@ import 'semantic-ui-css/semantic.min.css'
 
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
-import Board from './components/Board'
-import Test from './components/Test'
 import GameCreator from './components/GameCreator'
 import Lobby from './components/Lobby'
 
