@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ActiveSpymasterHint = props => {
+const ActiveSpymasterHinter = props => {
 
   return (
     <div>
@@ -22,4 +22,4 @@ const ActiveSpymasterHint = props => {
 
 }
 
-export default ActiveSpymasterHint
+export default ActiveSpymasterHinter

@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import firebase from 'APP/fire'
-import ActiveSpymasterHint from '../presentational/ActiveSpymasterHint.jsx'
+import ActiveSpymasterHinter from '../presentational/ActiveSpymasterHinter.jsx'
 
-export default class ActiveSpymasterHintContainer extends Component {
+export default class ActiveSpymasterHinterContainer extends Component {
   constructor() {
     super()
     this.state = {
@@ -55,7 +55,7 @@ export default class ActiveSpymasterHintContainer extends Component {
 
   render() {
     return (
-      <ActiveSpymasterHint
+      <ActiveSpymasterHinter
       numberOfWordsToGuess={this.state.numberOfWordsToGuess}
       handleNumberChange={this.handleNumberChange}
       possibleHint={this.state.possibleHint}
