@@ -8,6 +8,7 @@ export default class DisabledSpymasterHint extends Component {
       numberOfWordsToGuess: '',
       possibleHint: ''
     }
+    this.validateHint = this.validateHint.bind(this)
   }
 
   componentDidMount() {
@@ -27,6 +28,10 @@ export default class DisabledSpymasterHint extends Component {
     })
   }
 
+  validateHint() {
+    firebase.database().ref('/potentialHintandNumOfWords').update({hintApproval: true})
+  }
+
   render() {
     return (
       <div>
@@ -36,7 +41,7 @@ export default class DisabledSpymasterHint extends Component {
           <div>
             <h3>The word to use as a hint is {this.state.possibleHint} </h3>
             <h3>The number of guesses allowed is {this.state.numberOfWordsToGuess} </h3>
-            <Button>Validate</Button>
+            <Button onClick={this.validateHint}>Validate</Button>
             <Button>Resubmit Hint</Button>
           </div>
         }

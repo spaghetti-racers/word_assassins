@@ -6,32 +6,40 @@ export default class ActiveSpymasterHint extends Component {
     super()
     this.state = {
       numberOfWordsToGuess: '',
-      possibleHint: ''
+      possibleHint: '',
+      hintApproval: false
     }
     this.handlePossibleHint = this.handlePossibleHint.bind(this)
     this.handleNumberChange = this.handleNumberChange.bind(this)
     this.submitPotentialHint = this.submitPotentialHint.bind(this)
   }
+  componentDidMount() {
+    // console.log(' component did mount')
+    const dataRef = firebase.database().ref()
+    const hintApproval = dataRef.child('potentialHintandNumOfWords').child('hintApproval')
+    hintApproval.on('value', snap => {
+      this.setState({hintApproval: snap.val()})
+      console.log('This is the value of snap ', snap.val())
+    })
+  }
+
   handlePossibleHint(event, data) {
     this.setState({
       possibleHint: event.target.value
-    }, () => {
-      console.log(this.state.possibleHint)
     })
   }
   handleNumberChange(event) {
     this.setState({
       numberOfWordsToGuess: +event.target.value
-    }, () => {
-      console.log('this is the state ', this.state)
     })
   }
   submitPotentialHint() {
-    let numOfguesses = this.state.numberOfWordsToGuess + 1
+    const numOfguesses = this.state.numberOfWordsToGuess + 1
     const dataRef = firebase.database().ref()
     dataRef.child('potentialHintandNumOfWords').set({
       numberOfWordsToGuess: numOfguesses,
-      possibleHint: this.state.possibleHint
+      possibleHint: this.state.possibleHint,
+      hintApproval: false
     })
     this.setState({
       numberOfWordsToGuess: '',
@@ -39,10 +47,12 @@ export default class ActiveSpymasterHint extends Component {
     })
   }
   render() {
+    if (this.state.hintApproval === false) console.log(' read hint approval')
+    //console.log('this is the state ', this.state)
     return (
       <div>
         <h1>Display Spymaster hint </h1>
-        <div className="ui input">
+      <div className="ui input">
           <input value={this.state.numberOfWordsToGuess} onChange={this.handleNumberChange} type="number" placeholder="enter a number" required/>
           <input value={this.state.possibleHint} onChange={this.handlePossibleHint} type="text" placeholder="enter a hint"/>
           <button
@@ -52,7 +62,6 @@ export default class ActiveSpymasterHint extends Component {
           >
           Confirm hint
           </button>
-
         </div>
       </div>
     )
