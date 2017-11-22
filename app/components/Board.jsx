@@ -16,13 +16,11 @@ export default class Board extends Component {
     allCards.on('value', snapshot => {
       const cardArray = snapshot.val()
       this.setState({ cards: cardArray })
-      console.log('CARD ARRAY!!!', cardArray)
     })
   }
 
   // ONCLICK LISTENER TO UPDATE THE STATUS OF A CARD IN THE DB WHEN CLICKED
   pickCard(event, data) {
-    console.log('DATAAAAA', data.children.props.value)
     event.preventDefault()
     // need to figure out what event.target.value gives us
     const clickedCardIndex = data.children.props.value
