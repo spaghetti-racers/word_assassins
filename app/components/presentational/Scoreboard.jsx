@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import firebase from 'APP/fire'
-import CardsRemaining from './CardsRemaining'
-import RoundsWon from './RoundsWon'
-import DisplayHint from './container/DisplayHintContainer.js'
+
+import RoundsWon from './container/RoundsWonContainer.jsx'
+import DisplayHint from './container/DisplayHintContainer.jsx'
+import CardsRemaining from './container/CardsRemainingContainer.jsx'
+
 import { Grid } from 'semantic-ui-react'
 import { Icon, Label, Menu, Table } from 'semantic-ui-react'
 export default class Scoreboard extends Component {
@@ -31,7 +33,7 @@ export default class Scoreboard extends Component {
 
     const FakeRoundsWonByTeams = { red: 30, blue: 20 }
     this.setRoundsWon(FakeRoundsWonByTeams)
-    this.setState({ redTeamRoundsWon: FakeRoundsWonByTeams.red, blueTeamRoundsWon: FakeRoundsWonByTeams.blue })
+    this.setState({ redTeamRoundsWon: 5, blueTeamRoundsWon: 6 })
 
     const numCardsRemainingFake = { red: 40, blue: 10 }
     this.setNumCards(numCardsRemainingFake)
