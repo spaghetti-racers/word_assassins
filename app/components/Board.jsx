@@ -12,7 +12,7 @@ export default class Board extends Component {
   }
 
   componentDidMount() {
-    const allCards = firebase.database().ref('gameCards/')
+    const allCards = firebase.database().ref(`gameInstances/${this.props.gameId}/gameCards`)
     allCards.on('value', snapshot => {
       const cardArray = snapshot.val()
       this.setState({ cards: cardArray })
@@ -22,9 +22,8 @@ export default class Board extends Component {
   // ONCLICK LISTENER TO UPDATE THE STATUS OF A CARD IN THE DB WHEN CLICKED
   pickCard(event, data) {
     event.preventDefault()
-    // need to figure out what event.target.value gives us
     const clickedCardIndex = data.children.props.value
-    const clickedCard = firebase.database().ref(`gameCards/${clickedCardIndex}`)
+    const clickedCard = firebase.database().ref(`gameInstances/${this.props.gameId}/gameCards/${clickedCardIndex}`)
     clickedCard.update({ clicked: true })
   }
 
