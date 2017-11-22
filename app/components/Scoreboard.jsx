@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import CardsRemaining from './CardsRemaining'
 import RoundsWon from './RoundsWon'
-import DisplayHint from './DisplayHint'
+import DisplayHint from './container/DisplayHintContainer.js'
 import { Grid } from 'semantic-ui-react'
 import { Icon, Label, Menu, Table } from 'semantic-ui-react'
 export default class Scoreboard extends Component {
