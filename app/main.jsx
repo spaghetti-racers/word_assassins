@@ -4,7 +4,7 @@ import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
 
 import Scoreboard from './components/container/ScoreboardContainer'
-import ActiveSpymasterHint from './components/ActiveSpymasterHint'
+import ActiveSpymasterHint from './components/container/ActiveSpymasterHintContainer'
 import 'semantic-ui-css/semantic.min.css'
 
 import WhoAmI from './components/WhoAmI'
