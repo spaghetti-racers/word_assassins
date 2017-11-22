@@ -4,7 +4,7 @@ import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
 
 import Scoreboard from './components/Scoreboard'
-import ActiveSpymasterHint from './components/SpymasterHint'
+import ActiveSpymasterHint from './components/ActiveSpymasterHint'
 import 'semantic-ui-css/semantic.min.css'
 
 import WhoAmI from './components/WhoAmI'
@@ -12,6 +12,7 @@ import NotFound from './components/NotFound'
 import Board from './components/Board'
 import Test from './components/Test'
 import GameCreator from './components/GameCreator'
+import DisabledSpymasterHint from './components/DisabledSpymasterHint'
 
 import firebase from 'APP/fire'
 
@@ -68,6 +69,7 @@ render(
     </Route>
     <Route path="/game-creator" component={GameCreator} />
     <Route path="/scoreboard" component={Scoreboard} />
+    <Route path="/disabledSpymasterHint" component={DisabledSpymasterHint} />
     <Route path='*' component={NotFound}/>
   </Router>,
   document.getElementById('main')
