@@ -1,5 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import firebase from 'APP/fire'
+import { Grid } from 'semantic-ui-react'
 
 export default class CardsRemaining extends Component {
   constructor(props) {
@@ -39,11 +40,31 @@ export default class CardsRemaining extends Component {
     console.log('our props ', this.props.numCardsLeft)
     return (
       <div>
-        <h2>Cards Remaining</h2>
+        <h4># Cards Remaining</h4>
         <h6>Red Team: {this.props.numCardsLeft.red}</h6>
         <h6>Blue Team: {this.props.numCardsLeft.blue}</h6>
-
       </div>
     )
   }
 }
+
+{/* <Grid>
+        <Grid.Row>
+          <Grid.Column>
+             <h4>Cards Left</h4>
+          </Grid.Column>
+
+        </Grid.Row>
+
+        <Grid.Row>
+          <Grid.Column width={6}>
+             <h6>Red Team: {this.props.numCardsLeft.red}</h6>
+          </Grid.Column>
+
+          <Grid.Column width={6}>
+             <h6>Red Team: {this.props.numCardsLeft.red}</h6>
+          </Grid.Column>
+
+        </Grid.Row>
+
+      </Grid> */}
