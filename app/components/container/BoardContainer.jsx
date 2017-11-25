@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import firebase from 'APP/fire'
-import Board from './Board'
-import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC } from '../gameLogic'
+import Board from '../presentational/Board'
+import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC } from '../../gameLogic'
 
-export default class GameCreator extends Component {
+export default class BoardContainer extends Component {
   componentDidMount() {
     const selectedWords = generateSelectedWordsGC(this.props.allWords)
     const shuffledColorArray = generateColorsGC(this.props.whoGoesFirst, shuffleArrayGC)
