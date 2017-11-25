@@ -9,13 +9,11 @@ export default class DisplayHintContainer extends Component {
       word: this.props.hint.word,
       numGuessesAllowed: this.props.hint.numGuessesAllowed
     }
-    //this.setNumCards = this.setNumCards.bind(this)
   }
 
   componentDidMount() {
     const dataRef = firebase.database().ref();
     const gameInstance = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus').child('displayHint')
-    //const hint = dataRef.child('displayHint')
     gameInstance.on('value', (snap) => {
       const arrayHint = Object.keys(snap.val())
       for (let i = 0; i < arrayHint.length; i++) {
@@ -29,7 +27,6 @@ export default class DisplayHintContainer extends Component {
   }
 
   render() {
-    console.log('our props ', this.props.numCardsLeft)
     return (
       <DisplayHint hintWord={this.state.word} hintNumGuessesAllowed={this.state.numGuessesAllowed} />
     )

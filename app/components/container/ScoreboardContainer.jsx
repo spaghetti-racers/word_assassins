@@ -26,22 +26,17 @@ export default class ScoreboardContainer extends Component {
     const gameId = this.props.gameId
     const hintFake = { word: this.state.word, numGuessesAllowed: this.state.numGuessesAllowed }
     this.displayHint(hintFake, gameId)
-    //this.setState({ word: 'Carmen', numGuessesAllowed: 17 })
 
     const FakeRoundsWonByTeams = { red: this.state.redTeamRoundsWon, blue: this.state.blueTeamRoundsWon }
 
     this.setRoundsWon(FakeRoundsWonByTeams, gameId)
-    //this.setState({ redTeamRoundsWon: 5, blueTeamRoundsWon: 6 })
 
     const numCardsRemainingFake = { red: this.state.redTeamNumCardsLeft, blue: this.state.blueTeamNumCardsLeft }
     this.setNumCards(numCardsRemainingFake, gameId)
-    //this.setState({ redTeamNumCards: numCardsRemainingFake.red, blueTeamNumCards: numCardsRemainingFake.blue })
 
   }
   displayHint(hint, gameId) {
-    console.log("HINTT", hint)
     const dataRef = firebase.database().ref()
-    //const hintToDisplay = dataRef.child('displayHint')
     const gameInstance = dataRef.child('gameInstances').child(gameId).child('currentGameStatus').child('displayHint')
     gameInstance.set({
       word: hint.word,
@@ -50,7 +45,6 @@ export default class ScoreboardContainer extends Component {
   }
   setNumCards(cardsObject, gameId) {
     const dataRef = firebase.database().ref()
-    //const numCardsLeft = dataRef.child('numCardsLeft')
     const gameInstance = dataRef.child('gameInstances').child(gameId).child('currentGameStatus').child('cardsRemaining')
     gameInstance.set({
       redTeamNumCardsLeft: cardsObject.red,
@@ -59,20 +53,13 @@ export default class ScoreboardContainer extends Component {
   }
 
   setRoundsWon(roundsWonObject, gameId) {
-    console.log("!!!!!!!!!!", gameId)
-    // this.setState({ redTeamNumCards: cardsObject.red, blueTeamNumCards: cardsObject.blue })
     const dataRef = firebase.database().ref()
     const gameInstance = dataRef.child('gameInstances').child(gameId).child('currentGameStatus').child('RoundsWonByTeams')
-    //const roundsWon = dataRef.child('currentGameStatus').child('RoundsWonByTeams')
 
-    console.log("redTeam: ", roundsWonObject.red)
-    console.log("blueTeam: ", roundsWonObject.blue)
-    console.log("object: ", roundsWonObject)
     gameInstance.set({
       redTeamNumRoundsWon: roundsWonObject.red,
       blueTeamNumRoundsWon: roundsWonObject.blue
     })
-    console.log('heyHello')
   }
 
   render() {
