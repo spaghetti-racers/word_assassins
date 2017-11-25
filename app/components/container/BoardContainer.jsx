@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import Board from '../presentational/Board'
+import { Button } from 'semantic-ui-react'
 import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC } from '../../gameLogic'
 
 export default class BoardContainer extends Component {
@@ -48,7 +49,7 @@ export default class BoardContainer extends Component {
             pickCard={this.pickCard}
             cards={this.state.cards}
           /> :
-          <button onClick={this.getCardsOnClick}>this is a button</button>
+          <Button onClick={this.getCardsOnClick}>this is a Button</Button>
         }
       </div>
     )

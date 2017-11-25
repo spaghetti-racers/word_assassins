@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import BoardContainer from './container/BoardContainer'
-// import { Button } from 'semantic-ui-react'
 
 export default class GameView extends Component {
   constructor(props) {
