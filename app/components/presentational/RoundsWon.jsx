@@ -3,7 +3,7 @@ import firebase from 'APP/fire'
 import { Grid } from 'semantic-ui-react'
 
 const RoundsWon = props => {
-  console.log("these are the we built this city: ", props)
+  console.log("rounds won props: ", props)
   return (
     <div>
       <h4>Rounds Won</h4>

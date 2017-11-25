@@ -17,7 +17,7 @@ const Scoreboard = props => {
           <Table.Row>
             <Table.Cell>
 
-              <RoundsWon roundsWonByTeams={{ red: props.redTeamRoundsWon, blue: props.blueTeamRoundsWon }} />
+              <RoundsWon roundsWonByTeams={{ red: props.roundsWonRedTeam, blue: props.roundsWonBlueTeam }} />
             </Table.Cell>
 
             <Table.Cell>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import BoardContainer from './container/BoardContainer'
+import Scoreboard from './container/ScoreboardContainer.jsx'
 
 export default class GameView extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ export default class GameView extends Component {
   render() {
     return (
       <div>
+        <Scoreboard gameId={this.props.params.gameId}/>
         {this.state.allWords.length && <BoardContainer allWords={this.state.allWords} whoGoesFirst={'blueTeam'} gameId={this.props.params.gameId} />}
       </div>
     )

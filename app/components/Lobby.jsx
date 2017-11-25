@@ -14,6 +14,7 @@ export default class Lobby extends Component {
     newGameRef.then(() => browserHistory.push(`/game-view/${newGameKey}/wordassassins`))
   }
 
+
   render() {
     return (
       <div>

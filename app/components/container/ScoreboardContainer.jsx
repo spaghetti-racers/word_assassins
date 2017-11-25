@@ -7,8 +7,8 @@ export default class ScoreboardContainer extends Component {
   constructor() {
     super()
     this.state = {
-      redTeamRoundsWon: 1,
-      blueTeamRoundsWon: 1,
+      redTeamRoundsWon: 0,
+      blueTeamRoundsWon: 0,
 
       redTeamNumCards: 8,
       blueTeamNumCards: 9,
@@ -27,9 +27,11 @@ export default class ScoreboardContainer extends Component {
     this.displayHint(hintFake)
     this.setState({ word: 'Carmen', numGuessesAllowed: 17 })
 
-    const FakeRoundsWonByTeams = { red: 30, blue: 20 }
-    this.setRoundsWon(FakeRoundsWonByTeams)
-    this.setState({ redTeamRoundsWon: 5, blueTeamRoundsWon: 6 })
+    const FakeRoundsWonByTeams = { red: this.state.redTeamRoundsWon, blue: this.state.blueTeamRoundsWon }
+
+    const gameId = this.props.gameId
+    this.setRoundsWon(FakeRoundsWonByTeams, gameId)
+    //this.setState({ redTeamRoundsWon: 5, blueTeamRoundsWon: 6 })
 
     const numCardsRemainingFake = { red: 40, blue: 10 }
     this.setNumCards(numCardsRemainingFake)
@@ -54,20 +56,26 @@ export default class ScoreboardContainer extends Component {
     })
   }
 
-  setRoundsWon(roundsWonObject) {
-    console.log("!!!!!!!!!!mi gente")
+  setRoundsWon(roundsWonObject, gameId) {
+    console.log("!!!!!!!!!!", gameId)
     // this.setState({ redTeamNumCards: cardsObject.red, blueTeamNumCards: cardsObject.blue })
     const dataRef = firebase.database().ref()
-    const roundsWon = dataRef.child('RoundsWonByTeams')
-    roundsWon.set({
+    const gameInstance = dataRef.child('gameInstances').child(gameId).child('currentGameStatus').child('RoundsWonByTeams')
+    //const roundsWon = dataRef.child('currentGameStatus').child('RoundsWonByTeams')
+
+    console.log("redTeam: ", roundsWonObject.red)
+      console.log("blueTeam: ", roundsWonObject.blue)
+      console.log("object: ", roundsWonObject)
+    gameInstance.set({
       redTeamNumRoundsWon: roundsWonObject.red,
       blueTeamNumRoundsWon: roundsWonObject.blue
     })
+    console.log('heyHello')
   }
 
   render() {
     return (
-      <Scoreboard />
+      <Scoreboard roundsWonRedTeam = {this.state.redTeamRoundsWon} roundsWonBlueTeam = {this.state.blueTeamRoundsWon} />
     )
   }
 }
