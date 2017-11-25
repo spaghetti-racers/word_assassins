@@ -10,7 +10,6 @@ import 'semantic-ui-css/semantic.min.css'
 
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
-import BoardContainer from './components/container/BoardContainer'
 import Lobby from './components/Lobby'
 import GameView from './components/GameView'
 
