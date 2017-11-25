@@ -17,7 +17,7 @@ export default class Lobby extends Component {
   render() {
     return (
       <div>
-       <button onClick={this.onClickNewGame}>Trial Button</button>
+       <button onClick={this.onClickNewGame}>Start New Game</button>
       </div>
     )
   }

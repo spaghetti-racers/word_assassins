@@ -17,13 +17,24 @@ export default class GameView extends Component {
       const wordArray = snapshot.val()
       this.setState({allWords: wordArray})
     })
+    const currentGameStatus = firebase.database().ref(`gameInstances/${this.props.params.gameId}/currentGameStatus`)
+    currentGameStatus.on('value', snapshot => {
+      this.setState({currentGameStatus: snapshot.val()})
+    })
   }
 
   render() {
     return (
       <div>
-        <Scoreboard gameId={this.props.params.gameId}/>
-        {this.state.allWords.length && <BoardContainer allWords={this.state.allWords} whoGoesFirst={'blueTeam'} gameId={this.props.params.gameId} />}
+      <Scoreboard gameId={this.props.params.gameId}/>
+      {
+        Object.keys(this.state).length >= 2 &&
+        <BoardContainer
+          allWords={this.state.allWords}
+          currentGameStatus={this.state.currentGameStatus}
+          gameId={this.props.params.gameId}
+        />
+      }
       </div>
     )
   }

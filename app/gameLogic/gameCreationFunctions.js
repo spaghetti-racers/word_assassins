@@ -36,7 +36,7 @@ export function generateColorsGC(whoGoesFirst, shuffleArrayFunc) {
 export function generateCardsGC(selectedWords, shuffledColorArray, whoGoesFirst, gameId) {
   const gameCardObject = selectedWords.reduce((accum, word, index) => {
     accum[index] = {
-      word: word,
+      word: word.toUpperCase(),
       clicked: false,
       color: shuffledColorArray[index]
     }
