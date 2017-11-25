@@ -7,13 +7,12 @@ export default class Lobby extends Component {
   onClickNewGame(event, data) {
     event.preventDefault()
     const newGameInstance = {
-      currentGameStatus: {roundActive: false}
+      currentGameStatus: {roundActive: false, whoGoesFirst: 'blueTeam'}
     }
     const newGameRef = firebase.database().ref('/gameInstances').push(newGameInstance)
     const newGameKey = newGameRef.key
     newGameRef.then(() => browserHistory.push(`/game-view/${newGameKey}/wordassassins`))
   }
-
 
   render() {
     return (

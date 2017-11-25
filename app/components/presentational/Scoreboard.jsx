@@ -17,14 +17,14 @@ const Scoreboard = props => {
           <Table.Row>
             <Table.Cell>
 
-              <RoundsWon roundsWonByTeams={{ red: props.roundsWonRedTeam, blue: props.roundsWonBlueTeam }} />
+              <RoundsWon roundsWonByTeams={{ red: props.roundsWonRedTeam, blue: props.roundsWonBlueTeam }} gameId={props.gameId} />
             </Table.Cell>
 
             <Table.Cell>
               <DisplayHint hint={{ word: props.word, numGuessesAllowed: props.numGuessesAllowed }} />
             </Table.Cell>
             <Table.Cell>
-              <CardsRemaining numCardsLeft={{ red: props.redTeamNumCards, blue: props.blueTeamNumCards }} />
+              <CardsRemaining numCardsLeft={{ red: props.redTeamNumCards, blue: props.blueTeamNumCards }} gameId={props.gameId} />
             </Table.Cell>
 
           </Table.Row>

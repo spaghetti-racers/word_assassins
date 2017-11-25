@@ -10,8 +10,9 @@ export default class ScoreboardContainer extends Component {
       redTeamRoundsWon: 0,
       blueTeamRoundsWon: 0,
 
-      redTeamNumCards: 8,
-      blueTeamNumCards: 9,
+      redTeamNumCardsLeft: 8,
+      blueTeamNumCardsLeft: 9,
+
       word: 'blank',
       numGuessesAllowed: 2
 
@@ -22,20 +23,19 @@ export default class ScoreboardContainer extends Component {
   }
 
   componentDidMount() {
-
+    const gameId = this.props.gameId
     const hintFake = { word: 'cat', numGuessesAllowed: 5 }
     this.displayHint(hintFake)
     this.setState({ word: 'Carmen', numGuessesAllowed: 17 })
 
     const FakeRoundsWonByTeams = { red: this.state.redTeamRoundsWon, blue: this.state.blueTeamRoundsWon }
 
-    const gameId = this.props.gameId
     this.setRoundsWon(FakeRoundsWonByTeams, gameId)
     //this.setState({ redTeamRoundsWon: 5, blueTeamRoundsWon: 6 })
 
-    const numCardsRemainingFake = { red: 40, blue: 10 }
-    this.setNumCards(numCardsRemainingFake)
-    this.setState({ redTeamNumCards: numCardsRemainingFake.red, blueTeamNumCards: numCardsRemainingFake.blue })
+    const numCardsRemainingFake = { red: this.state.redTeamNumCardsLeft, blue: this.state.blueTeamNumCardsLeft}
+    this.setNumCards(numCardsRemainingFake, gameId)
+    //this.setState({ redTeamNumCards: numCardsRemainingFake.red, blueTeamNumCards: numCardsRemainingFake.blue })
 
   }
   displayHint(hint) {
@@ -47,10 +47,11 @@ export default class ScoreboardContainer extends Component {
       numTurns: hint.numGuessesAllowed
     })
   }
-  setNumCards(cardsObject) {
+  setNumCards(cardsObject, gameId) {
     const dataRef = firebase.database().ref()
-    const numCardsLeft = dataRef.child('numCardsLeft')
-    numCardsLeft.set({
+    //const numCardsLeft = dataRef.child('numCardsLeft')
+    const gameInstance = dataRef.child('gameInstances').child(gameId).child('currentGameStatus').child('cardsRemaining')
+    gameInstance.set({
       redTeamNumCardsLeft: cardsObject.red,
       blueTeamNumCardsLeft: cardsObject.blue
     })
@@ -64,8 +65,8 @@ export default class ScoreboardContainer extends Component {
     //const roundsWon = dataRef.child('currentGameStatus').child('RoundsWonByTeams')
 
     console.log("redTeam: ", roundsWonObject.red)
-      console.log("blueTeam: ", roundsWonObject.blue)
-      console.log("object: ", roundsWonObject)
+    console.log("blueTeam: ", roundsWonObject.blue)
+    console.log("object: ", roundsWonObject)
     gameInstance.set({
       redTeamNumRoundsWon: roundsWonObject.red,
       blueTeamNumRoundsWon: roundsWonObject.blue
@@ -75,7 +76,7 @@ export default class ScoreboardContainer extends Component {
 
   render() {
     return (
-      <Scoreboard roundsWonRedTeam = {this.state.redTeamRoundsWon} roundsWonBlueTeam = {this.state.blueTeamRoundsWon} />
+      <Scoreboard roundsWonRedTeam={this.state.redTeamRoundsWon} roundsWonBlueTeam={this.state.blueTeamRoundsWon} gameId={this.props.gameId} />
     )
   }
 }
