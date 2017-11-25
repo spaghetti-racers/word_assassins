@@ -30,7 +30,9 @@ export default class Board extends Component {
   render() {
     return (
       <div>
-        <Card.Group itemsPerRow={5}>
+        {
+          this.props.currentGameStatus.roundActive ?
+          <Card.Group itemsPerRow={5}>
           {
             this.state.cards && this.state.cards.map((card, idx) =>
               (
@@ -45,6 +47,9 @@ export default class Board extends Component {
             )
           }
         </Card.Group>
+        :
+        <p>this will be the button</p>
+        }
       </div>
     )
   }

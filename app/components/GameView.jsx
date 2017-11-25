@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import BoardContainer from './container/BoardContainer'
+// import { Button } from 'semantic-ui-react'
 
 export default class GameView extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      allWords: []
     }
   }
 
@@ -26,7 +28,13 @@ export default class GameView extends Component {
   render() {
     return (
       <div>
-        {Object.keys(this.state).length >= 2 && this.state.currentGameStatus.roundActive ? <BoardContainer allWords={this.state.allWords} whoGoesFirst={'blueTeam'} gameId={this.props.params.gameId} /> : <div>A button will go here</div>}
+        {Object.keys(this.state).length >= 2 &&
+          <BoardContainer
+          allWords={this.state.allWords}
+          currentGameStatus={this.state.currentGameStatus}
+          gameId={this.props.params.gameId}
+          />
+        }
       </div>
     )
   }
