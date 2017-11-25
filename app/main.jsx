@@ -10,7 +10,7 @@ import 'semantic-ui-css/semantic.min.css'
 
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
-import GameCreator from './components/GameCreator'
+import BoardContainer from './components/container/BoardContainer'
 import Lobby from './components/Lobby'
 import GameView from './components/GameView'
 
@@ -69,7 +69,6 @@ render(
     </Route>
     <Route path="/lobby" component={Lobby} />
     <Route path="/game-view/:gameId/wordassassins" component={GameView} />
-    <Route path="/game-creator" component={GameCreator} />
     <Route path="/scoreboard" component={Scoreboard} />
     <Route path="/InactiveSpymasterHinter" component={InactiveSpymasterHinter} />
     <Route path='*' component={NotFound}/>
