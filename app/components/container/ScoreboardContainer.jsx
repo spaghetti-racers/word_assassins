@@ -24,27 +24,28 @@ export default class ScoreboardContainer extends Component {
 
   componentDidMount() {
     const gameId = this.props.gameId
-    const hintFake = { word: 'cat', numGuessesAllowed: 5 }
-    this.displayHint(hintFake)
-    this.setState({ word: 'Carmen', numGuessesAllowed: 17 })
+    const hintFake = { word: this.state.word, numGuessesAllowed: this.state.numGuessesAllowed }
+    this.displayHint(hintFake, gameId)
+    //this.setState({ word: 'Carmen', numGuessesAllowed: 17 })
 
     const FakeRoundsWonByTeams = { red: this.state.redTeamRoundsWon, blue: this.state.blueTeamRoundsWon }
 
     this.setRoundsWon(FakeRoundsWonByTeams, gameId)
     //this.setState({ redTeamRoundsWon: 5, blueTeamRoundsWon: 6 })
 
-    const numCardsRemainingFake = { red: this.state.redTeamNumCardsLeft, blue: this.state.blueTeamNumCardsLeft}
+    const numCardsRemainingFake = { red: this.state.redTeamNumCardsLeft, blue: this.state.blueTeamNumCardsLeft }
     this.setNumCards(numCardsRemainingFake, gameId)
     //this.setState({ redTeamNumCards: numCardsRemainingFake.red, blueTeamNumCards: numCardsRemainingFake.blue })
 
   }
-  displayHint(hint) {
+  displayHint(hint, gameId) {
     console.log("HINTT", hint)
     const dataRef = firebase.database().ref()
-    const hintToDisplay = dataRef.child('displayHint')
-    hintToDisplay.set({
+    //const hintToDisplay = dataRef.child('displayHint')
+    const gameInstance = dataRef.child('gameInstances').child(gameId).child('currentGameStatus').child('displayHint')
+    gameInstance.set({
       word: hint.word,
-      numTurns: hint.numGuessesAllowed
+      numGuessesAllowed: hint.numGuessesAllowed
     })
   }
   setNumCards(cardsObject, gameId) {

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import DisplayHint from '../presentational/DisplayHint.jsx'
 
@@ -14,11 +14,12 @@ export default class DisplayHintContainer extends Component {
 
   componentDidMount() {
     const dataRef = firebase.database().ref();
-    const hint = dataRef.child('displayHint')
-    hint.on('value', (snap) => {
+    const gameInstance = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus').child('displayHint')
+    //const hint = dataRef.child('displayHint')
+    gameInstance.on('value', (snap) => {
       const arrayHint = Object.keys(snap.val())
-      for (let i = 0; i < arrayHint.length; i++ ) {
-        hint.child(arrayHint[i]).on('value', (snap) => {
+      for (let i = 0; i < arrayHint.length; i++) {
+        gameInstance.child(arrayHint[i]).on('value', (snap) => {
           this.setState({
             [arrayHint[i]]: snap.val()
           })
@@ -30,7 +31,7 @@ export default class DisplayHintContainer extends Component {
   render() {
     console.log('our props ', this.props.numCardsLeft)
     return (
-      <DisplayHint hintWord={this.state.word} hintNumGuessesAllowed={this.state.numGuessesAllowed}/>
+      <DisplayHint hintWord={this.state.word} hintNumGuessesAllowed={this.state.numGuessesAllowed} />
     )
   }
 }
