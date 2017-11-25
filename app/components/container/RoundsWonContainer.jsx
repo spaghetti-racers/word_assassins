@@ -6,21 +6,21 @@ export default class RoundsWonContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      redTeamRoundsWon: this.props.roundsWonByTeams.red,
-      blueTeamRoundsWon: this.props.roundsWonByTeams.blue
+      redTeamNumRoundsWon: this.props.roundsWonByTeams.red,
+      blueTeamNumRoundsWon: this.props.roundsWonByTeams.blue
     }
-    //this.setNumCards = this.setNumCards.bind(this)
   }
 
   componentDidMount() {
     const dataRef = firebase.database().ref()
-    const roundsWon = dataRef.child('RoundsWonByTeams')
-    roundsWon.on('value', (snap) => {
+    const gameInstance = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus').child('RoundsWonByTeams')
+    gameInstance.on('value', (snap) => {
       const arrayOfTeamNames = Object.keys(snap.val())
       for (let i = 0; i < arrayOfTeamNames.length; i++) {
-        roundsWon.child(arrayOfTeamNames[i]).on('value', (snap) => {
+        gameInstance.child(arrayOfTeamNames[i]).on('value', (snap) => {
           this.setState({
             [arrayOfTeamNames[i]]: snap.val()
+
           })
         })
       }
@@ -29,7 +29,7 @@ export default class RoundsWonContainer extends Component {
 
   render() {
     return (
-      <RoundsWon roundsWonByTeamsRed = {this.state.redTeamRoundsWon} roundsWonByTeamsBlue = {this.state.blueTeamRoundsWon}/>
+      <RoundsWon roundsWonByTeamsRed = {this.state.redTeamNumRoundsWon} roundsWonByTeamsBlue = {this.state.blueTeamNumRoundsWon}/>
     )
   }
 }

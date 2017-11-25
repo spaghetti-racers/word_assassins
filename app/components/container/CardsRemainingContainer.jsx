@@ -6,19 +6,18 @@ export default class CardsRemainingContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      redTeamNumCards: this.props.numCardsLeft.red,
-      blueTeamNumCards: this.props.numCardsLeft.blue
+      redTeamNumCardsLeft: this.props.numCardsLeft.red,
+      blueTeamNumCardsLeft: this.props.numCardsLeft.blue
     }
-    //this.setNumCards = this.setNumCards.bind(this)
   }
 
   componentDidMount() {
     const dataRef = firebase.database().ref()
-    const numCardsLeft = dataRef.child('numCardsLeft')
-    numCardsLeft.on('value', (snap) => {
+    const gameInstance = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus').child('cardsRemaining')
+    gameInstance.on('value', (snap) => {
       const arrayOfTeamNames = Object.keys(snap.val())
       for (let i = 0; i < arrayOfTeamNames.length; i++) {
-        numCardsLeft.child(arrayOfTeamNames[i]).on('value', (snap) => {
+        gameInstance.child(arrayOfTeamNames[i]).on('value', (snap) => {
           this.setState({
             [arrayOfTeamNames[i]]: snap.val()
           })
@@ -29,7 +28,7 @@ export default class CardsRemainingContainer extends Component {
 
   render() {
     return (
-      <CardsRemaining numCardsLeftRed={this.state.redTeamNumCards} numCardsLeftBlue={this.state.blueTeamNumCards}/>
+      <CardsRemaining numCardsLeftRed={this.state.redTeamNumCardsLeft} numCardsLeftBlue={this.state.blueTeamNumCardsLeft}/>
     )
   }
 }
