@@ -19,7 +19,7 @@ export default class InactiveSpymasterHinterContainer extends Component {
 
   checkIfTheresAHint() {
     const dataRef = firebase.database().ref()
-    dataRef.child('potentialHintandNumOfWords').on('value', snap => {
+    dataRef.child('potentialHintandNumOfGuesses').on('value', snap => {
       if (snap.val()=== null) {
         this.setState({
           numberOfWordsToGuess: '',
@@ -31,7 +31,7 @@ export default class InactiveSpymasterHinterContainer extends Component {
   }
 
   validateHint() {
-    firebase.database().ref('/potentialHintandNumOfWords').update({hintApproval: true})
+    firebase.database().ref(`gameInstances/${this.props.gameid}/potentialHintandNumOfGuesses/hintApproval`).update({hintApproval: true})
   }
 
   render() {
