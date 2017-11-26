@@ -23,8 +23,8 @@ export default class BoardContainer extends Component {
   // ONCLICK LISTENER TO UPDATE THE STATUS OF A CARD IN THE DB WHEN CLICKED
   pickCard(event, data) {
     event.preventDefault()
-    console.log("props:  ", this.props)
-    console.log("game status: ", this.props.currentGameStatus)
+    //console.log("props:  ", this.props)
+    //console.log("game status: ", this.props.currentGameStatus)
     let updatedCardsRemaining = {}
     const clickedCardIndex = data.children.props.value
     const clickedCard = firebase.database().ref(`gameInstances/${this.props.gameId}/gameCards/${clickedCardIndex}`)
@@ -33,6 +33,59 @@ export default class BoardContainer extends Component {
     const dataRef = firebase.database().ref()
     const cardsRemaining = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus').child('cardsRemaining')
 
+    const roundsWon = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
+
+    const gameStatus = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
+
+    gameStatus.on('value', snap => {
+      //console.log("DUUUUUUUDE!!!!!: ", snap.val())
+      let currPhaseOfGame = {}
+      const currentGameStatus = snap.val()
+      const blueCardsLeft = currentGameStatus.cardsRemaining.blueTeamNumCardsLeft
+      const redCardsLeft = currentGameStatus.cardsRemaining.redTeamNumCardsLeft
+      console.log("blueCardslet: ", blueCardsLeft)
+      console.log("redCardsLeft: ", redCardsLeft)
+      if (blueCardsLeft === 0) {
+        currPhaseOfGame = {
+          RoundsWonByTeams: {
+            blueTeamNumRoundsWon: this.props.currentGameStatus.RoundsWonByTeams.blueTeamNumRoundsWon + 1,
+            redTeamNumRoundsWon: this.props.currentGameStatus.RoundsWonByTeams.redTeamNumRoundsWon
+          }
+        }
+      } else if (redCardsLeft === 0) {
+        currPhaseOfGame = {
+          RoundsWonByTeams: {
+            blueTeamNumRoundsWon: this.props.currentGameStatus.RoundsWonByTeams.blueTeamNumRoundsWon,
+            redTeamNumRoundsWon: this.props.currentGameStatus.RoundsWonByTeams.redTeamNumRoundsWon + 1
+          }
+        }
+      }
+      roundsWon.update(currPhaseOfGame)
+    })
+
+    // let currPhaseOfGame = {}
+    // if (this.props.currentGameStatus.cardsRemaining.redTeamNumCardsLeft === 0) {
+    //   currPhaseOfGame = {
+    //     RoundsWonByTeams: {
+    //       blueTeamNumRoundsWon: this.props.currentGameStatus.RoundsWonByTeams.blueTeamNumRoundsWon,
+    //       redTeamNumRoundsWon: this.props.currentGameStatus.RoundsWonByTeams.redTeamNumRoundsWon + 1
+    //     }
+    //   }
+    //  console.log("new object for red", currPhaseOfGame)
+    //   roundsWon.update(currPhaseOfGame)
+    // }
+    // else if (this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft === 0) {
+    //   currPhaseOfGame = {
+    //     RoundsWonByTeams: {
+    //       blueTeamNumRoundsWon: this.props.currentGameStatus.RoundsWonByTeams.blueTeamNumRoundsWon + 1,
+    //       redTeamNumRoundsWon: this.props.currentGameStatus.RoundsWonByTeams.redTeamNumRoundsWon
+    //     }
+    //   }
+    //   console.log("new object for blue", currPhaseOfGame)
+    //   roundsWon.update(currPhaseOfGame)
+    // }
+
+    //GAME LOGIC FUNCTION -- updates CardsRemaining based on a card click
     if (this.state.cards[clickedCardIndex].color === 'blue') {
       //console.log("rblue emaining: ", this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft)
       updatedCardsRemaining = {
@@ -47,7 +100,6 @@ export default class BoardContainer extends Component {
       }
       cardsRemaining.update(updatedCardsRemaining)
     }
-
   }
 
   // ONCLICK LISTENER SET ROUND ACTIVE TO TRUE AND THEN GET ALL THE CARDS TO PASS AS PROPS TO RENDER IN BOARD
