@@ -1,6 +1,6 @@
 import React from 'react'
 import RoundsWon from '../container/RoundsWonContainer.jsx'
-import DisplayHint from '../container/DisplayHintContainer.jsx'
+import DisplayHintContainer from '../container/DisplayHintContainer.jsx'
 import CardsRemaining from '../container/CardsRemainingContainer.jsx'
 
 import { Grid } from 'semantic-ui-react'
@@ -21,7 +21,7 @@ const Scoreboard = props => {
             </Table.Cell>
 
             <Table.Cell>
-              <DisplayHint hint={{ word: props.word, numGuessesAllowed: props.numGuessesAllowed }}gameId = {props.gameId}/>
+              <DisplayHintContainer hint={{ word: props.word, numGuessesAllowed: props.numGuessesAllowed }} gameId = {props.gameId}/>
             </Table.Cell>
             <Table.Cell>
               <CardsRemaining numCardsLeft={{ red: props.redTeamNumCards, blue: props.blueTeamNumCards }} gameId={props.gameId} />
