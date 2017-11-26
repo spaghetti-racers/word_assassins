@@ -43,7 +43,8 @@ export default class ActiveSpymasterHinterContainer extends Component {
     })
     this.setState({
       numberOfWordsToGuess: '',
-      possibleHint: ''
+      possibleHint: '',
+      hintApproval: false
     })
   }
 
