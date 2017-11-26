@@ -23,9 +23,31 @@ export default class BoardContainer extends Component {
   // ONCLICK LISTENER TO UPDATE THE STATUS OF A CARD IN THE DB WHEN CLICKED
   pickCard(event, data) {
     event.preventDefault()
+    console.log("props:  ", this.props)
+    console.log("game status: ", this.props.currentGameStatus)
+    let updatedCardsRemaining = {}
     const clickedCardIndex = data.children.props.value
     const clickedCard = firebase.database().ref(`gameInstances/${this.props.gameId}/gameCards/${clickedCardIndex}`)
     clickedCard.update({ clicked: true })
+
+    const dataRef = firebase.database().ref()
+    const cardsRemaining = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus').child('cardsRemaining')
+
+    if (this.state.cards[clickedCardIndex].color === 'blue') {
+      //console.log("rblue emaining: ", this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft)
+      updatedCardsRemaining = {
+        blueTeamNumCardsLeft: this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft - 1, redTeamNumCardsLeft: this.props.currentGameStatus.cardsRemaining.redTeamNumCardsLeft
+      }
+      cardsRemaining.update(updatedCardsRemaining)
+    }
+    else if (this.state.cards[clickedCardIndex].color === 'red') {
+      //console.log("rblue emaining: ", this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft)
+      updatedCardsRemaining = {
+        blueTeamNumCardsLeft: this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft, redTeamNumCardsLeft: this.props.currentGameStatus.cardsRemaining.redTeamNumCardsLeft - 1
+      }
+      cardsRemaining.update(updatedCardsRemaining)
+    }
+
   }
 
   // ONCLICK LISTENER SET ROUND ACTIVE TO TRUE AND THEN GET ALL THE CARDS TO PASS AS PROPS TO RENDER IN BOARD
@@ -34,7 +56,7 @@ export default class BoardContainer extends Component {
     allCards.on('value', snapshot => {
       const cardArray = snapshot.val()
       this.setState({ cards: cardArray.gameCards })
-      firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus`).update({roundActive: true})
+      firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus`).update({ roundActive: true })
     })
   }
 
@@ -43,13 +65,13 @@ export default class BoardContainer extends Component {
       <div>
         {
           this.props.currentGameStatus.roundActive ?
-          <Board
-            gameId={this.props.gameId}
-            currentGameStatus={this.props.currentGameStatus}
-            pickCard={this.pickCard}
-            cards={this.state.cards}
-          /> :
-          <Button onClick={this.getCardsOnClick}>this is a Button</Button>
+            <Board
+              gameId={this.props.gameId}
+              currentGameStatus={this.props.currentGameStatus}
+              pickCard={this.pickCard}
+              cards={this.state.cards}
+            /> :
+            <Button onClick={this.getCardsOnClick}>this is a Button</Button>
         }
       </div>
     )
