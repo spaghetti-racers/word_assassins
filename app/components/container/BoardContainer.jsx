@@ -79,6 +79,7 @@ export default class BoardContainer extends Component {
               currentGameStatus={this.props.currentGameStatus}
               pickCard={this.pickCard}
               cards={this.state.cards}
+              players={this.props.players}
             /> :
             <Button onClick={this.getCardsOnClick}>this is a Button</Button>
         }
