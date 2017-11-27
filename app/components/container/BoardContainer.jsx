@@ -40,13 +40,18 @@ export default class BoardContainer extends Component {
     gameStatus.on('value', snap => {
 
       let currPhaseOfGame = {}
+
       const currentGameStatus = snap.val()
       const blueCardsLeft = currentGameStatus.cardsRemaining.blueTeamNumCardsLeft
       const redCardsLeft = currentGameStatus.cardsRemaining.redTeamNumCardsLeft
 
       currPhaseOfGame = updateRoundsWon(blueCardsLeft, redCardsLeft, this.props.currentGameStatus.RoundsWonByTeams.blueTeamNumRoundsWon, this.props.currentGameStatus.RoundsWonByTeams.redTeamNumRoundsWon)
 
+      //console.log("gameState: ", currPhaseOfGame)
+
       roundsWon.update(currPhaseOfGame)
+
+     // gameStatus.update(roundIsActive)
     })
 
     //GAME LOGIC FUNCTION -- updates CardsRemaining based on a card click
