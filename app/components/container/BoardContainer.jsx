@@ -27,7 +27,6 @@ export default class BoardContainer extends Component {
   // ONCLICK LISTENER TO UPDATE THE STATUS OF A CARD IN THE DB WHEN CLICKED
   pickCard(event, data) {
     event.preventDefault()
-
     let cardsRemainingObj = {}
     let updatedNumGuessesAllowedObj = {}
     const clickedCardIndex = data.children.props.value
@@ -35,17 +34,15 @@ export default class BoardContainer extends Component {
     clickedCard.update({ clicked: true })
 
     const dataRef = firebase.database().ref()
+
     const cardsRemaining = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus').child('cardsRemaining')
-
     const roundsWon = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
-
     const gameStatus = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
 
     const numGuessesAllowedLocation = gameStatus.child('displayHint')
 
     // GAME LOGIC FUNCTION - update RoundsWon based on card click/cards remaining === 0
     gameStatus.on('value', snap => {
-
       let currPhaseOfGame = {}
 
       const currentGameStatus = snap.val()
@@ -55,17 +52,15 @@ export default class BoardContainer extends Component {
       currPhaseOfGame = updateRoundsWon(blueCardsLeft, redCardsLeft, this.props.currentGameStatus.RoundsWonByTeams.blueTeamNumRoundsWon, this.props.currentGameStatus.RoundsWonByTeams.redTeamNumRoundsWon)
 
       roundsWon.update(currPhaseOfGame)
-
     })
 
-    //GAME LOGIC FUNCTION -- updates CardsRemaining based on a card click
+    // GAME LOGIC FUNCTION -- updates CardsRemaining based on a card click
     cardsRemainingObj = updateCardsRemaining(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft, this.props.currentGameStatus.cardsRemaining.redTeamNumCardsLeft, this.props.currentGameStatus.activeTeam)
     cardsRemaining.update(cardsRemainingObj)
 
-    updatedNumGuessesAllowedObj = updateGuessesAllowed(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.displayHint,this.props.currentGameStatus.activeTeam)
+    updatedNumGuessesAllowedObj = updateGuessesAllowed(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.displayHint, this.props.currentGameStatus.activeTeam)
 
     numGuessesAllowedLocation.update(updatedNumGuessesAllowedObj)
-
   }
 
   // ONCLICK LISTENER SET ROUND ACTIVE TO TRUE AND THEN GET ALL THE CARDS TO PASS AS PROPS TO RENDER IN BOARD
