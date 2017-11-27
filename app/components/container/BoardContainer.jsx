@@ -56,8 +56,6 @@ export default class BoardContainer extends Component {
 
     //GAME LOGIC FUNCTION -- updates CardsRemaining based on a card click
     cardsRemainingObj = updateCardsRemaining(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft, this.props.currentGameStatus.cardsRemaining.redTeamNumCardsLeft, this.props.currentGameStatus.activeTeam)
-    console.log("activeTeam", this.props.currentGameStatus.activeTeam)
-    console.log("display Hint", this.props.currentGameStatus.displayHint)
     cardsRemaining.update(cardsRemainingObj)
 
     updatedNumGuessesAllowedObj = updateGuessesAllowed(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.displayHint,this.props.currentGameStatus.activeTeam)
