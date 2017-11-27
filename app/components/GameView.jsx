@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import BoardContainer from './container/BoardContainer'
 import Scoreboard from './container/ScoreboardContainer.jsx'
-
+import ActiveSpyMasterHinterContainer from './container/ActiveSpyMasterHinterContainer'
+import InactiveSpyMasterHinterContainer from './container/InactiveSpymasterHinterContainer'
 export default class GameView extends Component {
   constructor(props) {
     super(props)
@@ -35,6 +36,8 @@ export default class GameView extends Component {
           gameId={this.props.params.gameId}
         />
       }
+      <ActiveSpyMasterHinterContainer gameid={this.props.params.gameId}/>
+      <InactiveSpyMasterHinterContainer gameid={this.props.params.gameId}/>
       </div>
     )
   }

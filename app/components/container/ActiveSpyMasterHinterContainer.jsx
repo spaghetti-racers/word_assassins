@@ -16,8 +16,7 @@ export default class ActiveSpymasterHinterContainer extends Component {
     this.resetHintGenerator = this.resetHintGenerator.bind(this)
   }
   componentDidMount() {
-    const dataRef = firebase.database().ref()
-    const hintApproval = dataRef.child('potentialHintandNumOfWords').child('hintApproval')
+    const hintApproval = firebase.database().ref(`gameInstances/${this.props.gameid}/currentGameStatus/potentialHintandNumOfGuesses/hintApproval`)
     hintApproval.on('value', snap => {
       this.setState({hintApproval: snap.val()})
     })
@@ -34,22 +33,29 @@ export default class ActiveSpymasterHinterContainer extends Component {
     })
   }
   submitPotentialHint() {
+    this.setState({previousState: this.state})
     const numOfguesses = this.state.numberOfWordsToGuess + 1
-    const dataRef = firebase.database().ref()
-    dataRef.child('potentialHintandNumOfWords').set({
+    const possibleHint = firebase.database().ref(`gameInstances/${this.props.gameid}/currentGameStatus/potentialHintandNumOfGuesses/hintApproval`)
+
+    possibleHint.set({
       numberOfWordsToGuess: numOfguesses,
       possibleHint: this.state.possibleHint,
       hintApproval: false
     })
     this.setState({
       numberOfWordsToGuess: '',
-      possibleHint: ''
+      possibleHint: '',
+      hintApproval: false
     })
   }
 
   resetHintGenerator() {
-    const dataRef = firebase.database().ref()
-    const hintGen = dataRef.child('potentialHintandNumOfWords').update({hintApproval: null, numberOfWordsToGuess: null, possibleHint: null})
+    firebase.database().ref(`gameInstances/${this.props.gameid}/currentGameStatus/potentialHintandNumOfGuesses/hintApproval`).update({hintApproval: null, numberOfWordsToGuess: null, possibleHint: null})
+
+    firebase.database().ref(`gameInstances/${this.props.gameid}/currentGameStatus/displayHint`).set({
+      hintToDisplay: this.state.previousState.possibleHint,
+      numOfWordGuesses: this.state.previousState.numberOfWordsToGuess + 1
+    })
   }
 
   render() {
