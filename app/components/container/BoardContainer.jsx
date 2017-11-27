@@ -47,11 +47,9 @@ export default class BoardContainer extends Component {
 
       currPhaseOfGame = updateRoundsWon(blueCardsLeft, redCardsLeft, this.props.currentGameStatus.RoundsWonByTeams.blueTeamNumRoundsWon, this.props.currentGameStatus.RoundsWonByTeams.redTeamNumRoundsWon)
 
-      //console.log("gameState: ", currPhaseOfGame)
 
       roundsWon.update(currPhaseOfGame)
 
-     // gameStatus.update(roundIsActive)
     })
 
     //GAME LOGIC FUNCTION -- updates CardsRemaining based on a card click
