@@ -18,26 +18,43 @@ export default class GameView extends Component {
       const wordArray = snapshot.val()
       this.setState({allWords: wordArray})
     })
-    const currentGameStatus = firebase.database().ref(`gameInstances/${this.props.params.gameId}/currentGameStatus`)
+    const currentGameStatus = firebase.database().ref(`gameInstances/${this.props.params.gameId}`)
     currentGameStatus.on('value', snapshot => {
-      this.setState({currentGameStatus: snapshot.val()})
+      this.setState({currentGameStatus: snapshot.val().currentGameStatus, players: snapshot.val().players})
     })
   }
 
   render() {
     return (
       <div>
-      <Scoreboard gameId={this.props.params.gameId} currentGameStatus={this.state.currentGameStatus}/>
+        <Scoreboard
+          gameId={this.props.params.gameId}
+          currentGameStatus={this.state.currentGameStatus}
+          players={this.state.players}
+        />
       {
-        Object.keys(this.state).length >= 2 &&
-        <BoardContainer
+        Object.keys(this.state).length >= 3 &&
+        <div>
+          <BoardContainer
           allWords={this.state.allWords}
           currentGameStatus={this.state.currentGameStatus}
           gameId={this.props.params.gameId}
-        />
+          players={this.state.players}
+          />
+
+          <ActiveSpyMasterHinterContainer
+            currentGameStatus={this.state.currentGameStatus}
+            gameId={this.props.params.gameId}
+            players={this.state.players}
+            />
+
+          <InactiveSpyMasterHinterContainer
+            currentGameStatus={this.state.currentGameStatus}
+            gameId={this.props.params.gameId}
+            players={this.state.players}
+          />
+        </div>
       }
-      <ActiveSpyMasterHinterContainer gameid={this.props.params.gameId}/>
-      <InactiveSpyMasterHinterContainer gameid={this.props.params.gameId}/>
       </div>
     )
   }
