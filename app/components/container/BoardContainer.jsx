@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import Board from '../presentational/Board'
 import { Button } from 'semantic-ui-react'
-import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC, updateRoundsWon, updateCardsRemaining } from '../../gameLogic'
+import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC, updateRoundsWon, updateCardsRemaining, updateGuessesAllowed } from '../../gameLogic'
 
 export default class BoardContainer extends Component {
   constructor(props) {
@@ -25,6 +25,7 @@ export default class BoardContainer extends Component {
     event.preventDefault()
 
     let cardsRemainingObj = {}
+    let updatedNumGuessesAllowedObj = {}
     const clickedCardIndex = data.children.props.value
     const clickedCard = firebase.database().ref(`gameInstances/${this.props.gameId}/gameCards/${clickedCardIndex}`)
     clickedCard.update({ clicked: true })
@@ -35,6 +36,8 @@ export default class BoardContainer extends Component {
     const roundsWon = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
 
     const gameStatus = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
+
+    const numGuessesAllowedLocation = gameStatus.child('displayHint')
 
     //GAME LOGIC FUNCTION - update RoundsWon based on card click/cards remaining === 0
     gameStatus.on('value', snap => {
@@ -47,15 +50,17 @@ export default class BoardContainer extends Component {
 
       currPhaseOfGame = updateRoundsWon(blueCardsLeft, redCardsLeft, this.props.currentGameStatus.RoundsWonByTeams.blueTeamNumRoundsWon, this.props.currentGameStatus.RoundsWonByTeams.redTeamNumRoundsWon)
 
-
       roundsWon.update(currPhaseOfGame)
 
     })
 
     //GAME LOGIC FUNCTION -- updates CardsRemaining based on a card click
-    cardsRemainingObj = updateCardsRemaining(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft, this.props.currentGameStatus.cardsRemaining.redTeamNumCardsLeft)
-
+    cardsRemainingObj = updateCardsRemaining(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft, this.props.currentGameStatus.cardsRemaining.redTeamNumCardsLeft, this.props.currentGameStatus.activeTeam)
     cardsRemaining.update(cardsRemainingObj)
+
+    updatedNumGuessesAllowedObj = updateGuessesAllowed(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.displayHint,this.props.currentGameStatus.activeTeam)
+
+    numGuessesAllowedLocation.update(updatedNumGuessesAllowedObj)
 
   }
 

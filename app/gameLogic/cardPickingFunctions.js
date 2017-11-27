@@ -1,4 +1,4 @@
-export const updateCardsRemaining = function(cardColor, blueRemainingCards, redRemainingCards) {
+export const updateCardsRemaining = function(cardColor, blueRemainingCards, redRemainingCards, activeTeam) {
   let updatedCardsRemaining = {}
   if (cardColor === 'blue') {
     updatedCardsRemaining = {
@@ -8,6 +8,27 @@ export const updateCardsRemaining = function(cardColor, blueRemainingCards, redR
     updatedCardsRemaining = {
       blueTeamNumCardsLeft: blueRemainingCards, redTeamNumCardsLeft: redRemainingCards - 1
     }
+  } else if (cardColor === 'black') {
+    if (activeTeam === 'redTeam') {
+      updatedCardsRemaining = {
+        blueTeamNumCardsLeft: 0, redTeamNumCardsLeft: redRemainingCards
+      }
+    } else {
+      updatedCardsRemaining = {
+        blueTeamNumCardsLeft: blueRemainingCards, redTeamNumCardsLeft: 0
+      }
+    }
   }
+
   return updatedCardsRemaining
+}
+
+export const updateGuessesAllowed = function(cardColor, displayHint, activeTeam) {
+  let newNumGuessesAllowed = 0
+  if (cardColor === activeTeam.slice(0, -4)) {
+    newNumGuessesAllowed = displayHint.numOfWordGuesses - 1
+  } else {
+    newNumGuessesAllowed = 0
+  }
+  return {hintToDisplay: displayHint.hintToDisplay, numOfWordGuesses: newNumGuessesAllowed}
 }
