@@ -13,8 +13,8 @@ export default class ScoreboardContainer extends Component {
       redTeamNumCardsLeft: 8,
       blueTeamNumCardsLeft: 9,
 
-      word: 'blank',
-      numGuessesAllowed: 2
+      hintToDisplay: 'blank',
+      numOfWordGuesses: 2
 
     }
     this.setNumCards = this.setNumCards.bind(this)
@@ -24,7 +24,7 @@ export default class ScoreboardContainer extends Component {
 
   componentDidMount() {
     const gameId = this.props.gameId
-    const hintFake = { word: this.state.word, numGuessesAllowed: this.state.numGuessesAllowed }
+    const hintFake = { hintToDisplay: this.state.hintToDisplay, numOfWordGuesses: this.state.numOfWordGuesses }
     this.displayHint(hintFake, gameId)
 
     const FakeRoundsWonByTeams = { red: this.state.redTeamRoundsWon, blue: this.state.blueTeamRoundsWon }
@@ -39,8 +39,8 @@ export default class ScoreboardContainer extends Component {
     const dataRef = firebase.database().ref()
     const gameInstance = dataRef.child('gameInstances').child(gameId).child('currentGameStatus').child('displayHint')
     gameInstance.set({
-      word: hint.word,
-      numGuessesAllowed: hint.numGuessesAllowed
+      hintToDisplay: hint.hintToDisplay,
+      numOfWordGuesses: hint.numOfWordGuesses
     })
   }
   setNumCards(cardsObject, gameId) {
