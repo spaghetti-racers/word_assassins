@@ -23,3 +23,13 @@ export const updateCardsRemaining = function (cardColor, blueRemainingCards, red
 
   return updatedCardsRemaining
 }
+
+export const updateGuessesAllowed = function(cardColor, displayHint, activeTeam) {
+  let newNumGuessesAllowed = 0
+  if (cardColor === activeTeam.slice(0, -4)) {
+    newNumGuessesAllowed = displayHint.numOfWordGuesses - 1
+  } else {
+    newNumGuessesAllowed = 0
+  }
+  return {hintToDisplay: displayHint.hintToDisplay, numOfWordGuesses: newNumGuessesAllowed}
+}
