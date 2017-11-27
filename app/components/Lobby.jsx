@@ -3,21 +3,24 @@ import firebase from 'APP/fire'
 import { browserHistory } from 'react-router'
 
 export default class Lobby extends Component {
-  // CREATES A NEW GAME INSTANCE AND HAS ACCESS TO THE KEY
+  // CREATES A NEW ROOM INSTANCE AND HAS ACCESS TO THE KEY
   onClickNewGame(event, data) {
     event.preventDefault()
-    const newGameInstance = {
-      currentGameStatus: {roundActive: false, whoGoesFirst: 'blueTeam'}
+    const auth = firebase.auth()
+    const newRoomInstance = {
+      potentialPlayers: {
+        0: auth.currentUser.uid
+      }
     }
-    const newGameRef = firebase.database().ref('/gameInstances').push(newGameInstance)
-    const newGameKey = newGameRef.key
-    newGameRef.then(() => browserHistory.push(`/game-view/${newGameKey}/wordassassins`))
+    const newRoomRef = firebase.database().ref('/rooms').push(newRoomInstance)
+    const newRoomKey = newRoomRef.key
+    newRoomRef.then(() => browserHistory.push(`/rooms/${newRoomKey}/wordassassins`))
   }
 
   render() {
     return (
       <div>
-       <button onClick={this.onClickNewGame}>Start New Game</button>
+       <button onClick={this.onClickNewGame}>Create Room</button>
       </div>
     )
   }
