@@ -2,10 +2,6 @@
 import React from 'react'
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
-
-import Scoreboard from './components/container/ScoreboardContainer'
-import ActiveSpymasterHinter from './components/container/ActiveSpymasterHinterContainer'
-import InactiveSpymasterHinter from './components/container/InactiveSpymasterHinterContainer'
 import 'semantic-ui-css/semantic.min.css'
 
 import WhoAmI from './components/WhoAmI'
@@ -56,8 +52,6 @@ const App = ({children}) =>
     </nav>
     {/* Render our children (whatever the router gives us) */}
     {children}
-    <Scoreboard />
-    <ActiveSpymasterHinter />
   </div>
 
 render(
@@ -68,8 +62,6 @@ render(
     </Route>
     <Route path="/lobby" component={Lobby} />
     <Route path="/game-view/:gameId/wordassassins" component={GameView} />
-    <Route path="/scoreboard" component={Scoreboard} />
-    <Route path="/InactiveSpymasterHinter" component={InactiveSpymasterHinter} />
     <Route path='*' component={NotFound}/>
   </Router>,
   document.getElementById('main')

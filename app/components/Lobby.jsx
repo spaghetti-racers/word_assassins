@@ -7,7 +7,34 @@ export default class Lobby extends Component {
   onClickNewGame(event, data) {
     event.preventDefault()
     const newGameInstance = {
-      currentGameStatus: {roundActive: false, whoGoesFirst: 'blueTeam', activeTeam: 'blueTeam'}
+      currentGameStatus: {
+        roundActive: false,
+        whoGoesFirst: 'blueTeam',
+        activeTeam: 'blueTeam'
+      },
+
+      players: {
+        player0: {
+          playerId: '0ABC',
+          teamColor: 'redTeam',
+          role: 'spymaster'
+        },
+        player1: {
+          playerId: '1ABC',
+          teamColor: 'redTeam',
+          role: 'guesser'
+        },
+        player2: {
+          playerId: '2ABC',
+          teamColor: 'blueTeam',
+          role: 'spymaster'
+        },
+        player3: {
+          playerId: '3ABC',
+          teamColor: 'blueTeam',
+          role: 'spymaster'
+        }
+      }
     }
     const newGameRef = firebase.database().ref('/gameInstances').push(newGameInstance)
     const newGameKey = newGameRef.key
