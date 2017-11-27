@@ -18,3 +18,15 @@ export const updateRoundsWon = function(blueCardsLeft, redCardsLeft, blueRoundsW
   }
   return currPhaseOfGame
 }
+
+export const endTurn = function(numOfWordGuesses, activeTeam) {
+  let newTeam = activeTeam
+  if (numOfWordGuesses === 0) {
+    if (activeTeam === 'redTeam') {
+      newTeam = 'blueTeam'
+    } else {
+      newTeam = 'redTeam'
+    }
+  }
+  return newTeam
+}

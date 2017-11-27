@@ -2,13 +2,15 @@ import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import Board from '../presentational/Board'
 import { Button } from 'semantic-ui-react'
-import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC, updateRoundsWon, updateCardsRemaining, updateGuessesAllowed } from '../../gameLogic'
+import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC, updateRoundsWon, updateCardsRemaining, updateGuessesAllowed, endTurn } from '../../gameLogic'
 
 export default class BoardContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      cards: []
+      cards: [],
+      activeTeam: '',
+      numOfWordGuesses: 0
     }
     this.pickCard = this.pickCard.bind(this)
     this.getCardsOnClick = this.getCardsOnClick.bind(this)
@@ -18,6 +20,20 @@ export default class BoardContainer extends Component {
     const selectedWords = generateSelectedWordsGC(this.props.allWords)
     const shuffledColorArray = generateColorsGC(this.props.currentGameStatus.whoGoesFirst, shuffleArrayGC)
     generateCardsGC(selectedWords, shuffledColorArray, this.props.currentGameStatus.whoGoesFirst, this.props.gameId)
+
+    const dataRef = firebase.database().ref()
+    const gameStatus = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
+
+    gameStatus.on('value', snap => {
+
+      let currPhaseOfGame = {}
+
+      const currentGameStatus = snap.val()
+
+      this.setState({ activeTeam: currentGameStatus.activeTeam })
+      this.setState({ numOfWordGuesses: currentGameStatus.displayHint.numOfWordGuesses })
+
+    })
   }
 
   // ONCLICK LISTENER TO UPDATE THE STATUS OF A CARD IN THE DB WHEN CLICKED
@@ -37,7 +53,24 @@ export default class BoardContainer extends Component {
 
     const gameStatus = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
 
+    const currentNumGuesses = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus').child('displayHint').child('numOfWordGuesses')
+
     const numGuessesAllowedLocation = gameStatus.child('displayHint')
+
+    currentNumGuesses.on('value', snap => {
+      //console.log("oh snap: ", snap.val())
+      //console.log("props: ", this.props)
+
+      //const guessesRemaining = this.state.numOfWordGuesses
+      const currentActiveTeam = this.state.activeTeam
+
+      const guessesRemaining = snap.val();
+      //console.log(gameInfo, 'gameInfo')
+      const newTeam = endTurn(guessesRemaining, currentActiveTeam)
+      console.log("after guesses", guessesRemaining)
+      console.log('newTeam', newTeam);
+      gameStatus.update({ activeTeam: newTeam })
+    })
 
     //GAME LOGIC FUNCTION - update RoundsWon based on card click/cards remaining === 0
     gameStatus.on('value', snap => {
@@ -58,7 +91,7 @@ export default class BoardContainer extends Component {
     cardsRemainingObj = updateCardsRemaining(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft, this.props.currentGameStatus.cardsRemaining.redTeamNumCardsLeft, this.props.currentGameStatus.activeTeam)
     cardsRemaining.update(cardsRemainingObj)
 
-    updatedNumGuessesAllowedObj = updateGuessesAllowed(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.displayHint,this.props.currentGameStatus.activeTeam)
+    updatedNumGuessesAllowedObj = updateGuessesAllowed(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.displayHint, this.props.currentGameStatus.activeTeam)
 
     numGuessesAllowedLocation.update(updatedNumGuessesAllowedObj)
 
@@ -75,6 +108,7 @@ export default class BoardContainer extends Component {
   }
 
   render() {
+    console.log("WELCOME TO STATE: ", this.state)
     return (
       <div>
         {
