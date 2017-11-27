@@ -11,13 +11,17 @@ export default class BoardContainer extends Component {
       cards: []
     }
     this.pickCard = this.pickCard.bind(this)
-    this.getCardsOnClick = this.getCardsOnClick.bind(this)
+    this.startNewRoundOnClick = this.startNewRoundOnClick.bind(this)
   }
 
   componentDidMount() {
     const selectedWords = generateSelectedWordsGC(this.props.allWords)
     const shuffledColorArray = generateColorsGC(this.props.currentGameStatus.whoGoesFirst, shuffleArrayGC)
     generateCardsGC(selectedWords, shuffledColorArray, this.props.currentGameStatus.whoGoesFirst, this.props.gameId)
+    const getCardsForState = firebase.database().ref(`gameInstances/${this.props.gameId}/gameCards`)
+    getCardsForState.on('value', snapshot => {
+      this.setState({cards: snapshot.val()})
+    })
   }
 
   // ONCLICK LISTENER TO UPDATE THE STATUS OF A CARD IN THE DB WHEN CLICKED
@@ -39,7 +43,7 @@ export default class BoardContainer extends Component {
 
     const numGuessesAllowedLocation = gameStatus.child('displayHint')
 
-    //GAME LOGIC FUNCTION - update RoundsWon based on card click/cards remaining === 0
+    // GAME LOGIC FUNCTION - update RoundsWon based on card click/cards remaining === 0
     gameStatus.on('value', snap => {
 
       let currPhaseOfGame = {}
@@ -65,11 +69,9 @@ export default class BoardContainer extends Component {
   }
 
   // ONCLICK LISTENER SET ROUND ACTIVE TO TRUE AND THEN GET ALL THE CARDS TO PASS AS PROPS TO RENDER IN BOARD
-  getCardsOnClick() {
+  startNewRoundOnClick() {
     const allCards = firebase.database().ref(`gameInstances/${this.props.gameId}`)
     allCards.on('value', snapshot => {
-      const cardArray = snapshot.val()
-      this.setState({ cards: cardArray.gameCards })
       firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus`).update({ roundActive: true })
     })
   }
@@ -86,7 +88,7 @@ export default class BoardContainer extends Component {
               cards={this.state.cards}
               players={this.props.players}
             /> :
-            <Button onClick={this.getCardsOnClick}>this is a Button</Button>
+            <Button onClick={this.startNewRoundOnClick}>Start Round</Button>
         }
       </div>
     )

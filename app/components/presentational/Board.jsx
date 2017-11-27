@@ -4,7 +4,7 @@ import { Card } from 'semantic-ui-react'
 const Board = props => (
   <div>
   {
-    props.players.player1.role === 'spymaster' ?
+    props.players.player3.role === 'spymaster' ?
     <div>
       <Card.Group itemsPerRow={5}>
         {
@@ -22,7 +22,7 @@ const Board = props => (
         }
       </Card.Group>
     </div>
-    : props.players.player1.teamColor === props.currentGameStatus.activeTeam ?
+    : props.players.player3.teamColor === props.currentGameStatus.activeTeam ?
     <div>
       <Card.Group itemsPerRow={5}>
         {
