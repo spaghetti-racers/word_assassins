@@ -57,26 +57,19 @@ export default class BoardContainer extends Component {
 
     const numGuessesAllowedLocation = gameStatus.child('displayHint')
 
+    //GAME LOGIC FUNCTION - Update active team at end of turn, numOfWordGuesses === 0
     currentNumGuesses.on('value', snap => {
-      //console.log("oh snap: ", snap.val())
-      //console.log("props: ", this.props)
 
-      //const guessesRemaining = this.state.numOfWordGuesses
       const currentActiveTeam = this.state.activeTeam
-
       const guessesRemaining = snap.val();
-      //console.log(gameInfo, 'gameInfo')
       const newTeam = endTurn(guessesRemaining, currentActiveTeam)
-      console.log("after guesses", guessesRemaining)
-      console.log('newTeam', newTeam);
+
       gameStatus.update({ activeTeam: newTeam })
     })
 
     //GAME LOGIC FUNCTION - update RoundsWon based on card click/cards remaining === 0
     gameStatus.on('value', snap => {
-
       let currPhaseOfGame = {}
-
       const currentGameStatus = snap.val()
       const blueCardsLeft = currentGameStatus.cardsRemaining.blueTeamNumCardsLeft
       const redCardsLeft = currentGameStatus.cardsRemaining.redTeamNumCardsLeft
@@ -108,7 +101,6 @@ export default class BoardContainer extends Component {
   }
 
   render() {
-    console.log("WELCOME TO STATE: ", this.state)
     return (
       <div>
         {
