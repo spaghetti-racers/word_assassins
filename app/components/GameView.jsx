@@ -27,7 +27,7 @@ export default class GameView extends Component {
   render() {
     return (
       <div>
-      <Scoreboard gameId={this.props.params.gameId}/>
+      <Scoreboard gameId={this.props.params.gameId} currentGameStatus={this.state.currentGameStatus}/>
       {
         Object.keys(this.state).length >= 2 &&
         <BoardContainer

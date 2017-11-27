@@ -64,7 +64,7 @@ export default class ScoreboardContainer extends Component {
 
   render() {
     return (
-      <Scoreboard roundsWonRedTeam={this.state.redTeamRoundsWon} roundsWonBlueTeam={this.state.blueTeamRoundsWon} gameId={this.props.gameId} />
+      <Scoreboard roundsWonRedTeam={this.state.redTeamRoundsWon} roundsWonBlueTeam={this.state.blueTeamRoundsWon} gameId={this.props.gameId} currentGameStatus={this.props.currentGameStatus}/>
     )
   }
 }

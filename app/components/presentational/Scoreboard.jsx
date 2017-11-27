@@ -24,7 +24,7 @@ const Scoreboard = props => {
               <DisplayHintContainer hint={{ word: props.word, numGuessesAllowed: props.numGuessesAllowed }} gameId = {props.gameId}/>
             </Table.Cell>
             <Table.Cell>
-              <CardsRemaining numCardsLeft={{ red: props.redTeamNumCards, blue: props.blueTeamNumCards }} gameId={props.gameId} />
+              <CardsRemaining numCardsLeft={{ red: props.redTeamNumCards, blue: props.blueTeamNumCards }} gameId={props.gameId} currentGameStatus={props.currentGameStatus}/>
             </Table.Cell>
 
           </Table.Row>
