@@ -24,7 +24,6 @@ export const updateCardsRemaining = function(cardColor, blueRemainingCards, redR
 }
 
 export const updateNextRoundStatus = function(blueRemainingCards, redRemainingCards) {
-  console.log('!!!!!!', blueRemainingCards, redRemainingCards)
   if (blueRemainingCards===0 || redRemainingCards===0) return true
   else return false
 }

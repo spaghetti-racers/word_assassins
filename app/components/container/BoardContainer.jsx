@@ -17,9 +17,9 @@ export default class BoardContainer extends Component {
   }
 
   componentDidMount() {
-    const selectedWords = generateSelectedWordsGC(this.props.allWords)
-    const shuffledColorArray = generateColorsGC(this.props.currentGameStatus.whoGoesFirst, shuffleArrayGC)
-    generateCardsGC(selectedWords, shuffledColorArray, this.props.currentGameStatus.whoGoesFirst, this.props.gameId)
+    // const selectedWords = generateSelectedWordsGC(this.props.allWords)
+    // const shuffledColorArray = generateColorsGC(this.props.currentGameStatus.whoGoesFirst, shuffleArrayGC)
+    // generateCardsGC(selectedWords, shuffledColorArray, this.props.currentGameStatus.whoGoesFirst, this.props.gameId)
 
     const dataRef = firebase.database().ref()
     const gameStatus = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
@@ -105,6 +105,10 @@ export default class BoardContainer extends Component {
   startNewRoundOnClick() {
     const allCards = firebase.database().ref(`gameInstances/${this.props.gameId}`)
     firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus`).update({ roundActive: true })
+    const selectedWords = generateSelectedWordsGC(this.props.allWords)
+    const shuffledColorArray = generateColorsGC(this.props.currentGameStatus.whoGoesFirst, shuffleArrayGC)
+    generateCardsGC(selectedWords, shuffledColorArray, this.props.currentGameStatus.whoGoesFirst, this.props.gameId)
+    console.log('cards on state ', this.state.cards)
   }
 
   render() {
