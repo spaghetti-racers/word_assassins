@@ -109,13 +109,6 @@ export default class BoardContainer extends Component {
   }
 
 passButtonClick() {
-  // let newActiveTeam = "crazy"
-  // if (this.props.currentGameStatus.activeTeam === "blueTeam") {
-  //   newActiveTeam = "redTeam"
-  // }  else {
-  //   newActiveTeam = "blueTeam"
-  // }
-
   let newActiveTeam = checkActiveTeam(this.props.currentGameStatus.activeTeam)
 
   firebase.database().ref(`/gameInstances/${this.props.gameId}/currentGameStatus/displayHint`).update({numOfWordGuesses: 0})

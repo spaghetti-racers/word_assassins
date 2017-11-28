@@ -63,7 +63,7 @@ const Board = props => {
             </div>
       }
       <div className="passButtonWrapper">
-        <Button className="passButton" onClick={props.passButtonClick}> PASS TURN</Button>
+        <Button onClick={props.passButtonClick}> PASS TURN</Button>
       </div>
     </div>
   )
