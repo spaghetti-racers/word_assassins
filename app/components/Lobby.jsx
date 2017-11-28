@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import { browserHistory } from 'react-router'
 
-
-
 export default class Lobby extends Component {
   constructor(props) {
     super(props)
@@ -15,9 +13,7 @@ export default class Lobby extends Component {
   componentDidMount() {
     const allRooms = firebase.database().ref('rooms/')
     allRooms.on('value', snapshot => {
-      // console.log('SNAP!!!!!!!!', snapshot.val())
       const rooms = Object.keys(snapshot.val()).map((room) => ({[room]: snapshot.val()[room]}))
-      // console.log('ROOMS--------', rooms)
       this.setState({rooms: rooms})
     })
   }
@@ -26,7 +22,6 @@ export default class Lobby extends Component {
   onClickNewGame(event, data) {
     event.preventDefault()
     const auth = firebase.auth()
-    // console.log('cur use', auth.currentUser.uid)
     const newRoomInstance = {
       potentialPlayers: {
         0: auth.currentUser.uid
@@ -51,13 +46,13 @@ export default class Lobby extends Component {
   }
 
   render() {
-    // console.log('STATE', this.state)
     return (
       <div>
       <h2>Lobby</h2>
       <button onClick={this.onClickNewGame}>Create New Room</button>
         <ul>
         {
+          // RENDERS EACH ROOM IN THE ROOMS DB WITH A ROOM #, NUM OF PLAYERS IN ROOM, AND A JOIN BUTTON
           this.state.rooms.length && this.state.rooms.map((room, index) => {
             const roomId = Object.keys(room)[0]
             const potentialPlayers = room[roomId]['potentialPlayers']
