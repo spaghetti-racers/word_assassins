@@ -15,10 +15,8 @@ export default class Rooms extends Component {
     allRooms.on('value', snapshot => {
       const currRoom = Object.keys(snapshot.val()).map((room) => ({[room]: snapshot.val()[room]})).find((room) => room[this.props.params.roomId])
       this.setState({currRoom})
-      console.log('CUURRRROOOMMM', currRoom[this.props.params.roomId].gameId)
 
       if (currRoom[this.props.params.roomId].gameId) {
-        console.log('in IFFFFFFFFF')
         browserHistory.push(`/game-view/${currRoom[this.props.params.roomId].gameId}/wordassassins`)
       }
     })
@@ -62,7 +60,6 @@ export default class Rooms extends Component {
     const roomRef = firebase.database().ref(`/rooms/${roomId}`)
     newGameRef.then(() => {
       roomRef.update({gameId: newGameKey})
-      // browserHistory.push(`/game-view/${newGameKey}/wordassassins`)
     })
   }
 
