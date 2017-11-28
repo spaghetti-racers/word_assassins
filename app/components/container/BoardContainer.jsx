@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import Board from '../presentational/Board'
 import { Button } from 'semantic-ui-react'
-import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC, updateRoundsWon, updateCardsRemaining, updateGuessesAllowed, endTurn, updateNextRoundStatus } from '../../gameLogic'
+import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC, updateRoundsWon, updateCardsRemaining, updateGuessesAllowed, endTurn, updateNextRoundStatus, checkActiveTeam } from '../../gameLogic'
 
 export default class BoardContainer extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ export default class BoardContainer extends Component {
     }
     this.pickCard = this.pickCard.bind(this)
     this.startNewRoundOnClick = this.startNewRoundOnClick.bind(this)
+    this.passButtonClick = this.passButtonClick.bind(this)
   }
 
   componentDidMount() {
@@ -107,6 +108,14 @@ export default class BoardContainer extends Component {
     console.log('cards on state ', this.state.cards)
   }
 
+passButtonClick() {
+  let newActiveTeam = checkActiveTeam(this.props.currentGameStatus.activeTeam)
+
+  firebase.database().ref(`/gameInstances/${this.props.gameId}/currentGameStatus/displayHint`).update({numOfWordGuesses: 0})
+
+  firebase.database().ref(`/gameInstances/${this.props.gameId}/currentGameStatus/`).update({activeTeam: newActiveTeam})
+}
+
   render() {
     return (
       <div >
@@ -118,6 +127,7 @@ export default class BoardContainer extends Component {
             pickCard={this.pickCard}
             cards={this.state.cards}
             players={this.props.players}
+            passButtonClick={this.passButtonClick}
           /> :
           <Button onClick={this.startNewRoundOnClick}>Start Round</Button>
       }
