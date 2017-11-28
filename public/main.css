@@ -39,3 +39,9 @@ div.row {
   vertical-align: center;
   text-align: center;
 }
+
+.title {
+  text-align: center;
+  justify-content: center;
+  color: black;
+}
