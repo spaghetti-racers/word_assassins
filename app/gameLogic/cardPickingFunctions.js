@@ -37,3 +37,13 @@ export const updateGuessesAllowed = function(cardColor, displayHint, activeTeam)
   }
   return {hintToDisplay: displayHint.hintToDisplay, numOfWordGuesses: newNumGuessesAllowed}
 }
+
+export const checkActiveTeam = function(team) {
+  let newActiveTeam = ''
+  if (team === 'blueTeam') {
+    newActiveTeam = 'redTeam'
+  } else {
+    newActiveTeam = 'blueTeam'
+  }
+  return newActiveTeam
+}
