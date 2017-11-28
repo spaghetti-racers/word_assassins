@@ -27,6 +27,7 @@ export default class GameView extends Component {
   render() {
     return (
       <div>
+        <h1 className="title">Word Assassins</h1>
         <Scoreboard
           gameId={this.props.params.gameId}
           currentGameStatus={this.state.currentGameStatus}
