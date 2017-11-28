@@ -25,25 +25,23 @@ export default class BoardContainer extends Component {
     const gameStatus = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
 
     gameStatus.on('value', snap => {
-
-      let currPhaseOfGame = {}
+      const currPhaseOfGame = {}
 
       const currentGameStatus = snap.val()
 
       this.setState({ activeTeam: currentGameStatus.activeTeam })
       this.setState({ numOfWordGuesses: currentGameStatus.displayHint.numOfWordGuesses })
-
     })
+
     const getCardsForState = firebase.database().ref(`gameInstances/${this.props.gameId}/gameCards`)
     getCardsForState.on('value', snapshot => {
       this.setState({ cards: snapshot.val() })
-
     })
   }
 
   // ONCLICK LISTENER TO UPDATE THE STATUS OF A CARD IN THE DB WHEN CLICKED
   pickCard(event, data) {
-        event.preventDefault()
+    event.preventDefault()
     let cardsRemainingObj = {}
     let updatedNumGuessesAllowedObj = {}
     const clickedCardIndex = data.children.props.value
@@ -61,7 +59,7 @@ export default class BoardContainer extends Component {
 
     const numGuessesAllowedLocation = gameStatus.child('displayHint')
 
-    //GAME LOGIC FUNCTION - Update active team at end of turn, numOfWordGuesses === 0
+    // GAME LOGIC FUNCTION - Update active team at end of turn, numOfWordGuesses === 0
     currentNumGuesses.on('value', snap => {
       const currentActiveTeam = this.state.activeTeam
       const guessesRemaining = snap.val()
@@ -70,7 +68,7 @@ export default class BoardContainer extends Component {
       gameStatus.update({ activeTeam: newTeam })
     })
 
-    //GAME LOGIC FUNCTION - update RoundsWon based on card click/cards remaining === 0
+    // GAME LOGIC FUNCTION - update RoundsWon based on card click/cards remaining === 0
     gameStatus.on('value', snap => {
       let currPhaseOfGame = {}
 
@@ -78,17 +76,17 @@ export default class BoardContainer extends Component {
       const blueCardsLeft = currentGameStatus.cardsRemaining.blueTeamNumCardsLeft
       const redCardsLeft = currentGameStatus.cardsRemaining.redTeamNumCardsLeft
 
-      let readyForNextRound = updateNextRoundStatus(blueCardsLeft, redCardsLeft)
+      const readyForNextRound = updateNextRoundStatus(blueCardsLeft, redCardsLeft)
 
       currPhaseOfGame = updateRoundsWon(blueCardsLeft, redCardsLeft, this.props.currentGameStatus.RoundsWonByTeams.blueTeamNumRoundsWon, this.props.currentGameStatus.RoundsWonByTeams.redTeamNumRoundsWon)
 
       roundsWon.update(currPhaseOfGame)
 
       if (readyForNextRound) {
-        roundActive.update(
+        gameStatus.update(
           {roundActive: false}
         )
-        roundsWon.update(
+        gameStatus.update(
           {cardsRemaining: {blueTeamNumCardsLeft: 9, redTeamNumCardsLeft: 8}}
         )
       }
