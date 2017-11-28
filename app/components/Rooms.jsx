@@ -64,7 +64,7 @@ export default class Rooms extends Component {
         {
           activeRoom && activeRoom.potentialPlayers && activeRoom.potentialPlayers.map(player => (<h3 key={player.userId}>{player.displayName}</h3>))
         }
-        <button disabled={(activeRoom && activeRoom.potentialPlayers.length < 4)}
+        <button disabled={(activeRoom && activeRoom.potentialPlayers.length < 4) || (activeRoom && activeRoom.potentialPlayers.length > 4)}
         onClick={(event) => this.onClickNewGame(event, activeRoom)}>
         Start New Game
         </button>
