@@ -37,3 +37,4 @@ export const updateGuessesAllowed = function(cardColor, displayHint, activeTeam)
   }
   return {hintToDisplay: displayHint.hintToDisplay, numOfWordGuesses: newNumGuessesAllowed}
 }
+

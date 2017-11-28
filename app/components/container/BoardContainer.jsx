@@ -14,6 +14,7 @@ export default class BoardContainer extends Component {
     }
     this.pickCard = this.pickCard.bind(this)
     this.startNewRoundOnClick = this.startNewRoundOnClick.bind(this)
+    this.passButtonClick = this.passButtonClick.bind(this)
   }
 
   componentDidMount() {
@@ -107,6 +108,19 @@ export default class BoardContainer extends Component {
     console.log('cards on state ', this.state.cards)
   }
 
+passButtonClick() {
+  let newActiveTeam = "crazy"
+  if (this.props.currentGameStatus.activeTeam === "blueTeam") {
+    newActiveTeam = "redTeam"
+  }  else {
+    newActiveTeam = "blueTeam"
+  }
+
+  firebase.database().ref(`/gameInstances/${this.props.gameId}/currentGameStatus/displayHint`).update({numOfWordGuesses: 0})
+
+  firebase.database().ref(`/gameInstances/${this.props.gameId}/currentGameStatus/`).update({activeTeam: newActiveTeam})
+}
+
   render() {
     return (
       <div >
@@ -118,6 +132,7 @@ export default class BoardContainer extends Component {
             pickCard={this.pickCard}
             cards={this.state.cards}
             players={this.props.players}
+            passButtonClick={this.passButtonClick}
           /> :
           <Button onClick={this.startNewRoundOnClick}>Start Round</Button>
       }
