@@ -32,7 +32,7 @@ export default class Lobby extends Component {
         player3: {
           playerId: '3ABC',
           teamColor: 'blueTeam',
-          role: 'spymaster'
+          role: 'guesser'
         }
       }
     }

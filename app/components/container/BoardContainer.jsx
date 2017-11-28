@@ -13,7 +13,7 @@ export default class BoardContainer extends Component {
       numOfWordGuesses: 0
     }
     this.pickCard = this.pickCard.bind(this)
-    this.getCardsOnClick = this.getCardsOnClick.bind(this)
+    this.startNewRoundOnClick = this.startNewRoundOnClick.bind(this)
   }
 
   componentDidMount() {
@@ -34,12 +34,16 @@ export default class BoardContainer extends Component {
       this.setState({ numOfWordGuesses: currentGameStatus.displayHint.numOfWordGuesses })
 
     })
+    const getCardsForState = firebase.database().ref(`gameInstances/${this.props.gameId}/gameCards`)
+    getCardsForState.on('value', snapshot => {
+      this.setState({ cards: snapshot.val() })
+
+    })
   }
 
   // ONCLICK LISTENER TO UPDATE THE STATUS OF A CARD IN THE DB WHEN CLICKED
   pickCard(event, data) {
-    event.preventDefault()
-
+        event.preventDefault()
     let cardsRemainingObj = {}
     let updatedNumGuessesAllowedObj = {}
     const clickedCardIndex = data.children.props.value
@@ -47,10 +51,9 @@ export default class BoardContainer extends Component {
     clickedCard.update({ clicked: true })
 
     const dataRef = firebase.database().ref()
+
     const cardsRemaining = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus').child('cardsRemaining')
-
     const roundsWon = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
-
     const gameStatus = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
 
     const currentNumGuesses = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus').child('displayHint').child('numOfWordGuesses')
@@ -60,61 +63,57 @@ export default class BoardContainer extends Component {
     //GAME LOGIC FUNCTION - Update active team at end of turn, numOfWordGuesses === 0
     currentNumGuesses.on('value', snap => {
 
-      const currentActiveTeam = this.state.activeTeam
-      const guessesRemaining = snap.val();
-      const newTeam = endTurn(guessesRemaining, currentActiveTeam)
+          const currentActiveTeam = this.state.activeTeam
+          const guessesRemaining = snap.val();
+          const newTeam = endTurn(guessesRemaining, currentActiveTeam)
 
-      gameStatus.update({ activeTeam: newTeam })
-    })
+          gameStatus.update({ activeTeam: newTeam })
+        })
 
     //GAME LOGIC FUNCTION - update RoundsWon based on card click/cards remaining === 0
     gameStatus.on('value', snap => {
-      let currPhaseOfGame = {}
-      const currentGameStatus = snap.val()
-      const blueCardsLeft = currentGameStatus.cardsRemaining.blueTeamNumCardsLeft
-      const redCardsLeft = currentGameStatus.cardsRemaining.redTeamNumCardsLeft
+          let currPhaseOfGame = {}
+          const currentGameStatus = snap.val()
+          const blueCardsLeft = currentGameStatus.cardsRemaining.blueTeamNumCardsLeft
+          const redCardsLeft = currentGameStatus.cardsRemaining.redTeamNumCardsLeft
 
-      currPhaseOfGame = updateRoundsWon(blueCardsLeft, redCardsLeft, this.props.currentGameStatus.RoundsWonByTeams.blueTeamNumRoundsWon, this.props.currentGameStatus.RoundsWonByTeams.redTeamNumRoundsWon)
+          currPhaseOfGame = updateRoundsWon(blueCardsLeft, redCardsLeft, this.props.currentGameStatus.RoundsWonByTeams.blueTeamNumRoundsWon, this.props.currentGameStatus.RoundsWonByTeams.redTeamNumRoundsWon)
 
-      roundsWon.update(currPhaseOfGame)
+          roundsWon.update(currPhaseOfGame)
+        })
 
-    })
-
-    //GAME LOGIC FUNCTION -- updates CardsRemaining based on a card click
+    // GAME LOGIC FUNCTION -- updates CardsRemaining based on a card click
     cardsRemainingObj = updateCardsRemaining(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft, this.props.currentGameStatus.cardsRemaining.redTeamNumCardsLeft, this.props.currentGameStatus.activeTeam)
     cardsRemaining.update(cardsRemainingObj)
 
     updatedNumGuessesAllowedObj = updateGuessesAllowed(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.displayHint, this.props.currentGameStatus.activeTeam)
 
     numGuessesAllowedLocation.update(updatedNumGuessesAllowedObj)
-
-  }
+      }
 
   // ONCLICK LISTENER SET ROUND ACTIVE TO TRUE AND THEN GET ALL THE CARDS TO PASS AS PROPS TO RENDER IN BOARD
-  getCardsOnClick() {
-    const allCards = firebase.database().ref(`gameInstances/${this.props.gameId}`)
+  startNewRoundOnClick() {
+        const allCards = firebase.database().ref(`gameInstances/${this.props.gameId}`)
     allCards.on('value', snapshot => {
-      const cardArray = snapshot.val()
-      this.setState({ cards: cardArray.gameCards })
-      firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus`).update({ roundActive: true })
-    })
-  }
+          firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus`).update({ roundActive: true })
+        })
+      }
 
   render() {
-    return (
-      <div>
-        {
-          this.props.currentGameStatus.roundActive ?
-            <Board
-              gameId={this.props.gameId}
-              currentGameStatus={this.props.currentGameStatus}
-              pickCard={this.pickCard}
-              cards={this.state.cards}
-              players={this.props.players}
-            /> :
-            <Button onClick={this.getCardsOnClick}>this is a Button</Button>
-        }
-      </div>
+        return(
+      <div >
+      {
+        this.props.currentGameStatus.roundActive ?
+          <Board
+            gameId={this.props.gameId}
+            currentGameStatus={this.props.currentGameStatus}
+            pickCard={this.pickCard}
+            cards={this.state.cards}
+            players={this.props.players}
+          /> :
+          <Button onClick={this.startNewRoundOnClick}>Start Round</Button>
+      }
+      </div >
     )
   }
 }
