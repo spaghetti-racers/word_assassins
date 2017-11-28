@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import Board from '../presentational/Board'
 import { Button } from 'semantic-ui-react'
-import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC, updateRoundsWon, updateCardsRemaining, updateGuessesAllowed, endTurn } from '../../gameLogic'
+import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC, updateRoundsWon, updateCardsRemaining, updateGuessesAllowed, endTurn, updateNextRoundStatus } from '../../gameLogic'
 
 export default class BoardContainer extends Component {
   constructor(props) {
@@ -55,6 +55,7 @@ export default class BoardContainer extends Component {
     const cardsRemaining = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus').child('cardsRemaining')
     const roundsWon = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
     const gameStatus = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
+    const roundActive = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
 
     const currentNumGuesses = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus').child('displayHint').child('numOfWordGuesses')
 
@@ -62,25 +63,36 @@ export default class BoardContainer extends Component {
 
     //GAME LOGIC FUNCTION - Update active team at end of turn, numOfWordGuesses === 0
     currentNumGuesses.on('value', snap => {
+      const currentActiveTeam = this.state.activeTeam
+      const guessesRemaining = snap.val()
+      const newTeam = endTurn(guessesRemaining, currentActiveTeam)
 
-          const currentActiveTeam = this.state.activeTeam
-          const guessesRemaining = snap.val();
-          const newTeam = endTurn(guessesRemaining, currentActiveTeam)
-
-          gameStatus.update({ activeTeam: newTeam })
-        })
+      gameStatus.update({ activeTeam: newTeam })
+    })
 
     //GAME LOGIC FUNCTION - update RoundsWon based on card click/cards remaining === 0
     gameStatus.on('value', snap => {
-          let currPhaseOfGame = {}
-          const currentGameStatus = snap.val()
-          const blueCardsLeft = currentGameStatus.cardsRemaining.blueTeamNumCardsLeft
-          const redCardsLeft = currentGameStatus.cardsRemaining.redTeamNumCardsLeft
+      let currPhaseOfGame = {}
 
-          currPhaseOfGame = updateRoundsWon(blueCardsLeft, redCardsLeft, this.props.currentGameStatus.RoundsWonByTeams.blueTeamNumRoundsWon, this.props.currentGameStatus.RoundsWonByTeams.redTeamNumRoundsWon)
+      const currentGameStatus = snap.val()
+      const blueCardsLeft = currentGameStatus.cardsRemaining.blueTeamNumCardsLeft
+      const redCardsLeft = currentGameStatus.cardsRemaining.redTeamNumCardsLeft
 
-          roundsWon.update(currPhaseOfGame)
-        })
+      let readyForNextRound = updateNextRoundStatus(blueCardsLeft, redCardsLeft)
+
+      currPhaseOfGame = updateRoundsWon(blueCardsLeft, redCardsLeft, this.props.currentGameStatus.RoundsWonByTeams.blueTeamNumRoundsWon, this.props.currentGameStatus.RoundsWonByTeams.redTeamNumRoundsWon)
+
+      roundsWon.update(currPhaseOfGame)
+
+      if (readyForNextRound) {
+        roundActive.update(
+          {roundActive: false}
+        )
+        roundsWon.update(
+          {cardsRemaining: {blueTeamNumCardsLeft: 9, redTeamNumCardsLeft: 8}}
+        )
+      }
+    })
 
     // GAME LOGIC FUNCTION -- updates CardsRemaining based on a card click
     cardsRemainingObj = updateCardsRemaining(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft, this.props.currentGameStatus.cardsRemaining.redTeamNumCardsLeft, this.props.currentGameStatus.activeTeam)
@@ -89,18 +101,16 @@ export default class BoardContainer extends Component {
     updatedNumGuessesAllowedObj = updateGuessesAllowed(this.state.cards[clickedCardIndex].color, this.props.currentGameStatus.displayHint, this.props.currentGameStatus.activeTeam)
 
     numGuessesAllowedLocation.update(updatedNumGuessesAllowedObj)
-      }
+  }
 
   // ONCLICK LISTENER SET ROUND ACTIVE TO TRUE AND THEN GET ALL THE CARDS TO PASS AS PROPS TO RENDER IN BOARD
   startNewRoundOnClick() {
-        const allCards = firebase.database().ref(`gameInstances/${this.props.gameId}`)
-    allCards.on('value', snapshot => {
-          firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus`).update({ roundActive: true })
-        })
-      }
+    const allCards = firebase.database().ref(`gameInstances/${this.props.gameId}`)
+    firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus`).update({ roundActive: true })
+  }
 
   render() {
-        return(
+    return (
       <div >
       {
         this.props.currentGameStatus.roundActive ?
