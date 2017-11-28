@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router'
 
 export default class Lobby extends Component {
   // CREATES A NEW GAME INSTANCE AND HAS ACCESS TO THE KEY
+
   onClickNewGame(event, data) {
     event.preventDefault()
     const newGameInstance = {
