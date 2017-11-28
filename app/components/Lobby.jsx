@@ -24,7 +24,7 @@ export default class Lobby extends Component {
     const auth = firebase.auth()
     const newRoomInstance = {
       potentialPlayers: {
-        0: auth.currentUser.uid
+        0: {userId: auth.currentUser.uid, displayName: auth.currentUser.displayName}
       }
     }
     const newRoomRef = firebase.database().ref('rooms').push(newRoomInstance)
@@ -45,7 +45,7 @@ export default class Lobby extends Component {
     const playerNum = currRoom[roomId]['potentialPlayers'].length
 
     const potentialPlayerRef = firebase.database().ref(`/rooms/${roomId}/potentialPlayers/`)
-    const addPlayer = potentialPlayerRef.update({[playerNum]: auth.currentUser.uid})
+    const addPlayer = potentialPlayerRef.update({[playerNum]: {userId: auth.currentUser.uid, displayName: auth.currentUser.displayName}})
 
     const selectedUser = firebase.database().ref(`users/${auth.currentUser.uid}`)
     selectedUser.set({ room: roomId })
