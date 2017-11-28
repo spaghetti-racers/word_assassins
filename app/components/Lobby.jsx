@@ -27,9 +27,14 @@ export default class Lobby extends Component {
         0: auth.currentUser.uid
       }
     }
-    const newRoomRef = firebase.database().ref('/rooms').push(newRoomInstance)
+    const newRoomRef = firebase.database().ref('rooms').push(newRoomInstance)
     const newRoomKey = newRoomRef.key
-    newRoomRef.then(() => browserHistory.push(`/rooms/${newRoomKey}/wordassassins`))
+    const selectedUser = firebase.database().ref(`users/${auth.currentUser.uid}`)
+    selectedUser.set({ room: newRoomKey })
+    newRoomRef.then(() => {
+      selectedUser.set({ room: newRoomKey })
+      browserHistory.push(`/rooms/${newRoomKey}/wordassassins`)
+    })
   }
 
   // PLAYER JOINS AN EXISTING ROOM INSTANCE
@@ -41,6 +46,9 @@ export default class Lobby extends Component {
 
     const potentialPlayerRef = firebase.database().ref(`/rooms/${roomId}/potentialPlayers/`)
     const addPlayer = potentialPlayerRef.update({[playerNum]: auth.currentUser.uid})
+
+    const selectedUser = firebase.database().ref(`users/${auth.currentUser.uid}`)
+    selectedUser.set({ room: roomId })
 
     browserHistory.push(`/rooms/${roomId}/wordassassins`)
   }
