@@ -2,50 +2,37 @@ import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import { browserHistory } from 'react-router'
 
-export default class Lobby extends Component {
-  // CREATES A NEW GAME INSTANCE AND HAS ACCESS TO THE KEY
 
+
+export default class Lobby extends Component {
+  componentDidMount() {
+    const allRooms = firebase.database().ref('rooms/')
+    allRooms.on('value', snapshot => {
+      console.log('SNAP!!!!!!!!', snapshot.val())
+      const rooms = Object.keys(snapshot.val()).map((room) => ({[room]: snapshot.val()[room]}))
+      console.log('ROOMS--------', rooms)
+    })
+  }
+
+  // CREATES A NEW ROOM INSTANCE AND HAS ACCESS TO THE KEY
   onClickNewGame(event, data) {
     event.preventDefault()
-    const newGameInstance = {
-      currentGameStatus: {
-        roundActive: false,
-        whoGoesFirst: 'blueTeam',
-        activeTeam: 'blueTeam'
-      },
-
-      players: {
-        player0: {
-          playerId: '0ABC',
-          teamColor: 'redTeam',
-          role: 'spymaster'
-        },
-        player1: {
-          playerId: '1ABC',
-          teamColor: 'redTeam',
-          role: 'guesser'
-        },
-        player2: {
-          playerId: '2ABC',
-          teamColor: 'blueTeam',
-          role: 'spymaster'
-        },
-        player3: {
-          playerId: '3ABC',
-          teamColor: 'blueTeam',
-          role: 'guesser'
-        }
+    const auth = firebase.auth()
+    console.log('cur use', auth.currentUser.uid)
+    const newRoomInstance = {
+      potentialPlayers: {
+        0: auth.currentUser.uid
       }
     }
-    const newGameRef = firebase.database().ref('/gameInstances').push(newGameInstance)
-    const newGameKey = newGameRef.key
-    newGameRef.then(() => browserHistory.push(`/game-view/${newGameKey}/wordassassins`))
+    const newRoomRef = firebase.database().ref('/rooms').push(newRoomInstance)
+    const newRoomKey = newRoomRef.key
+    newRoomRef.then(() => browserHistory.push(`/rooms/${newRoomKey}/wordassassins`))
   }
 
   render() {
     return (
       <div>
-       <button onClick={this.onClickNewGame}>Start New Game</button>
+       <button onClick={this.onClickNewGame}>Create Room</button>
       </div>
     )
   }
