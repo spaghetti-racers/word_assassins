@@ -17,10 +17,6 @@ export default class BoardContainer extends Component {
   }
 
   componentDidMount() {
-    // const selectedWords = generateSelectedWordsGC(this.props.allWords)
-    // const shuffledColorArray = generateColorsGC(this.props.currentGameStatus.whoGoesFirst, shuffleArrayGC)
-    // generateCardsGC(selectedWords, shuffledColorArray, this.props.currentGameStatus.whoGoesFirst, this.props.gameId)
-
     const dataRef = firebase.database().ref()
     const gameStatus = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus')
 
