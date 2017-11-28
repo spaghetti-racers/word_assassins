@@ -16,7 +16,7 @@ export default class Lobby extends Component {
 
       players: {
         player0: {
-          playerId: 'WSr2oCDZh9S37X24VnNLjNXpjsp1',
+          playerId: '0ABC',
           teamColor: 'redTeam',
           role: 'spymaster'
         },
