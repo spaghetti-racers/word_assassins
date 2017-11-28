@@ -18,7 +18,7 @@ export default class Rooms extends Component {
     })
   }
 
-  onClickNewGame(event, data) {
+  onClickNewGame(event, activeRoom) {
     event.preventDefault()
     const newGameInstance = {
       currentGameStatus: {
@@ -29,22 +29,22 @@ export default class Rooms extends Component {
 
       players: {
         player0: {
-          playerId: '0ABC',
+          playerId: activeRoom.potentialPlayers[0].userId,
           teamColor: 'redTeam',
           role: 'spymaster'
         },
         player1: {
-          playerId: '1ABC',
+          playerId: activeRoom.potentialPlayers[1].userId,
           teamColor: 'redTeam',
           role: 'guesser'
         },
         player2: {
-          playerId: '2ABC',
+          playerId: activeRoom.potentialPlayers[2].userId,
           teamColor: 'blueTeam',
           role: 'spymaster'
         },
         player3: {
-          playerId: '3ABC',
+          playerId: activeRoom.potentialPlayers[3].userId,
           teamColor: 'blueTeam',
           role: 'guesser'
         }
@@ -64,7 +64,10 @@ export default class Rooms extends Component {
         {
           activeRoom && activeRoom.potentialPlayers && activeRoom.potentialPlayers.map(player => (<h3 key={player.userId}>{player.displayName}</h3>))
         }
-        <button onClick={this.onClickNewGame}> Start New Game </button>
+        <button disabled={(activeRoom && activeRoom.potentialPlayers.length < 4)}
+        onClick={(event) => this.onClickNewGame(event, activeRoom)}>
+        Start New Game
+        </button>
       </div>
     )
   }
