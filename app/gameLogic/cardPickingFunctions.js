@@ -23,6 +23,11 @@ export const updateCardsRemaining = function(cardColor, blueRemainingCards, redR
   return updatedCardsRemaining
 }
 
+export const updateNextRoundStatus = function(blueRemainingCards, redRemainingCards) {
+  if (blueRemainingCards===0 || redRemainingCards===0) return true
+  else return false
+}
+
 export const updateGuessesAllowed = function(cardColor, displayHint, activeTeam) {
   let newNumGuessesAllowed = 0
   if (cardColor === activeTeam.slice(0, -4)) {
