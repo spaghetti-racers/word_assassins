@@ -4,6 +4,20 @@ import { browserHistory } from 'react-router'
 
 export default class Lobby extends Component {
   // CREATES A NEW GAME INSTANCE AND HAS ACCESS TO THE KEY
+  componentDidMount() {
+    // const auth = firebase.auth()
+    // const authId = auth.W
+    // console.log('auth is ', auth)
+    // console.log('auth id is ', authId)
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        console.log('this is a user ', user.uid)
+      } else {
+        // No user is signed in.
+      }
+    })
+  }
   onClickNewGame(event, data) {
     event.preventDefault()
     const newGameInstance = {
@@ -15,7 +29,7 @@ export default class Lobby extends Component {
 
       players: {
         player0: {
-          playerId: '0ABC',
+          playerId: 'WSr2oCDZh9S37X24VnNLjNXpjsp1',
           teamColor: 'redTeam',
           role: 'spymaster'
         },
