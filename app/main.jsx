@@ -8,6 +8,7 @@ import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import Lobby from './components/Lobby'
 import GameView from './components/GameView'
+import Rooms from './components/Rooms'
 
 import firebase from 'APP/fire'
 
@@ -61,6 +62,7 @@ render(
       {Demos /* Put all the demos and a description page at /demos */}
     </Route>
     <Route path="/lobby" component={Lobby} />
+    <Route path="/rooms/:roomId/wordassassins" component={Rooms} />
     <Route path="/game-view/:gameId/wordassassins" component={GameView} />
     <Route path='*' component={NotFound}/>
   </Router>,
