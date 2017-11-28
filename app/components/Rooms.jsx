@@ -6,8 +6,16 @@ export default class Rooms extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      currRoom: {}
     }
-    // this.onClickNewGame = this.onClickNewGame.bind(this)
+  }
+
+  componentDidMount() {
+    const allRooms = firebase.database().ref('rooms/')
+    allRooms.on('value', snapshot => {
+      const currRoom = Object.keys(snapshot.val()).map((room) => ({[room]: snapshot.val()[room]})).find((room) => room[this.props.params.roomId])
+      this.setState({currRoom})
+    })
   }
 
   onClickNewGame(event, data) {
@@ -48,9 +56,14 @@ export default class Rooms extends Component {
   }
 
   render() {
+    const roomId = this.props.params.roomId
+    const activeRoom = this.state.currRoom[roomId]
     return (
       <div>
-        You have entered a ROOM!!!
+        <h1>Game Room</h1>
+        {
+          activeRoom && activeRoom.potentialPlayers && activeRoom.potentialPlayers.map(player => (<h3 key={player.userId}>{player.displayName}</h3>))
+        }
         <button onClick={this.onClickNewGame}> Start New Game </button>
       </div>
     )
