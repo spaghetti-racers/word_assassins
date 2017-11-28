@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import Board from '../presentational/Board'
 import { Button } from 'semantic-ui-react'
-import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC, updateRoundsWon, updateCardsRemaining, updateGuessesAllowed, endTurn, updateNextRoundStatus } from '../../gameLogic'
+import { generateSelectedWordsGC, shuffleArrayGC, generateColorsGC, generateCardsGC, updateRoundsWon, updateCardsRemaining, updateGuessesAllowed, endTurn, updateNextRoundStatus, checkActiveTeam } from '../../gameLogic'
 
 export default class BoardContainer extends Component {
   constructor(props) {
@@ -109,12 +109,14 @@ export default class BoardContainer extends Component {
   }
 
 passButtonClick() {
-  let newActiveTeam = "crazy"
-  if (this.props.currentGameStatus.activeTeam === "blueTeam") {
-    newActiveTeam = "redTeam"
-  }  else {
-    newActiveTeam = "blueTeam"
-  }
+  // let newActiveTeam = "crazy"
+  // if (this.props.currentGameStatus.activeTeam === "blueTeam") {
+  //   newActiveTeam = "redTeam"
+  // }  else {
+  //   newActiveTeam = "blueTeam"
+  // }
+
+  let newActiveTeam = checkActiveTeam(this.props.currentGameStatus.activeTeam)
 
   firebase.database().ref(`/gameInstances/${this.props.gameId}/currentGameStatus/displayHint`).update({numOfWordGuesses: 0})
 
