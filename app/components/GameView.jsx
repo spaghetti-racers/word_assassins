@@ -8,7 +8,8 @@ export default class GameView extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      allWords: []
+      allWords: [],
+      userId: ''
     }
   }
 
@@ -22,9 +23,14 @@ export default class GameView extends Component {
     currentGameStatus.on('value', snapshot => {
       this.setState({currentGameStatus: snapshot.val().currentGameStatus, players: snapshot.val().players})
     })
+
+    const auth = firebase.auth()
+    const currentUser = auth.currentUser.uid
+    this.setState({userId: currentUser})
   }
 
   render() {
+    //console.log("this.state.user", this.state.userId)
     return (
       <div>
         <h1 className="title">Word Assassins</h1>
@@ -41,6 +47,7 @@ export default class GameView extends Component {
           currentGameStatus={this.state.currentGameStatus}
           gameId={this.props.params.gameId}
           players={this.state.players}
+          userId={this.state.userId}
           />
 
           <ActiveSpyMasterHinterContainer

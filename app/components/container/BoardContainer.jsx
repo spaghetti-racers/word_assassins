@@ -10,7 +10,9 @@ export default class BoardContainer extends Component {
     this.state = {
       cards: [],
       activeTeam: '',
-      numOfWordGuesses: 0
+      numOfWordGuesses: 0,
+      role: '',
+      teamColor: ''
     }
     this.pickCard = this.pickCard.bind(this)
     this.startNewRoundOnClick = this.startNewRoundOnClick.bind(this)
@@ -34,6 +36,19 @@ export default class BoardContainer extends Component {
     getCardsForState.on('value', snapshot => {
       this.setState({ cards: snapshot.val() })
     })
+
+    let userId = this.props.userId
+    let obj = this.props.players
+    let arr = Object.keys(this.props.players)
+    let role = ''
+    let teamColor = ''
+    arr.forEach(elem => {
+      if (obj[elem].playerId === userId) {
+        role = obj[elem].role
+        teamColor = obj[elem].teamColor
+      }
+    })
+    this.setState({ role: role, teamColor: teamColor })
   }
 
   // ONCLICK LISTENER TO UPDATE THE STATUS OF A CARD IN THE DB WHEN CLICKED
@@ -81,10 +96,10 @@ export default class BoardContainer extends Component {
 
       if (readyForNextRound) {
         gameStatus.update(
-          {roundActive: false}
+          { roundActive: false }
         )
         gameStatus.update(
-          {cardsRemaining: {blueTeamNumCardsLeft: 9, redTeamNumCardsLeft: 8}}
+          { cardsRemaining: { blueTeamNumCardsLeft: 9, redTeamNumCardsLeft: 8 } }
         )
       }
     })
@@ -108,29 +123,46 @@ export default class BoardContainer extends Component {
     console.log('cards on state ', this.state.cards)
   }
 
-passButtonClick() {
-  let newActiveTeam = checkActiveTeam(this.props.currentGameStatus.activeTeam)
+  passButtonClick() {
+    let newActiveTeam = checkActiveTeam(this.props.currentGameStatus.activeTeam)
 
-  firebase.database().ref(`/gameInstances/${this.props.gameId}/currentGameStatus/displayHint`).update({numOfWordGuesses: 0})
+    firebase.database().ref(`/gameInstances/${this.props.gameId}/currentGameStatus/displayHint`).update({ numOfWordGuesses: 0 })
 
-  firebase.database().ref(`/gameInstances/${this.props.gameId}/currentGameStatus/`).update({activeTeam: newActiveTeam})
-}
+    firebase.database().ref(`/gameInstances/${this.props.gameId}/currentGameStatus/`).update({ activeTeam: newActiveTeam })
+  }
+
+  // selectRole() {
+  //   let userId = this.props.userId
+  //   let obj = this.props.players
+  //   let arr = Object.keys(this.props.players)
+  //   let role = ''
+  //   arr.forEach(elem => {
+  //     if (obj[elem].playerId === userId) {
+  //       role = obj[elem].role
+  //     }
+  //   })
+  //   this.setState({role: role})
+
+  // }
 
   render() {
     return (
       <div >
-      {
-        this.props.currentGameStatus.roundActive ?
-          <Board
-            gameId={this.props.gameId}
-            currentGameStatus={this.props.currentGameStatus}
-            pickCard={this.pickCard}
-            cards={this.state.cards}
-            players={this.props.players}
-            passButtonClick={this.passButtonClick}
-          /> :
-          <Button onClick={this.startNewRoundOnClick}>Start Round</Button>
-      }
+        {
+          this.props.currentGameStatus.roundActive ?
+            <Board
+              gameId={this.props.gameId}
+              currentGameStatus={this.props.currentGameStatus}
+              pickCard={this.pickCard}
+              cards={this.state.cards}
+              players={this.props.players}
+              passButtonClick={this.passButtonClick}
+              userId={this.props.userId}
+              role={this.state.role}
+              teamColor={this.state.teamColor}
+            /> :
+            <Button onClick={this.startNewRoundOnClick}>Start Round</Button>
+        }
       </div >
     )
   }
