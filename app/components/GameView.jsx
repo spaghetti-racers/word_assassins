@@ -22,15 +22,41 @@ export default class GameView extends Component {
     const currentGameStatus = firebase.database().ref(`gameInstances/${this.props.params.gameId}`)
     currentGameStatus.on('value', snapshot => {
       this.setState({currentGameStatus: snapshot.val().currentGameStatus, players: snapshot.val().players})
+
+      const auth = firebase.auth()
+      const currentUser = auth.currentUser.uid
+      this.setState({userId: currentUser})
+
+      const players = Object.keys(this.state.players)
+      console.log('these are the players on state ', players)
+      players.forEach(player => {
+          if (this.state.players[player].playerId === this.state.userId) {
+            // role = obj[player].role
+              this.setState({role: this.state.players[player].role, team: this.state.players[player].teamColor})
+            // teamColor = obj[player].teamColor
+            console.log('current player is ', this.state.userId)
+            console.log('the state is ', this.state)
+          }
+        })
     })
 
-    const auth = firebase.auth()
-    const currentUser = auth.currentUser.uid
-    this.setState({userId: currentUser})
+
+
+    // const players = this.state.players?Object.keys(this.state.players) : 'no players'
+
+
+
+    // const currentPlayer = players?players.forEach(player => {
+    //   if (this.state.players[player].playerId === this.state.userId) {
+    //     // role = obj[player].role
+    //     // teamColor = obj[player].teamColor
+    //     console.log('current player is ', this.state.userId)
+    //   }
+    // }): 'no current player'
+    // this.setState({ role: role, teamColor: teamColor })
   }
 
   render() {
-    //console.log("this.state.user", this.state.userId)
     return (
       <div>
         <h1 className="title">Word Assassins</h1>
@@ -40,7 +66,7 @@ export default class GameView extends Component {
           players={this.state.players}
         />
       {
-        Object.keys(this.state).length >= 3 &&
+        Object.keys(this.state).length >= 6 &&
         <div>
           <BoardContainer
           allWords={this.state.allWords}
@@ -50,17 +76,18 @@ export default class GameView extends Component {
           userId={this.state.userId}
           />
 
+          {this.state.currentGameStatus.activeTeam===this.state.team?
           <ActiveSpyMasterHinterContainer
             currentGameStatus={this.state.currentGameStatus}
             gameId={this.props.params.gameId}
             players={this.state.players}
             />
-
+          :
           <InactiveSpyMasterHinterContainer
             currentGameStatus={this.state.currentGameStatus}
             gameId={this.props.params.gameId}
             players={this.state.players}
-          />
+          />}
         </div>
       }
       </div>
