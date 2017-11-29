@@ -39,6 +39,7 @@ export default class InactiveSpymasterHinterContainer extends Component {
         possibleHint={this.state.possibleHint}
         numberOfWordsToGuess={this.state.numberOfWordsToGuess}
         validateHint={this.validateHint}
+        role={this.props.role}
       />
     )
   }

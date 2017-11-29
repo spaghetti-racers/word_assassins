@@ -74,6 +74,7 @@ export default class GameView extends Component {
               currentGameStatus={this.state.currentGameStatus}
               gameId={this.props.params.gameId}
               players={this.state.players}
+              role={this.state.role}
             />
           }
         </div>

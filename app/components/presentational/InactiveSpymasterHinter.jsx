@@ -3,6 +3,7 @@ import {Button} from 'semantic-ui-react'
 
 const InactiveSpymasterHinter = props => {
   return (
+    props.role==='spymaster'?
     <div>
       <h1>Confirm Hint</h1>
       {
@@ -15,6 +16,7 @@ const InactiveSpymasterHinter = props => {
         </div>
       }
     </div>
+    :null
   )
 }
 
