@@ -3,8 +3,10 @@ import { Button } from 'semantic-ui-react'
 
 const ActiveSpymasterHinter = props =>
 (
+  props.role === 'spymaster'?
   <div>
-    <h1>Display Spymaster hint </h1>
+    <h1>Enter a hint for confirmation</h1>
+
   <div className="ui input">
       <input
         value={props.numberOfWordsToGuess}
@@ -35,6 +37,7 @@ const ActiveSpymasterHinter = props =>
       </Button>
     </div>
   </div>
+  : null
 )
 
 export default ActiveSpymasterHinter
