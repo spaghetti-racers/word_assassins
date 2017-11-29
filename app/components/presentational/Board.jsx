@@ -3,7 +3,7 @@ import { Card, Button } from 'semantic-ui-react'
 
 const Board = props => {
 
-  console.log("PROOOOOOOOOOPS:  ", props)
+  //console.log("PROOOOOOOOOOPS:  ", props)
   //let playersArr = Object.keys(props.players)
   const player = props.userId
 
