@@ -6,7 +6,7 @@ const GameStatus = props => {
 
   return (
 
-    <Table className="gameStatusTable" celled style={{width: '35%'}}>
+    <Table className="gameStatusTable" celled>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Player Name</Table.HeaderCell>

@@ -6,7 +6,7 @@ import ActiveSpyMasterHinterContainer from './container/ActiveSpyMasterHinterCon
 import InactiveSpyMasterHinterContainer from './container/InactiveSpymasterHinterContainer'
 import GameStatusContainer from './container/GameStatusContainer'
 
-import { Container } from 'semantic-ui-react'
+import { Container, Grid } from 'semantic-ui-react'
 
 export default class GameView extends Component {
   constructor(props) {
@@ -54,22 +54,32 @@ export default class GameView extends Component {
               userId={this.state.userId}
             />
 
-            <ActiveSpyMasterHinterContainer
-              currentGameStatus={this.state.currentGameStatus}
-              gameId={this.props.params.gameId}
-              players={this.state.players}
-            />
+            <Grid columns={2} divided style={{margin: 15}}>
+              <Grid.Row>
+                <Grid.Column>
+                  <ActiveSpyMasterHinterContainer
+                    currentGameStatus={this.state.currentGameStatus}
+                    gameId={this.props.params.gameId}
+                    players={this.state.players}
+                  />
 
-            <InactiveSpyMasterHinterContainer
-              currentGameStatus={this.state.currentGameStatus}
-              gameId={this.props.params.gameId}
-              players={this.state.players}
-            />
+                  <InactiveSpyMasterHinterContainer
+                    currentGameStatus={this.state.currentGameStatus}
+                    gameId={this.props.params.gameId}
+                    players={this.state.players}
+                  />
+                </Grid.Column>
+                <Grid.Column>
 
-            <GameStatusContainer
-              currentGameStatus={this.state.currentGameStatus}
-              players={this.state.players}
-            />
+                  <GameStatusContainer
+                    currentGameStatus={this.state.currentGameStatus}
+                    players={this.state.players}
+
+                  />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+
           </div>
         }
       </div>
