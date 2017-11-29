@@ -51,3 +51,13 @@ div.row {
    padding-top: 20px;
 
 }
+
+.hintText {
+  color: white;
+  background-color: black;
+  padding: 0 10;
+}
+
+.test span {
+  color: blue
+}
