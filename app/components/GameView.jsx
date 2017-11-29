@@ -40,6 +40,7 @@ export default class GameView extends Component {
   }
 
   render() {
+    console.log('this is the state ', this.state)
     return (
       <div>
         <h1 className="title">Word Assassins</h1>
@@ -60,11 +61,13 @@ export default class GameView extends Component {
           />
 
           {
+
             this.state.currentGameStatus.activeTeam===this.state.team?
             <ActiveSpyMasterHinterContainer
               currentGameStatus={this.state.currentGameStatus}
               gameId={this.props.params.gameId}
               players={this.state.players}
+              role={this.state.role}
               />
             :
             <InactiveSpyMasterHinterContainer

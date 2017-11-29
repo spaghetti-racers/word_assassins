@@ -68,6 +68,7 @@ export default class ActiveSpymasterHinterContainer extends Component {
       submitPotentialHint={this.submitPotentialHint}
       resetHintGenerator={this.resetHintGenerator}
       handlePossibleHint={this.handlePossibleHint}
+      role={this.props.role}
        />
     )
   }
