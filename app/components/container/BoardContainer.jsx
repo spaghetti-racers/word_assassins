@@ -131,20 +131,6 @@ export default class BoardContainer extends Component {
     firebase.database().ref(`/gameInstances/${this.props.gameId}/currentGameStatus/`).update({ activeTeam: newActiveTeam })
   }
 
-  // selectRole() {
-  //   let userId = this.props.userId
-  //   let obj = this.props.players
-  //   let arr = Object.keys(this.props.players)
-  //   let role = ''
-  //   arr.forEach(elem => {
-  //     if (obj[elem].playerId === userId) {
-  //       role = obj[elem].role
-  //     }
-  //   })
-  //   this.setState({role: role})
-
-  // }
-
   render() {
     return (
       <div >

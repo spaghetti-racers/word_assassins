@@ -2,13 +2,11 @@ import React from 'react'
 import { Card, Button } from 'semantic-ui-react'
 
 const Board = props => {
-  console.log("Players ", props.players)
-  console.log("userId: ", props.userId)
-  console.log("PROOOOOOOOOOPS:  ", props)
 
+  console.log("PROOOOOOOOOOPS:  ", props)
   //let playersArr = Object.keys(props.players)
   const player = props.userId
-  console.log("singular player", props.players.player)
+
   return (
 
     <div>
