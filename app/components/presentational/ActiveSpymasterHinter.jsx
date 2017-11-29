@@ -5,7 +5,7 @@ const ActiveSpymasterHinter = props =>
 (
   props.role === 'spymaster'?
   <div>
-    <h1>{props.role} </h1>
+    <h1>Enter a hint for confirmation</h1>
 
   <div className="ui input">
       <input

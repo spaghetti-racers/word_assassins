@@ -5,7 +5,7 @@ const InactiveSpymasterHinter = props => {
   return (
     props.role==='spymaster'?
     <div>
-      <h1>Confirm Hint</h1>
+      <h1>Approve Hint for Submission</h1>
       {
         !props.possibleHint?<h3>Waiting for Spymaster to Submit A Hint</h3>:
         <div>
