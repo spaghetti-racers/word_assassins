@@ -5,14 +5,15 @@ const DisplayHint = props => {
   const styles = {
     color: 'white',
     backgroundColor: 'black',
-    padding: 5
+    padding: 5,
+    fontSize: 22
   }
 
   return (
     <div>
-      <h3>Hint: <span style={styles}>{props.hintWord.toUpperCase()}</span></h3>
-      <h5>Cards Associated with Hint: {props.hintNumGuessesAllowed - 1}</h5>
-      <h5>Guesses Remaining: {props.hintNumGuessesAllowed}</h5>
+      <h3 style={{fontSize: '17'}}>Hint: <span style={styles}>{props.hintWord.toUpperCase()}</span></h3>
+      <h5 style={{fontSize: '17'}}>Cards Associated with Hint: {props.hintNumGuessesAllowed - 1}</h5>
+      <h5 style={{fontSize: '17'}}>Guesses Remaining: {props.hintNumGuessesAllowed}</h5>
     </div>
   )
 }

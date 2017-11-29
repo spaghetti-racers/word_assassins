@@ -34,51 +34,56 @@ export default class GameView extends Component {
   }
 
   render() {
-    //console.log("this.state.user", this.state.userId)
+    // console.log("this.state.user", this.state.userId)
     return (
       <div>
         <h1 className="title">Word Assassins</h1>
-        <Scoreboard
-          gameId={this.props.params.gameId}
-          currentGameStatus={this.state.currentGameStatus}
-          players={this.state.players}
-        />
+
         {
           Object.keys(this.state).length >= 3 &&
-          <div>
-            <BoardContainer
-              allWords={this.state.allWords}
-              currentGameStatus={this.state.currentGameStatus}
-              gameId={this.props.params.gameId}
-              players={this.state.players}
-              userId={this.state.userId}
-            />
+            <div>
+              <Grid columns={2} divided style={{margin:1}}>
+                <Grid.Row>
+                  <Grid.Column width={9}>
+                    <div>
+                    <Scoreboard
+                      gameId={this.props.params.gameId}
+                      currentGameStatus={this.state.currentGameStatus}
+                      players={this.state.players}
+                    />
+                    </div>
+                  </Grid.Column>
 
-            <Grid columns={2} divided style={{margin: 15}}>
-              <Grid.Row>
-                <Grid.Column>
-                  <ActiveSpyMasterHinterContainer
-                    currentGameStatus={this.state.currentGameStatus}
-                    gameId={this.props.params.gameId}
-                    players={this.state.players}
-                  />
-
-                  <InactiveSpyMasterHinterContainer
-                    currentGameStatus={this.state.currentGameStatus}
-                    gameId={this.props.params.gameId}
-                    players={this.state.players}
-                  />
-                </Grid.Column>
-                <Grid.Column>
-
+                  <Grid.Column width={7}>
+                    <div>
                   <GameStatusContainer
-                    currentGameStatus={this.state.currentGameStatus}
-                    players={this.state.players}
+                      currentGameStatus={this.state.currentGameStatus}
+                      players={this.state.players}
+                    />
+                      </div>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
 
-                  />
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
+              <BoardContainer
+                allWords={this.state.allWords}
+                currentGameStatus={this.state.currentGameStatus}
+                gameId={this.props.params.gameId}
+                players={this.state.players}
+                userId={this.state.userId}
+              />
+
+              <ActiveSpyMasterHinterContainer
+                currentGameStatus={this.state.currentGameStatus}
+                gameId={this.props.params.gameId}
+                players={this.state.players}
+              />
+
+              <InactiveSpyMasterHinterContainer
+                currentGameStatus={this.state.currentGameStatus}
+                gameId={this.props.params.gameId}
+                players={this.state.players}
+              />
 
           </div>
         }
