@@ -8,7 +8,7 @@ export const updateCardsRemaining = function(cardColor, blueRemainingCards, redR
     updatedCardsRemaining = {
       blueTeamNumCardsLeft: blueRemainingCards, redTeamNumCardsLeft: redRemainingCards - 1
     }
-  } else if (cardColor === 'black') {
+  } else if (cardColor === 'gray') {
     if (activeTeam === 'redTeam') {
       updatedCardsRemaining = {
         blueTeamNumCardsLeft: 0, redTeamNumCardsLeft: redRemainingCards
