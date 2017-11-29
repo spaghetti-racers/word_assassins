@@ -3,7 +3,7 @@ import { Card, Button } from 'semantic-ui-react'
 
 const Board = props => {
 
-  console.log("PROOOOOOOOOOPS:  ", props)
+  //console.log("PROOOOOOOOOOPS:  ", props)
   //let playersArr = Object.keys(props.players)
   const player = props.userId
 
@@ -21,7 +21,7 @@ const Board = props => {
                     <Card style={{ backgroundColor: card.color }} key={card.word}>
                       <Card.Content value={idx}>
                         {
-                          <Card.Header value={idx}> {card.word} </Card.Header>
+                          card.clicked ? ' ' : <Card.Header value={idx}> {card.word} </Card.Header>
                         }
                       </Card.Content>
                     </Card>)

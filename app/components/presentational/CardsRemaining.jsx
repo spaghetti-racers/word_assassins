@@ -4,12 +4,11 @@ const CardsRemaining = props => {
 
   return (
     <div>
-      <h4># Cards Remaining</h4>
-      <h6>Red Team: {props.numCardsLeftRed}</h6>
-      <h6>Blue Team: {props.numCardsLeftBlue}</h6>
+      <h3 style={{fontSize: '20'}}># Cards Remaining</h3>
+      <h5 style={{fontSize: '20'}}>Red Team: {props.numCardsLeftRed}</h5>
+      <h5 style={{fontSize: '20'}}>Blue Team: {props.numCardsLeftBlue}</h5>
     </div>
   )
-
 }
 
 export default CardsRemaining
