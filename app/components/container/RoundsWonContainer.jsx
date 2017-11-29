@@ -15,6 +15,7 @@ export default class RoundsWonContainer extends Component {
     const dataRef = firebase.database().ref()
     const gameInstance = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus').child('RoundsWonByTeams')
     gameInstance.on('value', (snap) => {
+      if(snap.val()) {
       const arrayOfTeamNames = Object.keys(snap.val())
       for (let i = 0; i < arrayOfTeamNames.length; i++) {
         gameInstance.child(arrayOfTeamNames[i]).on('value', (snap) => {
@@ -23,7 +24,7 @@ export default class RoundsWonContainer extends Component {
 
           })
         })
-      }
+      }}
     })
   }
 

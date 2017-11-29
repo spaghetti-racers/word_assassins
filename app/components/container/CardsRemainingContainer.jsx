@@ -18,15 +18,15 @@ export default class CardsRemainingContainer extends Component {
     const roundsWon = dataRef.child('gameInstances').child(this.props.gameId).child('currentGameStatus').child('RoundsWonByTeams')
 
     cardsRemaining.on('value', (snap) => {
+      if(snap.val()) {
       const arrayOfTeamNames = Object.keys(snap.val())
       for (let i = 0; i < arrayOfTeamNames.length; i++) {
         cardsRemaining.child(arrayOfTeamNames[i]).on('value', (snap) => {
           this.setState({
             [arrayOfTeamNames[i]]: snap.val()
           })
-
         })
-      }
+      }}
     })
   }
 
