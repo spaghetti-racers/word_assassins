@@ -15,7 +15,7 @@ const Scoreboard = props => {
 
       <Table.Body>
         <Table.Row>
-          <Table.Cell>
+          <Table.Cell style={{fontSize: '58'}}>
 
             <RoundsWon roundsWonByTeams={{ red: props.roundsWonRedTeam, blue: props.roundsWonBlueTeam }} gameId={props.gameId} />
           </Table.Cell>

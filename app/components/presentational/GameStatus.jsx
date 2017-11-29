@@ -9,9 +9,9 @@ const GameStatus = props => {
     <Table className="gameStatusTable" celled>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell>Player Name</Table.HeaderCell>
-          <Table.HeaderCell>Role</Table.HeaderCell>
-          <Table.HeaderCell>Whose Turn?</Table.HeaderCell>
+          <Table.HeaderCell style={{fontSize: '20'}}>Player Name</Table.HeaderCell>
+          <Table.HeaderCell style={{fontSize: '20'}}>Role</Table.HeaderCell>
+          <Table.HeaderCell style={{fontSize: '20'}}>Whose Turn?</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
 
