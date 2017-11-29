@@ -19,6 +19,7 @@ export default class GameView extends Component {
       const wordArray = snapshot.val()
       this.setState({allWords: wordArray})
     })
+
     const currentGameStatus = firebase.database().ref(`gameInstances/${this.props.params.gameId}`)
     currentGameStatus.on('value', snapshot => {
       this.setState({currentGameStatus: snapshot.val().currentGameStatus, players: snapshot.val().players})
@@ -28,32 +29,14 @@ export default class GameView extends Component {
       this.setState({userId: currentUser})
 
       const players = Object.keys(this.state.players)
-      console.log('these are the players on state ', players)
+
       players.forEach(player => {
-          if (this.state.players[player].playerId === this.state.userId) {
-            // role = obj[player].role
-              this.setState({role: this.state.players[player].role, team: this.state.players[player].teamColor})
-            // teamColor = obj[player].teamColor
-            console.log('current player is ', this.state.userId)
-            console.log('the state is ', this.state)
-          }
-        })
+        const currentPlayer = this.state.players[player]
+        if (currentPlayer.playerId === this.state.userId) {
+          this.setState({role: currentPlayer.role, team: currentPlayer.teamColor})
+        }
+      })
     })
-
-
-
-    // const players = this.state.players?Object.keys(this.state.players) : 'no players'
-
-
-
-    // const currentPlayer = players?players.forEach(player => {
-    //   if (this.state.players[player].playerId === this.state.userId) {
-    //     // role = obj[player].role
-    //     // teamColor = obj[player].teamColor
-    //     console.log('current player is ', this.state.userId)
-    //   }
-    // }): 'no current player'
-    // this.setState({ role: role, teamColor: teamColor })
   }
 
   render() {
@@ -76,18 +59,20 @@ export default class GameView extends Component {
           userId={this.state.userId}
           />
 
-          {this.state.currentGameStatus.activeTeam===this.state.team?
-          <ActiveSpyMasterHinterContainer
-            currentGameStatus={this.state.currentGameStatus}
-            gameId={this.props.params.gameId}
-            players={this.state.players}
+          {
+            this.state.currentGameStatus.activeTeam===this.state.team?
+            <ActiveSpyMasterHinterContainer
+              currentGameStatus={this.state.currentGameStatus}
+              gameId={this.props.params.gameId}
+              players={this.state.players}
+              />
+            :
+            <InactiveSpyMasterHinterContainer
+              currentGameStatus={this.state.currentGameStatus}
+              gameId={this.props.params.gameId}
+              players={this.state.players}
             />
-          :
-          <InactiveSpyMasterHinterContainer
-            currentGameStatus={this.state.currentGameStatus}
-            gameId={this.props.params.gameId}
-            players={this.state.players}
-          />}
+          }
         </div>
       }
       </div>
