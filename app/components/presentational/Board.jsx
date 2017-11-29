@@ -21,7 +21,7 @@ const Board = props => {
                     <Card style={{ backgroundColor: card.color }} key={card.word}>
                       <Card.Content value={idx}>
                         {
-                          <Card.Header value={idx}> {card.word} </Card.Header>
+                          card.clicked ? ' ' : <Card.Header value={idx}> {card.word} </Card.Header>
                         }
                       </Card.Content>
                     </Card>)
