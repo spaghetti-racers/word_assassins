@@ -47,15 +47,22 @@ export default class ActiveSpymasterHinterContainer extends Component {
       possibleHint: '',
       hintApproval: false
     })
+
+    console.log('state ', this.state)
+    const activeTeam = this.props.currentGameStatus.activeTeam === 'blueTeam' ? {activeTeam: 'redTeam'} : {activeTeam: 'blueTeam'}
+    firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus`).update(activeTeam)
+    console.log('this is the active team ', activeTeam)
   }
 
   resetHintGenerator() {
     firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus/potentialHintandNumOfGuesses/hintApproval`).update({hintApproval: null, numberOfWordsToGuess: null, possibleHint: null})
 
-    firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus/displayHint`).set({
-      hintToDisplay: this.state.previousState.possibleHint,
-      numOfWordGuesses: this.state.previousState.numberOfWordsToGuess + 1
-    })
+    console.log('checking state again ', this.state)
+    // firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus/displayHint`).set({
+
+    //   hintToDisplay: this.state.previousState.possibleHint,
+    //   numOfWordGuesses: this.state.previousState.numberOfWordsToGuess + 1
+    // })
   }
 
   render() {
