@@ -49,7 +49,7 @@ const App = ({children}) =>
       {/* WhoAmI takes a firebase auth API and renders either a
           greeting and a logout button, or sign in buttons, depending
           on if anyone's logged in */}
-      <WhoAmI auth={auth}/>
+
     </nav>
     {/* Render our children (whatever the router gives us) */}
     {children}
