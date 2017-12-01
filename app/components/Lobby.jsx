@@ -91,6 +91,3 @@ export default class Lobby extends Component {
     )
   }
 }
-
-                  // Room {index} - Players {potentialPlayers.length} /4
-                  // <button onClick={(event) => this.onClickJoinGame(event, roomId)}>Join</button>
