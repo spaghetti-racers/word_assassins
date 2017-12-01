@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import { browserHistory } from 'react-router'
+import { Container, Header, Table, Button, Segment } from 'semantic-ui-react'
 
 export default class Lobby extends Component {
   constructor(props) {
@@ -13,8 +14,8 @@ export default class Lobby extends Component {
   componentDidMount() {
     const allRooms = firebase.database().ref('rooms/')
     allRooms.on('value', snapshot => {
-      const rooms = Object.keys(snapshot.val()).map((room) => ({[room]: snapshot.val()[room]}))
-      this.setState({rooms: rooms})
+      const rooms = Object.keys(snapshot.val()).map((room) => ({ [room]: snapshot.val()[room] }))
+      this.setState({ rooms: rooms })
     })
   }
 
@@ -24,7 +25,7 @@ export default class Lobby extends Component {
     const auth = firebase.auth()
     const newRoomInstance = {
       potentialPlayers: {
-        0: {userId: auth.currentUser.uid, displayName: auth.currentUser.displayName}
+        0: { userId: auth.currentUser.uid, displayName: auth.currentUser.displayName }
       }
     }
     const newRoomRef = firebase.database().ref('rooms').push(newRoomInstance)
@@ -45,7 +46,7 @@ export default class Lobby extends Component {
     const playerNum = currRoom[roomId]['potentialPlayers'].length
 
     const potentialPlayerRef = firebase.database().ref(`/rooms/${roomId}/potentialPlayers/`)
-    const addPlayer = potentialPlayerRef.update({[playerNum]: {userId: auth.currentUser.uid, displayName: auth.currentUser.displayName}})
+    const addPlayer = potentialPlayerRef.update({ [playerNum]: { userId: auth.currentUser.uid, displayName: auth.currentUser.displayName } })
 
     const selectedUser = firebase.database().ref(`users/${auth.currentUser.uid}`)
     selectedUser.set({ room: roomId })
@@ -55,23 +56,41 @@ export default class Lobby extends Component {
 
   render() {
     return (
-      <div>
-      <h2>Lobby</h2>
-      <button onClick={this.onClickNewGame}>Create New Room</button>
-        <ul>
-        {
-          // RENDERS EACH ROOM IN THE ROOMS DB WITH A ROOM #, NUM OF PLAYERS IN ROOM, AND A JOIN BUTTON
-          this.state.rooms.length && this.state.rooms.map((room, index) => {
-            const roomId = Object.keys(room)[0]
-            const potentialPlayers = room[roomId]['potentialPlayers']
-            return (potentialPlayers.length <= 3) ? (<li key={roomId}>
-                Room {index} - Players {potentialPlayers.length} /4
-                <button onClick={(event) => this.onClickJoinGame(event, roomId)}>Join</button>
-              </li>) : ''
-          })
-        }
-        </ul>
+      <div >
+         <Segment centered style={{ textAlign: 'center', backgroundColor: 'DodgerBlue' }} >
+          <Container  >
+            <Header as='h2'>Welcome to the Word Assassin's Lobby</Header>
+            <p style={{paddingBottom: '10px'}}>To Start Playing Word Assassins please create or join a room. Once you have four players in a room, you will be able to start a new game.
+                                      Enjoy!</p>
+          </Container>
+
+          <Button centered positive onClick={this.onClickNewGame}>Create New Room</Button>
+        </Segment>
+
+          <Table celled style={{ width: "50%", textAlign: 'center', marginLeft: 'auto', marginRight: 'auto' }}>
+            {
+              // RENDERS EACH ROOM IN THE ROOMS DB WITH A ROOM #, NUM OF PLAYERS IN ROOM, AND A JOIN BUTTON
+              this.state.rooms.length && this.state.rooms.map((room, index) => {
+
+                const roomId = Object.keys(room)[0]
+                const potentialPlayers = room[roomId]['potentialPlayers']
+                return (potentialPlayers.length <= 3) ? (
+
+                  <Table.Row key={roomId}>
+                    <Table.Cell>Room {index}</Table.Cell>
+                    <Table.Cell>Players {potentialPlayers.length} /4</Table.Cell>
+                    <Table.Cell> <button onClick={(event) => this.onClickJoinGame(event, roomId)}>Join</button></Table.Cell>
+                    <Table.Cell>hibiwhynyeguyrye</Table.Cell>
+
+                  </Table.Row>) : ''
+              })
+            }
+          </Table>
+
       </div>
     )
   }
 }
+
+                  // Room {index} - Players {potentialPlayers.length} /4
+                  // <button onClick={(event) => this.onClickJoinGame(event, roomId)}>Join</button>
