@@ -59,15 +59,15 @@ export default class Lobby extends Component {
       <div >
          <Segment centered style={{ textAlign: 'center', backgroundColor: 'DodgerBlue' }} >
           <Container  >
-            <Header as='h2'>Welcome to the Word Assassin's Lobby</Header>
-            <p style={{paddingBottom: '10px'}}>To Start Playing Word Assassins please create or join a room. Once you have four players in a room, you will be able to start a new game.
+            <Header as='h2'>Welcome to the Word Assassins Lobby</Header>
+            <p style={{paddingBottom: '10px'}}>To start playing Word Assassins please create or join a room. Once you have four players in a room, you will be able to start a new game.
                                       Enjoy!</p>
           </Container>
 
-          <Button centered positive onClick={this.onClickNewGame}>Create New Room</Button>
+          <Button centered positive style={{color: 'black'}} onClick={this.onClickNewGame}>Create New Room</Button>
         </Segment>
 
-          <Table celled style={{ width: "50%", textAlign: 'center', marginLeft: 'auto', marginRight: 'auto' }}>
+          <Table celled style={{ width: "50%", textAlign: 'center', marginLeft: 'auto', marginRight: 'auto', backgroundColor: 'LightGoldenRodYellow' }}>
             {
               // RENDERS EACH ROOM IN THE ROOMS DB WITH A ROOM #, NUM OF PLAYERS IN ROOM, AND A JOIN BUTTON
               this.state.rooms.length && this.state.rooms.map((room, index) => {
@@ -80,7 +80,6 @@ export default class Lobby extends Component {
                     <Table.Cell>Room {index}</Table.Cell>
                     <Table.Cell>Players {potentialPlayers.length} /4</Table.Cell>
                     <Table.Cell> <button onClick={(event) => this.onClickJoinGame(event, roomId)}>Join</button></Table.Cell>
-                    <Table.Cell>hibiwhynyeguyrye</Table.Cell>
 
                   </Table.Row>) : ''
               })
