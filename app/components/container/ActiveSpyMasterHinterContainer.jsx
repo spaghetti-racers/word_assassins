@@ -49,7 +49,7 @@ export default class ActiveSpymasterHinterContainer extends Component {
     })
 
     console.log('state ', this.state)
-    const activeTeam = this.props.currentGameStatus.activeTeam === 'blueTeam' ? {activeTeam: 'redTeam'} : {activeTeam: 'blueTeam'}
+    const activeTeam = this.props.currentGameStatus.activeTeam === 'blueTeam' ? {activeTeam: 'redTeam', activeRole: 'confirmingSpymaster'} : {activeTeam: 'blueTeam', activeRole: 'confirmingSpymaster'}
     firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus`).update(activeTeam)
     console.log('this is the active team ', activeTeam)
   }
