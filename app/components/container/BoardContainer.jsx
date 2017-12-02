@@ -151,7 +151,10 @@ export default class BoardContainer extends Component {
               role={this.state.role}
               teamColor={this.state.teamColor}
             /> :
-            <Button onClick={this.startNewRoundOnClick}>Start Round</Button>
+
+              this.props.currentGameStatus.roundWinner !== 'none' ? <div><h1>Yay, {this.props.currentGameStatus.roundWinner} won the round!</h1>
+              <Button onClick={this.startNewRoundOnClick}>Start Round</Button></div> :
+              <Button onClick={this.startNewRoundOnClick}>Start Round</Button>
         }
       </div >
     )
