@@ -54,8 +54,11 @@ div.row {
 .maleSpy{
   height: 60%;
   margin-top: -6px;
+  margin-right: -100px;
 }
 
 .femaleSpy {
+  justify-content: center;
   height: 59%;
+  margin-right: 500px;
 }

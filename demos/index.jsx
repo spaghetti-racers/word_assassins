@@ -17,8 +17,8 @@ const Index = ({ children }) =>
 
   <div style={{ backgroundColor: 'red' }}>
     <Grid columns="three">
-      <Grid.Row>
-        <Grid.Column height={100}>
+      <Grid.Row style={{height: '100vh'}}>
+        <Grid.Column>
           <Image className='maleSpy' src={MaleSpy} />
         </Grid.Column>
         <Grid centered columns={1}>
@@ -31,8 +31,13 @@ const Index = ({ children }) =>
           <Grid.Row>
             <h1>Word Assassins</h1>
           </Grid.Row>
+          <Grid.Row>
+            <Button>
+              <Link to={'/lobby'} component={Lobby} style={{color: 'blue'}}>Lobby</Link>
+            </Button>
+          </Grid.Row>
         </Grid>
-        <Grid.Column height={100}>
+        <Grid.Column height={1}>
           <Image className='femaleSpy' src={FemaleSpy} />
         </Grid.Column>
       </Grid.Row>
