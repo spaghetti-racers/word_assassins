@@ -31,6 +31,7 @@ const Index = ({ children }) =>
           <Grid.Row>
             <h1>Word Assassins</h1>
           </Grid.Row>
+
         </Grid>
         <Grid.Column height={1}>
           <Image className='femaleSpy' src={FemaleSpy} />
