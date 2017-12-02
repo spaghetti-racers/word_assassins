@@ -52,13 +52,10 @@ div.row {
 }
 
 .maleSpy{
-  height: 60%;
-  margin-top: -6px;
-  margin-right: -100px;
+  height: 100%;
+  margin-top: -4px;
 }
 
 .femaleSpy {
-  justify-content: center;
-  height: 59%;
-  margin-right: 500px;
+  height: 98%;
 }
