@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import { browserHistory } from 'react-router'
+import { Container, Header, Table, Button, Segment } from 'semantic-ui-react'
 
 export default class Rooms extends Component {
   constructor(props) {
@@ -73,14 +74,28 @@ export default class Rooms extends Component {
     const activeRoom = this.state.currRoom[roomId]
     return (
       <div>
-        <h1>Game Room</h1>
+        <Segment centered style={{ textAlign: 'center', backgroundColor: '#76d66d' }} >
+            <Container>
+              <Header as='h2'>Game Room</Header>
+              <p style={{paddingBottom: '10px'}}>Once you have four players in a room, you will be able to start a new game.
+                                        Enjoy!</p>
+              <Button centered positive style={{color: 'black', backgroundColor: 'white'}} disabled={(activeRoom && activeRoom.potentialPlayers.length < 4) || (activeRoom && activeRoom.potentialPlayers.length > 4)}
+              onClick={(event) => this.onClickNewGame(event, activeRoom)}>
+              Start New Game
+              </Button>
+            </Container>
+          </Segment>
+          <Table celled style={{ width: '50%', textAlign: 'center', marginLeft: 'auto', marginRight: 'auto', backgroundColor: 'LightGoldenRodYellow' }}>
         {
-          activeRoom && activeRoom.potentialPlayers && activeRoom.potentialPlayers.map(player => (<h3 key={player.userId}>{player.displayName}</h3>))
+          activeRoom && activeRoom.potentialPlayers && activeRoom.potentialPlayers.map((player, index) => (
+
+            <Table.Row key={player.userId}>
+              <Table.Cell>Player {index + 1}</Table.Cell>
+              <Table.Cell>{player.displayName}</Table.Cell>
+
+              </Table.Row>))
         }
-        <button disabled={(activeRoom && activeRoom.potentialPlayers.length < 4) || (activeRoom && activeRoom.potentialPlayers.length > 4)}
-        onClick={(event) => this.onClickNewGame(event, activeRoom)}>
-        Start New Game
-        </button>
+        </Table>
       </div>
     )
   }
