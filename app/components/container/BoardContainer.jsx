@@ -12,7 +12,8 @@ export default class BoardContainer extends Component {
       activeTeam: '',
       numOfWordGuesses: 0,
       role: '',
-      teamColor: ''
+      teamColor: '',
+      cardsRemaining: {}
     }
     this.pickCard = this.pickCard.bind(this)
     this.startNewRoundOnClick = this.startNewRoundOnClick.bind(this)
@@ -30,6 +31,7 @@ export default class BoardContainer extends Component {
 
       this.setState({ activeTeam: currentGameStatus.activeTeam })
       this.setState({ numOfWordGuesses: currentGameStatus.displayHint.numOfWordGuesses })
+      this.setState({ cardsRemaining: currentGameStatus.cardsRemaining })
     })
 
     const getCardsForState = firebase.database().ref(`gameInstances/${this.props.gameId}/gameCards`)
@@ -59,6 +61,7 @@ export default class BoardContainer extends Component {
     const clickedCardIndex = data.children.props.value
     const clickedCard = firebase.database().ref(`gameInstances/${this.props.gameId}/gameCards/${clickedCardIndex}`)
     clickedCard.update({ clicked: true })
+
 
     const dataRef = firebase.database().ref()
 
@@ -132,6 +135,7 @@ export default class BoardContainer extends Component {
   }
 
   render() {
+    console.log('the props for cards remaining', this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft)
     return (
       <div >
         {

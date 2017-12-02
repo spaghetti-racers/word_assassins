@@ -30,7 +30,8 @@ export default class Rooms extends Component {
         roundActive: false,
         whoGoesFirst: 'blueTeam',
         activeTeam: 'blueTeam',
-        activeRole: 'spymaster'
+        activeRole: 'spymaster',
+        roundWinner: 'none'
       },
 
       players: {
