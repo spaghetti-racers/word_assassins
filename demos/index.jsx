@@ -4,22 +4,22 @@ import { Route, IndexRedirect, IndexRoute, Link } from 'react-router'
 import { Container, Header, Table, Button, Segment, Grid, Image } from 'semantic-ui-react'
 import WhoAmI from '../app/components/WhoAmI'
 import Lobby from '../app/components/Lobby'
-
+import MaleSpy from '../public/BondSpy.png'
+import FemaleSpy from '../public/Woman-Spy-Silhouette.png'
 import Scratchpad from './scratchpad'
 import Whiteboard from './whiteboard'
 import Chat from './chat'
 import firebase from 'APP/fire'
+
 const auth = firebase.auth()
 
 const Index = ({ children }) =>
 
-  <div style={{ backgroundColor: 'red', height: '102vh' }}>
+  <div style={{ backgroundColor: 'red' }}>
     <Grid columns="three">
       <Grid.Row>
-        <Grid.Column>
-
-          <Image src='http://www.supercoloring.com/sites/default/files/silhouettes/2015/05/spy-girl-black-silhouette.svg' />
-
+        <Grid.Column height={100}>
+          <Image className='maleSpy' src={MaleSpy} />
         </Grid.Column>
         <Grid centered columns={1}>
           <Grid.Row>
@@ -37,8 +37,8 @@ const Index = ({ children }) =>
             </Button>
           </Grid.Row>
         </Grid>
-        <Grid.Column>
-          <Image src='https://openclipart.org/image/2400px/svg_to_png/245102/Spy-Silhouette.png' />
+        <Grid.Column height={100}>
+          <Image className='femaleSpy' src={FemaleSpy} />
         </Grid.Column>
       </Grid.Row>
     </Grid>
