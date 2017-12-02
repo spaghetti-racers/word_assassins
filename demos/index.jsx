@@ -31,11 +31,6 @@ const Index = ({ children }) =>
           <Grid.Row>
             <h1>Word Assassins</h1>
           </Grid.Row>
-          <Grid.Row>
-            <Button>
-              <Link to={'/lobby'} component={Lobby} style={{color: 'blue'}}>Lobby</Link>
-            </Button>
-          </Grid.Row>
         </Grid>
         <Grid.Column>
           <Image src='https://openclipart.org/image/2400px/svg_to_png/245102/Spy-Silhouette.png' />
