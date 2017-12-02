@@ -19,7 +19,7 @@ export const WhoAmI = ({ user, auth }) =>
   <div className="whoami">
     {
       (!user || user.isAnonymous) ?
-      <div></div>:
+      <h3></h3>:
     <Button style={{ position: 'relative', top: '-150px' }}>
       <Link to={'/lobby'} component={Lobby} style={{ color: 'blue' }}>Lobby</Link>
     </Button>

@@ -18,5 +18,4 @@ describe('<Login />', () => {
     root = shallow(<Login auth={fakeAuth}/>)
   })
 
-
 })
