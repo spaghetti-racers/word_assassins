@@ -2,6 +2,8 @@ import React from 'react'
 
 import firebase from 'APP/fire'
 
+import { Button } from 'semantic-ui-react'
+
 const google = new firebase.auth.GoogleAuthProvider()
 
 // Firebase has several built in auth providers:
@@ -29,5 +31,5 @@ export default ({ auth }) =>
   // signInWithPopup will try to open a login popup, and if it's blocked, it'll
   // redirect. If you prefer, you can signInWithRedirect, which always
   // redirects.
-  <button className='google login'
-          onClick={() => auth.signInWithPopup(google)}>Login with Google</button>
+  <Button style={{ position: 'relative', top: '-100px' }}className='google login'
+          onClick={() => auth.signInWithPopup(google)}>Login with Google</Button>
