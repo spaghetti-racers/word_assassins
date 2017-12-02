@@ -31,7 +31,6 @@ const Index = ({ children }) =>
           <Grid.Row>
             <h1 style={{fontSize: '55px'}}>Word Assassins</h1>
           </Grid.Row>
-
         </Grid>
         <Grid.Column height={1}>
           <Image className='femaleSpy' src={FemaleSpy} />
@@ -40,7 +39,6 @@ const Index = ({ children }) =>
     </Grid>
     <div style={{ textAlign: 'center' }}>
       <WhoAmI auth={auth} />
-
     </div>
 
   </div>
