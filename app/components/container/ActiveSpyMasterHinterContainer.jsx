@@ -54,6 +54,8 @@ export default class ActiveSpymasterHinterContainer extends Component {
 
   resetHintGenerator() {
     firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus/potentialHintandNumOfGuesses/hintApproval`).update({hintApproval: null, numberOfWordsToGuess: null, possibleHint: null})
+    firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus`).update({activeRole: 'guesser'})
+
 
     console.log('checking state again ', this.state)
     // firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus/displayHint`).set({
