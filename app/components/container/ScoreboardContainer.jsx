@@ -13,8 +13,8 @@ export default class ScoreboardContainer extends Component {
       redTeamNumCardsLeft: 8,
       blueTeamNumCardsLeft: 9,
 
-      hintToDisplay: 'blank',
-      numOfWordGuesses: 2
+      hintToDisplay: '---',
+      numOfWordGuesses: '-'
 
     }
     this.setNumCards = this.setNumCards.bind(this)
