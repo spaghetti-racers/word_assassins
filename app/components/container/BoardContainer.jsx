@@ -152,7 +152,7 @@ export default class BoardContainer extends Component {
               teamColor={this.state.teamColor}
             /> :
 
-              this.props.currentGameStatus.roundWinner !== 'none' ? <div><h1>Yay, {this.props.currentGameStatus.roundWinner} won the round!</h1>
+              this.props.currentGameStatus.roundWinner !== 'none' ? <div style={{textAlign: 'center'}}><h1 style={{backgroundColor: this.props.currentGameStatus.roundWinner.slice(0, -4)}}>All assassins have been found: {this.props.currentGameStatus.roundWinner.slice(0, -4).toUpperCase()} TEAM won the round!</h1>
               <Button onClick={this.startNewRoundOnClick}>Start Round</Button></div> :
               <Button onClick={this.startNewRoundOnClick}>Start Round</Button>
         }
