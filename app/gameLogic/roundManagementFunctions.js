@@ -6,14 +6,16 @@ export const updateRoundsWon = function(blueCardsLeft, redCardsLeft, blueRoundsW
       RoundsWonByTeams: {
         blueTeamNumRoundsWon: blueRoundsWon + 1,
         redTeamNumRoundsWon: redRoundsWon
-      }
+      },
+      roundWinner: 'blueTeam'
     }
   } else if (redCardsLeft === 0) {
     currPhaseOfGame = {
       RoundsWonByTeams: {
         blueTeamNumRoundsWon: blueRoundsWon,
         redTeamNumRoundsWon: redRoundsWon + 1
-      }
+      },
+      roundWinner: 'redTeam'
     }
   }
   return currPhaseOfGame
