@@ -135,7 +135,6 @@ export default class BoardContainer extends Component {
   }
 
   render() {
-    console.log('the props for cards remaining', this.props.currentGameStatus.cardsRemaining.blueTeamNumCardsLeft)
     return (
       <div >
         {
