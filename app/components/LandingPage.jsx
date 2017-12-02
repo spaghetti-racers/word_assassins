@@ -2,16 +2,16 @@
 import React from 'react'
 import { Route, IndexRedirect, IndexRoute, Link } from 'react-router'
 import { Container, Header, Table, Button, Segment, Grid, Image } from 'semantic-ui-react'
-import WhoAmI from '../app/components/WhoAmI'
-import Lobby from '../app/components/Lobby'
+import WhoAmI from './WhoAmI'
+import Lobby from './Lobby'
 
-import Scratchpad from './scratchpad'
-import Whiteboard from './whiteboard'
-import Chat from './chat'
+import Scratchpad from '../../demos/scratchpad'
+import Whiteboard from '../../demos/whiteboard'
+import Chat from '../../demos/chat'
 import firebase from 'APP/fire'
 const auth = firebase.auth()
 
-const Index = ({ children }) =>
+const LandingPage = ({ children }) =>
 
   <div style={{ backgroundColor: 'red', height: '102vh' }}>
     <Grid columns="three">
@@ -31,6 +31,11 @@ const Index = ({ children }) =>
           <Grid.Row>
             <h1>Word Assassins</h1>
           </Grid.Row>
+          <Grid.Row>
+            <Button>
+              <Link to={'/lobby'} component={Lobby} style={{color: 'blue'}}>Lobby</Link>
+            </Button>
+          </Grid.Row>
         </Grid>
         <Grid.Column>
           <Image src='https://openclipart.org/image/2400px/svg_to_png/245102/Spy-Silhouette.png' />
@@ -45,7 +50,7 @@ const Index = ({ children }) =>
   </div>
 
 export default <Route path="/home" component={({ children }) => children}>
-  <IndexRoute component={Index} />
+  <IndexRoute component={LandingPage} />
   <Route path='scratchpad/:title' component={Scratchpad} />
   <Route path='whiteboard/:title' component={Whiteboard} />
   <Route path='chat/:room' component={Chat} />

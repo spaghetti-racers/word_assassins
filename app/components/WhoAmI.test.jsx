@@ -17,9 +17,6 @@ describe('<WhoAmI/>', () => {
       root = shallow(<WhoAmI/>)
     )
 
-    it('says hello to Nobody', () => {
-      expect(root.text()).to.contain('Nobody')
-    })
   })
 
   describe('when an anonymous user is logged in', () => {
@@ -52,13 +49,5 @@ describe('<WhoAmI/>', () => {
       root = shallow(<WhoAmI user={user} auth={fakeAuth}/>)
     )
 
-    it('has a logout button', () => {
-      expect(root.find('button.logout')).to.have.length(1)
-    })
-
-    it('calls props.auth.signOut when logout is tapped', () => {
-      root.find('button.logout').simulate('click')
-      expect(fakeAuth.signOut).to.have.been.called
-    })
   })
 })
