@@ -25,22 +25,22 @@ const GameStatus = props => {
         <Table.Row style={{backgroundColor: props.player0Color.slice(0, -4)}}>
           <Table.Cell style={{color: 'white'}}>{props.player0Name}</Table.Cell>
           <Table.Cell style={{color: 'white'}}>{props.player0Role}</Table.Cell>
-          <Table.Cell style={{color: 'white'}}>{player0 === props.currentGameStatus.activeRole ? 'It\'s your turn' : ''}</Table.Cell>
+          <Table.Cell style={{color: 'white'}}>{(player0 === props.currentGameStatus.activeRole && props.player0Color === props.currentGameStatus.activeTeam) ? 'It\'s your turn' : ''}</Table.Cell>
         </Table.Row>
         <Table.Row style={{backgroundColor: props.player1Color.slice(0, -4)}}>
           <Table.Cell style={{color: 'white'}}>{props.player1Name}</Table.Cell>
           <Table.Cell style={{color: 'white'}}>{props.player1Role}</Table.Cell>
-          <Table.Cell style={{color: 'white'}}>{player1 === props.currentGameStatus.activeRole ? 'It\'s your turn' : ''}</Table.Cell>
+          <Table.Cell style={{color: 'white'}}>{(player1 === props.currentGameStatus.activeRole && props.player1Color === props.currentGameStatus.activeTeam) ? 'It\'s your turn' : ''}</Table.Cell>
         </Table.Row>
         <Table.Row style={{backgroundColor: props.player2Color.slice(0, -4)}}>
           <Table.Cell style={{color: 'white'}}>{props.player2Name}</Table.Cell>
           <Table.Cell style={{color: 'white'}}>{props.player2Role}</Table.Cell>
-          <Table.Cell style={{color: 'white'}}>{player2 === props.currentGameStatus.activeRole ? 'It\'s your turn' : ''}</Table.Cell>
+          <Table.Cell style={{color: 'white'}}>{(player2 === props.currentGameStatus.activeRole && props.player2Color === props.currentGameStatus.activeTeam) ? 'It\'s your turn' : ''}</Table.Cell>
         </Table.Row>
         <Table.Row style={{backgroundColor: props.player3Color.slice(0, -4)}}>
           <Table.Cell style={{color: 'white'}}>{props.player3Name}</Table.Cell>
           <Table.Cell style={{color: 'white'}}>{props.player3Role}</Table.Cell>
-          <Table.Cell style={{color: 'white'}}>{player3 === props.currentGameStatus.activeRole ? 'It\'s your turn' : ''}</Table.Cell>
+          <Table.Cell style={{color: 'white'}}>{(player3 === props.currentGameStatus.activeRole && props.player3Color === props.currentGameStatus.activeTeam) ? 'It\'s your turn' : ''}</Table.Cell>
         </Table.Row>
       </Table.Body>
     </Table>
