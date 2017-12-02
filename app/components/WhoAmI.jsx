@@ -24,7 +24,7 @@ export const WhoAmI = ({ user, auth }) =>
       <Link to={'/lobby'} component={Lobby} style={{ color: 'blue' }}>Lobby</Link>
     </Button>
     }
-    <h3 style={{ position: 'relative', top: '-270px' }} className="whoami-user-name"> {name(user)}</h3>
+    <h3 style={{ position: 'relative', top: '-270px' }} className="whoami-user-name"> You are now logged in as,  {name(user)}</h3>
     { // If nobody is logged in, or the current user is anonymous,
       (!user || user.isAnonymous) ?
         // ...then show signin links...

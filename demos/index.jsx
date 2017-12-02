@@ -23,13 +23,13 @@ const Index = ({ children }) =>
         </Grid.Column>
         <Grid centered columns={1}>
           <Grid.Row>
-            <h1>Welcome</h1>
+            <h1 style={{fontSize: '55px'}}>Welcome</h1>
           </Grid.Row>
           <Grid.Row>
-            <h1>to</h1>
+            <h1 style={{fontSize: '55px'}}>to</h1>
           </Grid.Row>
           <Grid.Row>
-            <h1>Word Assassins</h1>
+            <h1 style={{fontSize: '55px'}}>Word Assassins</h1>
           </Grid.Row>
 
         </Grid>
