@@ -60,8 +60,7 @@ export default class Lobby extends Component {
          <Segment centered style={{ textAlign: 'center', backgroundColor: 'DodgerBlue' }} >
           <Container  >
             <Header as='h2'>Welcome to the Word Assassins Lobby</Header>
-            <p style={{paddingBottom: '10px'}}>To start playing Word Assassins please create or join a room. Once you have four players in a room, you will be able to start a new game.
-                                      Enjoy!</p>
+            <p style={{paddingBottom: '10px'}}>To start playing Word Assassins please create or join a room.</p>
           </Container>
 
           <Button centered positive style={{color: 'black'}} onClick={this.onClickNewGame}>Create New Room</Button>
@@ -77,7 +76,7 @@ export default class Lobby extends Component {
                 return (potentialPlayers.length <= 3) ? (
 
                   <Table.Row key={roomId}>
-                    <Table.Cell>Room {index}</Table.Cell>
+                    <Table.Cell>Room {index + 1}</Table.Cell>
                     <Table.Cell>Players {potentialPlayers.length} /4</Table.Cell>
                     <Table.Cell> <button onClick={(event) => this.onClickJoinGame(event, roomId)}>Join</button></Table.Cell>
 
