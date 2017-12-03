@@ -21,12 +21,15 @@ export const updateRoundsWon = function(blueCardsLeft, redCardsLeft, blueRoundsW
 
 export const endTurn = function(numOfWordGuesses, activeTeam) {
   let newTeam = activeTeam
+  let role = 'activeGuesser'
   if (numOfWordGuesses === 0) {
     if (activeTeam === 'redTeam') {
       newTeam = 'blueTeam'
+      role = 'activeSpymaster'
     } else {
       newTeam = 'redTeam'
+      role = 'activeSpymaster'
     }
   }
-  return newTeam
+  return [newTeam, role]
 }
