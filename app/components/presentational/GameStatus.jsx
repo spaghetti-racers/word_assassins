@@ -32,22 +32,22 @@ const GameStatus = props => {
         <Table.Row style={{backgroundColor: props.player0Color.slice(0, -4)}}>
           <Table.Cell style={{color: 'white'}}>{props.player0Name}</Table.Cell>
           <Table.Cell style={{color: 'white'}}>{props.player0Role}</Table.Cell>
-          <Table.Cell style={{color: 'white'}}>{(player0 === props.currentGameStatus.activeRole && player0 !== 'activeGuesser') ? 'It\'s your turn' : (player0 === 'activeGuesser' && (props.currentGameStatus.activeRole !== 'confirmingSpymaster' || props.currentGameStatus.activeRole !== 'activeSpymaster')) ? 'It\'s your turn' : ''}</Table.Cell>
+          <Table.Cell style={{color: 'white'}}>{(player0 === props.currentGameStatus.activeRole) ? 'It\'s your turn' : ''}</Table.Cell>
         </Table.Row>
         <Table.Row style={{backgroundColor: props.player1Color.slice(0, -4)}}>
           <Table.Cell style={{color: 'white'}}>{props.player1Name}</Table.Cell>
           <Table.Cell style={{color: 'white'}}>{props.player1Role}</Table.Cell>
-          <Table.Cell style={{color: 'white'}}>{(player1 === props.currentGameStatus.activeRole && player1 !== 'activeGuesser') ? 'It\'s your turn' : (player1 === 'activeGuesser' && (props.currentGameStatus.activeRole !== 'confirmingSpymaster' || props.currentGameStatus.activeRole !== 'activeSpymaster')) ? 'It\'s your turn' : ''}</Table.Cell>
+          <Table.Cell style={{color: 'white'}}>{(player1 === props.currentGameStatus.activeRole) ? 'It\'s your turn' : ''}</Table.Cell>
         </Table.Row>
         <Table.Row style={{backgroundColor: props.player2Color.slice(0, -4)}}>
           <Table.Cell style={{color: 'white'}}>{props.player2Name}</Table.Cell>
           <Table.Cell style={{color: 'white'}}>{props.player2Role}</Table.Cell>
-          <Table.Cell style={{color: 'white'}}>{(player2 === props.currentGameStatus.activeRole && player2 !== 'activeGuesser') ? 'It\'s your turn' : (player2 === 'activeGuesser' && (props.currentGameStatus.activeRole !== 'confirmingSpymaster' || props.currentGameStatus.activeRole !== 'activeSpymaster')) ? 'It\'s your turn' : ''}</Table.Cell>
+          <Table.Cell style={{color: 'white'}}>{(player2 === props.currentGameStatus.activeRole) ? 'It\'s your turn' : ''}</Table.Cell>
         </Table.Row>
         <Table.Row style={{backgroundColor: props.player3Color.slice(0, -4)}}>
           <Table.Cell style={{color: 'white'}}>{props.player3Name}</Table.Cell>
           <Table.Cell style={{color: 'white'}}>{props.player3Role}</Table.Cell>
-          <Table.Cell style={{color: 'white'}}>{(player3 === props.currentGameStatus.activeRole && player3 !== 'activeGuesser') ? 'It\'s your turn' : (player3 === 'activeGuesser' && (props.currentGameStatus.activeRole !== 'confirmingSpymaster' || props.currentGameStatus.activeRole !== 'activeSpymaster')) ? 'It\'s your turn' : ''}</Table.Cell>
+          <Table.Cell style={{color: 'white'}}>{(player3 === props.currentGameStatus.activeRole) ? 'It\'s your turn' : ''}</Table.Cell>
         </Table.Row>
       </Table.Body>
     </Table>
