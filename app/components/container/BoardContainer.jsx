@@ -12,7 +12,8 @@ export default class BoardContainer extends Component {
       activeTeam: '',
       numOfWordGuesses: 0,
       role: '',
-      teamColor: ''
+      teamColor: '',
+      cardsRemaining: {}
     }
     this.pickCard = this.pickCard.bind(this)
     this.startNewRoundOnClick = this.startNewRoundOnClick.bind(this)
@@ -30,6 +31,7 @@ export default class BoardContainer extends Component {
 
       this.setState({ activeTeam: currentGameStatus.activeTeam })
       this.setState({ numOfWordGuesses: currentGameStatus.displayHint.numOfWordGuesses })
+      this.setState({ cardsRemaining: currentGameStatus.cardsRemaining })
     })
 
     const getCardsForState = firebase.database().ref(`gameInstances/${this.props.gameId}/gameCards`)
@@ -59,6 +61,7 @@ export default class BoardContainer extends Component {
     const clickedCardIndex = data.children.props.value
     const clickedCard = firebase.database().ref(`gameInstances/${this.props.gameId}/gameCards/${clickedCardIndex}`)
     clickedCard.update({ clicked: true })
+
 
     const dataRef = firebase.database().ref()
 
@@ -147,7 +150,10 @@ export default class BoardContainer extends Component {
               role={this.state.role}
               teamColor={this.state.teamColor}
             /> :
-            <Button onClick={this.startNewRoundOnClick}>Start Round</Button>
+
+              this.props.currentGameStatus.roundWinner !== 'none' ? <div style={{textAlign: 'center'}}><h1 style={{backgroundColor: this.props.currentGameStatus.roundWinner.slice(0, -4), fontSize: '80'}}>All assassins have been found: {this.props.currentGameStatus.roundWinner.slice(0, -4).toUpperCase()} TEAM won the round!</h1>
+              <Button onClick={this.startNewRoundOnClick}>Start Round</Button></div> :
+              <Button onClick={this.startNewRoundOnClick}>Start Round</Button>
         }
       </div >
     )

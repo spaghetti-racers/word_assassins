@@ -54,7 +54,7 @@ const Board = props => {
                   props.cards && props.cards.map((card, idx) =>
                     (
                       // LOGIC TO CHANGE COLOR AND WORD VIEW OF THE CARD UPON CLICK BASED ON COLOR/CLICKED ATTRIBUTES IN DB
-                      <Card style={{ backgroundColor: card.clicked ? card.color : 'white' }} key={card.word}>
+                    <Card style={{ backgroundColor: card.clicked ? card.color : 'white' }} key={card.word}>
                         <Card.Content value={idx}>
                           {
                             card.clicked ? ' ' : <Card.Header value={idx}> {card.word} </Card.Header>

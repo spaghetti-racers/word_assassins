@@ -25,9 +25,9 @@ export function shuffleArrayGC(array) {
 export function generateColorsGC(whoGoesFirst, shuffleArrayFunc) {
   let colors = []
   if (whoGoesFirst === 'redTeam') {
-    colors = ['red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'gray']
+    colors = ['red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'tan', 'tan', 'tan', 'tan', 'tan', 'tan', 'tan', 'gray']
   } else {
-    colors = ['red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'gray']
+    colors = ['red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'tan', 'tan', 'tan', 'tan', 'tan', 'tan', 'tan', 'gray']
   }
   return shuffleArrayFunc(colors)
 }

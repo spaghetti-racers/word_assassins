@@ -12,7 +12,7 @@ const DisplayHint = props => {
   return (
     <div>
       <h3 style={{fontSize: '17'}}>Hint: <span style={styles}>{props.hintWord.toUpperCase()}</span></h3>
-      <h5 style={{fontSize: '17'}}>Cards Associated with Hint: {props.hintNumGuessesAllowed - 1}</h5>
+      <h5 style={{fontSize: '17'}}>Cards Associated with Hint: {(props.hintNumGuessesAllowed - 1 > 0) ? props.hintNumGuessesAllowed - 1 : 0}</h5>
       <h5 style={{fontSize: '17'}}>Guesses Remaining: {props.hintNumGuessesAllowed}</h5>
     </div>
   )

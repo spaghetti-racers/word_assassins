@@ -50,3 +50,12 @@ div.row {
   text-align: center;
    padding-top: 20px;
 }
+
+.maleSpy{
+  height: 100%;
+  margin-top: -4px;
+}
+
+.femaleSpy {
+  height: 98%;
+}
