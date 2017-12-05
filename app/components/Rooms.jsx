@@ -49,21 +49,13 @@ export default class Rooms extends Component {
         },
         player2: {
           playerId: activeRoom.potentialPlayers[2].userId,
-<<<<<<< HEAD
           teamColor: 'redTeam',
-=======
-          teamColor: 'blueTeam',
->>>>>>> 0b59951dde1650afb4d1ad298641df0d80be61f8
           role: 'guesser',
           name: activeRoom.potentialPlayers[2].displayName
         },
         player3: {
           playerId: activeRoom.potentialPlayers[3].userId,
-<<<<<<< HEAD
           teamColor: 'redTeam',
-=======
-          teamColor: 'blueTeam',
->>>>>>> 0b59951dde1650afb4d1ad298641df0d80be61f8
           role: 'spymaster',
           name: activeRoom.potentialPlayers[3].displayName
         }
