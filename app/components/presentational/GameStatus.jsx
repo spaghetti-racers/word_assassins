@@ -16,7 +16,7 @@ const GameStatus = props => {
   // const player3 = (props.player3Role === 'spymaster') ? (props.player3Color === props.currentGameStatus.activeTeam ? 'activeSpymaster' : 'confirmingSpymaster') : 'guesser'
   //console.log('!!!!!!!!!!!!!!', player0, '\nplayer0Role :', props.player0Role, '\nplayer0Color :', props.player0Color, '\ncurrentTeam :', props.currentGameStatus.activeTeam)
   //(props.player0Role === 'spymaster' && props.currenGameStatus.activeRole !== 'guesser') ? (props.player0Color === props.currentGameStatus.activeTeam ? '')
-  console.log('000000', player0, '\n111111', player1, '\n2222222', player2, '\n3333333', player3)
+  // console.log('000000', player0, '\n111111', player1, '\n2222222', player2, '\n3333333', player3)
 
   return (
     <Table className="gameStatusTable" celled>

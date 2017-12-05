@@ -56,13 +56,11 @@ export default class ActiveSpymasterHinterContainer extends Component {
     firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus/potentialHintandNumOfGuesses/hintApproval`).update({hintApproval: null, numberOfWordsToGuess: null, possibleHint: null})
     firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus`).update({activeRole: 'activeGuesser'})
 
+    firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus/displayHint`).set({
 
-    console.log('checking state again ', this.state)
-    // firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus/displayHint`).set({
-
-    //   hintToDisplay: this.state.previousState.possibleHint,
-    //   numOfWordGuesses: this.state.previousState.numberOfWordsToGuess + 1
-    // })
+      hintToDisplay: this.state.previousState.possibleHint,
+      numOfWordGuesses: this.state.previousState.numberOfWordsToGuess + 1
+    })
   }
 
   render() {
