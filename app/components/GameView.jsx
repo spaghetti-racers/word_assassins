@@ -80,6 +80,8 @@ export default class GameView extends Component {
                 gameId={this.props.params.gameId}
                 players={this.state.players}
                 userId={this.state.userId}
+                team={this.state.team}
+                role={this.state.role}
               />
 
               {

@@ -32,6 +32,7 @@ export default class GameStatusContainer extends Component {
       player1Color={this.props.players.player1.teamColor}
       player2Color={this.props.players.player2.teamColor}
       player3Color={this.props.players.player3.teamColor}
+      currentGameStatus={this.props.currentGameStatus}
 
        />
     )

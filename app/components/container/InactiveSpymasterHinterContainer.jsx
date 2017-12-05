@@ -31,6 +31,7 @@ export default class InactiveSpymasterHinterContainer extends Component {
 
   validateHint() {
     firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus/potentialHintandNumOfGuesses/hintApproval`).update({hintApproval: true})
+    firebase.database().ref(`gameInstances/${this.props.gameId}/currentGameStatus`).update({activeRole: 'activeSpymaster'})
   }
 
   render() {

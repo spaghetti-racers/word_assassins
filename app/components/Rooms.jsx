@@ -30,32 +30,32 @@ export default class Rooms extends Component {
         roundActive: false,
         whoGoesFirst: 'blueTeam',
         activeTeam: 'blueTeam',
-        activeRole: 'spymaster',
+        activeRole: 'activeSpymaster',
         roundWinner: 'none'
       },
 
       players: {
         player0: {
           playerId: activeRoom.potentialPlayers[0].userId,
-          teamColor: 'redTeam',
+          teamColor: 'blueTeam',
           role: 'spymaster',
           name: activeRoom.potentialPlayers[0].displayName
         },
         player1: {
           playerId: activeRoom.potentialPlayers[1].userId,
-          teamColor: 'redTeam',
+          teamColor: 'blueTeam',
           role: 'guesser',
           name: activeRoom.potentialPlayers[1].displayName
         },
         player2: {
           playerId: activeRoom.potentialPlayers[2].userId,
-          teamColor: 'blueTeam',
+          teamColor: 'redTeam',
           role: 'guesser',
           name: activeRoom.potentialPlayers[2].displayName
         },
         player3: {
           playerId: activeRoom.potentialPlayers[3].userId,
-          teamColor: 'blueTeam',
+          teamColor: 'redTeam',
           role: 'spymaster',
           name: activeRoom.potentialPlayers[3].displayName
         }

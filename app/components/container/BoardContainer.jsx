@@ -78,9 +78,9 @@ export default class BoardContainer extends Component {
     currentNumGuesses.on('value', snap => {
       const currentActiveTeam = this.state.activeTeam
       const guessesRemaining = snap.val()
-      const newTeam = endTurn(guessesRemaining, currentActiveTeam)
+      const nextTurn = endTurn(guessesRemaining, currentActiveTeam)
 
-      gameStatus.update({ activeTeam: newTeam })
+      gameStatus.update({ activeTeam: nextTurn[0], activeRole: nextTurn[1] })
     })
 
     // GAME LOGIC FUNCTION - update RoundsWon based on card click/cards remaining === 0
