@@ -5,6 +5,7 @@ import Scoreboard from './container/ScoreboardContainer.jsx'
 import ActiveSpyMasterHinterContainer from './container/ActiveSpyMasterHinterContainer'
 import InactiveSpyMasterHinterContainer from './container/InactiveSpymasterHinterContainer'
 import GameStatusContainer from './container/GameStatusContainer'
+import RulesModal from './presentational/RulesModal'
 
 import { Container, Grid } from 'semantic-ui-react'
 
@@ -46,8 +47,18 @@ export default class GameView extends Component {
   render() {
     return (
       <div>
-        <h1 className="title">Word Assassins</h1>
-
+        <Grid columns="three">
+          <Grid.Row style={{height: '75'}}>
+            <Grid.Column>
+            </Grid.Column>
+            <Grid.Column>
+              <h1 style={{marginTop: '10'}}className="title">Word Assassins</h1>
+            </Grid.Column>
+            <Grid.Column style={{marginTop: '10'}}>
+              <RulesModal />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
         {
           Object.keys(this.state).length >= 6 &&
             <div>
@@ -55,21 +66,21 @@ export default class GameView extends Component {
                 <Grid.Row>
                   <Grid.Column width={9}>
                     <div>
-                    <Scoreboard
-                      gameId={this.props.params.gameId}
-                      currentGameStatus={this.state.currentGameStatus}
-                      players={this.state.players}
-                    />
+                      <Scoreboard
+                        gameId={this.props.params.gameId}
+                        currentGameStatus={this.state.currentGameStatus}
+                        players={this.state.players}
+                      />
                     </div>
                   </Grid.Column>
 
                   <Grid.Column width={7}>
                     <div>
-                  <GameStatusContainer
-                      currentGameStatus={this.state.currentGameStatus}
-                      players={this.state.players}
-                    />
-                      </div>
+                      <GameStatusContainer
+                          currentGameStatus={this.state.currentGameStatus}
+                          players={this.state.players}
+                      />
+                    </div>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
