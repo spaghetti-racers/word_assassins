@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import { browserHistory } from 'react-router'
 import { Container, Header, Table, Button, Segment } from 'semantic-ui-react'
+import RulesModal from './presentational/RulesModal'
 
 export default class Rooms extends Component {
   constructor(props) {
@@ -80,6 +81,7 @@ export default class Rooms extends Component {
               <Header as='h2'>Game Room</Header>
               <p style={{paddingBottom: '10px'}}>Once you have four players in a room, you will be able to start a new game.
                                         Enjoy!</p>
+              <RulesModal />
               <Button centered positive style={{color: 'black', backgroundColor: 'white'}} disabled={(activeRoom && activeRoom.potentialPlayers.length < 4) || (activeRoom && activeRoom.potentialPlayers.length > 4)}
               onClick={(event) => this.onClickNewGame(event, activeRoom)}>
               Start New Game
